@@ -4163,7 +4163,7 @@ adminCommand: function(src, command, commandData, tar) {
     }
 	if (command == "updateann") {
        sendChanMessage(src, "+Bot: Fetching announcement...");
-       var updateURL = "http://www.pokemonbattle.it/announcement/announcement.html";
+       var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/announcement.html";
        var oldAnn = sys.getAnnouncement();
 
        sendChanMessage(src, "+Bot: Fetching announcements from " + updateURL);
