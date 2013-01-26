@@ -1308,7 +1308,9 @@ var commands = {
         "/onrange [range]: To view who is on a range.",
         "/tier [name]: To view the tier(s) of a person.",
         "/battlehistory [name]: To view a person's battle history.",
-        "/channelusers [channel]: Lists users on a channel."
+        "/channelusers [channel]: Lists users on a channel.",
+		"/em [emoticon]: Submits emoticons."
+		"/htmlmessage: Allows little use of HTML."
     ],
     admin:
     [
@@ -1324,7 +1326,13 @@ var commands = {
         "/nameunwarn full_regexp: Removes a namewarning",
         "/destroychan [channel]: Destroy a channel (official channels are protected).",
         "/indigoinvite [name]: To invite somebody to staff channels.",
-        "/indigodeinvite: To deinvite unwanted visitors from staff channel."
+        "/indigodeinvite: To deinvite unwanted visitors from staff channel.",
+		"/updatescripts: Updates scripts.js the web.",
+		"/updateann: Updates announcement the web.",
+		"/updateplugin [plugin]: Updates plugin from the web.",
+        "/updateScripts: Updates scripts from the web.",
+		"/html: Allows use of HTML."
+		"/font: BIG text."
     ],
     owner:
     [
@@ -1345,10 +1353,6 @@ var commands = {
         "/rangeunban: [ip]: Removes a rangeban.",
         "/purgemutes [time]: Purges old mutes. Time is given in seconds. Defaults is 4 weeks.",
         "/purgembans [time]: Purges old mafiabans. Time is given in seconds. Default is 1 week.",
-        "/addplugin [plugin]: Add a plugin from the web.",
-        "/removeplugin [plugin]: Removes a plugin.",
-        "/updateplugin [plugin]: Updates plugin from the web.",
-        "/updateScripts: Updates scripts from the web.",
         "/capslockday [on/off]: To turn caps lock day on or off.",
         "/indigo [on/off]: To create or destroy staff channel.",
         "/updatebansites: To update ban sites.",
