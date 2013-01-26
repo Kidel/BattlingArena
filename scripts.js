@@ -1,6 +1,5 @@
-// This is the official Pokemon Online Scripts
+// This is the official Pokemon Online Scripts edited by Tano for [ITA] Battling Arena
 // These scripts will only work on 2.0.00 or newer.
-/*jshint "laxbreak":true,"shadow":true,"undef":true,"evil":true,"trailing":true,"proto":true,"withstmt":true*/
 // You may change these variables as long as you keep the same type
 var Config = {
     base_url: "https://github.com/Kidel/BattlingArena",
