@@ -3,54 +3,35 @@
 /*jshint "laxbreak":true,"shadow":true,"undef":true,"evil":true,"trailing":true,"proto":true,"withstmt":true*/
 // You may change these variables as long as you keep the same type
 var Config = {
-    base_url: "https://raw.github.com/po-devs/po-server-goodies/master/",
+    base_url: "https://github.com/Kidel/BattlingArena",
     dataDir: "scriptdata/",
-    bot: "Dratini",
-    kickbot: "Blaziken",
-    capsbot: "Exploud",
-    channelbot: "Chatot",
-    checkbot: "Snorlax",
-    coinbot: "Meowth",
-    countbot: "CountBot",
-    tourneybot: "Typhlosion",
-    rankingbot: "Porygon",
-    battlebot: "Blastoise",
-    commandbot: "CommandBot",
-    querybot: "QueryBot",
-    hangbot: "Unown",
-    bfbot: "Deoxys",
+    bot: "bot",
+    kickbot: "kickbot",
+    capsbot: "capsbot",
+    channelbot: "channelbot",
+    checkbot: "checkbot",
+    coinbot: "coinbot",
+    countbot: "countbot",
+    tourneybot: "tourneybot",
+    rankingbot: "rankingbot",
+    battlebot: "battlebot",
+    commandbot: "commandbot",
+    querybot: "querybot",
+    hangbot: "hangbot",
+    bfbot: "bfbot",
     // suspectvoting.js available, but not in use
-    Plugins: ["mafia.js", "amoebagame.js", "tournaments.js", "tourstats.js", "trivia.js", "tours.js", "newtourstats.js", "auto_smute.js", "battlefactory.js", "hangman.js"],
+    Plugins: ["amoebagame.js", "tournaments.js", "tourstats.js", "trivia.js", "tours.js", "newtourstats.js", "auto_smute.js", "battlefactory.js", "hangman.js"],
     Mafia: {
-        bot: "Murkrow",
+        bot: "mafiabot",
         norepeat: 11,
         stats_file: "mafia_stats.json",
         max_name_length: 16,
         notPlayingMsg: "±Game: The game is in progress. Please type /join to join the next mafia game."
     },
-    League: [
-        ["Kneesocks", "Elite Four - View Kneesocks' <a href='http://pokemon-online.eu/forums/showthread.php?13531-Elite-4-Lorelei'>E4 Thread!</a>"],
-        ["The Real Elmo", "Elite Four - View The Real Elmo's <a href='http://pokemon-online.eu/forums/showthread.php?13539-Elite-4-Aaron'>E4 Thread!</a>"],
-        ["Amarillo Caballero", "Elite Four - View Amarillo Caballero's <a href='http://pokemon-online.eu/forums/showthread.php?13603-Elite-4-Yellow'>E4 Thread!</a>"],
-        ["M Dragon", "Elite Four - View M Dragon's <a href='http://pokemon-online.eu/forums/showthread.php?13561-Elite-4-M-Dragon'>E4 Thread!</a>"],
-        ["Problems", "5th Generation WiFi Ubers - View Problem's <a href='http://pokemon-online.eu/forums/showthread.php?16966-Wifi-Ubers-Gym-Problems'>Gym Thread!</a>"],
-        ["Finchinator", "5th Generation WiFi OverUsed - View Finchinator's <a href='http://pokemon-online.eu/forums/showthread.php?16967-Wifi-OU-Nikitas-and-Finchinator'>Gym Thread!</a>"],
-        ["Nikitas", "5th Generation WiFi OverUsed - View Nikitas's <a href='http://pokemon-online.eu/forums/showthread.php?16967-Wifi-OU-Nikitas-and-Finchinator'>Gym Thread!</a>"],
-        ["ThatIsWhatSheSaid", "5th Generation WiFi UnderUsed - View ThatIsWhatSheSaid's <a href='http://pokemon-online.eu/forums/showthread.php?16988-Wifi-UU-ThatIsWhatSheSaid'>Gym Thread!</a> "],
-        ["New Breed", "5th Generation WiFi LittleUsed Gym - View New Breed's <a href='http://pokemon-online.eu/forums/showthread.php?16980-Wifi-LU-New-Breed'>Gym Thread!</a>"],
-        ["Z+V", "5th Generation WiFi NeverUsed Gym - View Z+V's <a href='http://pokemon-online.eu/forums/showthread.php?16978-Wifi-NU-Gym-Z-V'>Gym Thread!</a>"],
-        ["fitzyhbbe", "5th Generation WiFi Little Cup - View fitzyhbbe's <a href='http://pokemon-online.eu/forums/showthread.php?16964-Wifi-LC-Fitzyhbbe'>Gym Thread!</a>"],
-        ["зeлeнoглaзый pyccкий", "All Gen CC - View зeлeнoглaзый pyccкий's <a href='http://pokemon-online.eu/forums/showthread.php?16977-All-Generation-Challenge-Cup-Gym-Nainil-amp-Winona'>Gym Thread!</a>"],
-        ["Nainil", "All Gen CC - View Nainil's <a href='http://pokemon-online.eu/forums/showthread.php?16977-All-Generation-Challenge-Cup-Gym-Nainil-amp-Winona'>Gym Thread!</a>"],
-        ["Michael", "Monotype - View Michael's <a href='http://pokemon-online.eu/forums/showthread.php?16970-Monotype-Gym-Michael'>Gym Thread!</a>"],
-        ["Bugs Kubrick", "4th Generation OverUsed - View Bugs Kubrick's <a href='http://pokemon-online.eu/forums/showthread.php?17490'>Gym Thread!</a>"],
-        ["Tanner", "3rd Generation OverUsed - View Tanner's <a href='http://pokemon-online.eu/forums/showthread.php?17023-ADV-OU-Gym-BIG-TIFF'>Gym Thread!</a>"],
-        ["Luck>Skill", "2nd Generation OverUsed - View Luck>Skill's <a href='http://pokemon-online.eu/forums/showthread.php?16973-GSC-OU-Luck-gt-Skill'>Gym Thread!</a>"],
-        ["Isa-", "1st Generation OverUsed - View Isa-'s <a href='http://pokemon-online.eu/forums/showthread.php?16963-RBY-OU-Gym-Isa'>Gym Thread!</a>"]
-    ],
-    DreamWorldTiers: ["No Preview OU", "No Preview Ubers", "DW LC", "Monotype", "DW UU", "DW LU", "Gen 5 1v1 Ubers", "Gen 5 1v1", "Challenge Cup", "CC 1v1", "DW Uber Triples", "No Preview OU Triples", "No Preview Uber Doubles", "No Preview OU Doubles", "Shanai Cup", "Shanai Cup 1.5", "Shanai Cup STAT", "Original Shanai Cup TEST", "Monocolour", "Clear Skies DW"],
-    superAdmins: ["[LD]Jirachier", "Ethan"],
-    canJoinStaffChannel: ["Lamperi-", "Peanutsdroid", "QuX", "Ethan-"],
+    League: [],
+    DreamWorldTiers: ["No Preview OU", "No Preview Ubers", "DW LC", "DW UU", "DW LU", "DW Uber Triples", "Clear Skies DW"],
+    superAdmins: [],
+    canJoinStaffChannel: [],
     disallowStaffChannel: []
 };
 
@@ -1128,7 +1109,7 @@ POChannelManager.prototype.createPermChannel = function(name, defaultTopic)
 
 function POGlobal(id)
 {
-    var plugin_files = Config.Plugins;
+    var plugin_files = Config.Plugins; //array con i nomi dei plugin
     var plugins = [];
     for (var i = 0; i < plugin_files.length; ++i) {
         var plugin = require(plugin_files[i]);
@@ -1508,7 +1489,7 @@ init : function() {
     "1. Pokemon Online is an international server:",
     "- Respect other peoples' cultures and do not demand they speak English. Everyone is welcome at Pokemon Online, as long as they follow the rules.",
     "2. No advertising, excessive messages, inappropriate/obscene links, or text art:",
-    "- Do not post links unless they are to notable sites (Youtube, Smogon, Serebii, etc). We are not interested in your start-up community. Do not monopolize the chat with large amounts of messages, or short ones in rapid succession. Posting ASCII art is punishable with a ban, as is posting anything with any type of pornography.",
+    "- Do not post links unless they are to notable sites (Youtube, Smogon, Serebii, PokemonBattle.it, etc). We are not interested in your start-up community. Do not monopolize the chat with large amounts of messages, or short ones in rapid succession. Posting ASCII art is punishable with a ban, as is posting anything with any type of pornography.",
     "3. Use Find Battle, or join tournaments instead of asking in the main chat:",
     "- The official channels on Pokemon Online have too much activity to allow battle requests in the chat. Use Find Battle or go join the tournaments channel and participate. The only exception is if you are unable to find a battle for a low-played tier, then asking once every 5 minutes or so is acceptable.",
     "4. Do not ask for authority:",
@@ -2174,6 +2155,96 @@ afterLogIn : function(src) {
     if (sys.auth(src) <= 3 && this.canJoinStaffChannel(src) && sys.ip(src) != sys.dbIp("Shadowfist"))
         sys.putInChannel(src, staffchannel);
     
+	
+	
+	
+	
+	
+	// pbil updater
+       
+       /*sys.sendAll('Saved time:' + pbiltime ,staffchannel); // test
+       sys.sendAll('Current time:' + parseInt(sys.time()) ,staffchannel); // test*/
+       
+       if (sys.getVal("pbil_time") == undefined) {
+               sys.saveVal("pbil_time", parseInt(sys.time()));
+               return;
+       }
+       var pbiltime=parseInt(sys.getVal("pbil_time")) + 60 * 60 * 24;
+       if ( pbiltime <= parseInt(sys.time()) ){
+           
+           sys.saveVal("pbil_time", sys.time());
+               
+               //test
+               sys.sendAll("+PBILBot: Time (current): " + sys.time() ,staffchannel);
+               var tempotest = parseInt(sys.time()) + 60 * 60 * 24;
+               sys.sendAll("+PBILBot: Time (next update): " + tempotest ,staffchannel);
+               
+               var url = "http://www.pokemonbattle.it/pbil/playerlist.php";
+       var playerlist = sys.synchronousWebCall(url);
+               
+               //sys.sendAll("+PBILBot: Playerlist: " + playerlist , staffchannel); // test
+                       
+               var pbilplayers = playerlist.split(":");
+               
+               var index = 0;
+               var length = pbilplayers.length;
+               var ldd_app = 0;
+               var used_app=0;
+               var dec_days=0;
+               var decadimento = 0;
+               
+               //sys.sendHtmlMessage(src, "Length: " + length); // test
+               
+               url = "http://www.pokemonbattle.it/pbil/update_ladder.php?data=";
+               
+               while (index<length) {
+                   if (pbilplayers[index] != "END_OF_LIST"){
+                               ldd_app = sys.ladderRating(sys.id(pbilplayers[index]), "BW2 OU");
+                               used_app = 0;
+                               if (ldd_app==undefined){
+                                       ldd_app = sys.getVal("pbil_ladder:" + pbilplayers[index].toLowerCase());
+                                       used_app = 1;
+                                       dec_days = parseInt(sys.time()) - parseInt(sys.getVal("pbil_ladder:" + pbilplayers[index].toLowerCase() + ":time"));
+                                       
+                                       sys.sendAll("+PBILBot: Differenza in secondi: " + dec_days, staffchannel);
+                                       //sys.sendAll(sys.getVal("pbil_ladder:" + pbilplayers[index].toLowerCase() + ":time"), staffchannel);  // test
+                                       //sys.sendAll(sys.time(), staffchannel);  // test
+                                                                       
+                                       if (dec_days>0){ // simulo il decadimento
+                                           dec_days =  parseInt(parseInt(dec_days) / (60*60*48));
+                                               if (dec_days<1) dec_days =0;
+                                               sys.sendAll("+PBILBot: Giorni decadimento: " + dec_days, staffchannel);  // test
+                                               decadimento = 1 - ((5 * parseInt(dec_days))/100);
+                                               ldd_app = parseInt(ldd_app * decadimento);
+                                               if (ldd_app < 1000 && dec_days > 0) {
+                                                       ldd_app = 1000;
+                                                       sys.removeVal("pbil_ladder:" + pbilplayers[index].toLowerCase());
+                                                       sys.removeVal("pbil_ladder:" + pbilplayers[index].toLowerCase() + ":time");
+                                               }
+                                       }
+                                       dec_days = 0;
+                               }
+                               if (!ldd_app) ldd_app="undefined";
+                           
+                           url = url + pbilplayers[index] + ":" + ldd_app + ":";
+                               sys.sendAll("+PBILBot: Player " + index + ": " + pbilplayers[index], staffchannel);  // test
+                               sys.sendAll("+PBILBot: Ladder " + index + ": " + ldd_app, staffchannel);  // test
+                               //sys.sendAll("", staffchannel);
+                       }  
+                       
+                       index++;
+               }
+               url = url + "END_OF_LIST";
+               
+               sys.webCall(url, " ; ");
+               
+               sys.sendAll("+PBILBot: Punteggi ladder sincronizzati " + sys.getVal("pbil_time"), staffchannel);
+               //sys.sendHtmlMessage(src, "Punteggi ladder sincronizzati <timestamp/>");
+               //sys.sendHtmlMessage(src, "Url: " + url);
+       }
+	
+	
+	
 }, /* end of afterLogin */
 
 
@@ -2842,6 +2913,41 @@ userCommand: function(src, command, commandData, tar) {
         sys.changeName(src, "(⌐■_■)");
         return;
     }
+	
+	// PBIL
+	
+	if (command == "pbilval") {
+         if (commandData === undefined) {
+         sendChanMessage(src, "+PBILBot: Devi specificare il codice corretto per /pbilval");
+          return;
+         }          
+         var m = commandData.toLowerCase();
+     if (m.indexOf("nigger") != -1 || m.indexOf("drogendealer") != -1 || m.indexOf("penis") != -1 ||  m.indexOf("vagina")  != -1 || m.indexOf("fuckface") != -1
+           || m.indexOf("herp") != -1 || /\bderp/i.test(m) || m.indexOf("/") != -1) {
+                       sendChanMessage(src, "+PBILBot: Devi specificare il codice corretto per /pbilval");
+           sys.stopEvent();
+           return;
+     }
+         
+         var registered = sys.dbRegistered(sys.name(src));
+         
+         if (registered){          
+                 var url = "http://www.pokemonbattle.it/pbil/server_validation.php?codex=" + commandData ;
+                 var post = {'namex':sys.name(src)};
+                 sys.webCall(url, "sendChanMessage(src,'+PBILBot: Invio in corso...'); ",post);
+                 
+                 sendChanMessage(src, "+PBILBot: Codice inviato correttamente. Verifica la riuscita dell'operazione ricaricando la pagina del tuo profilo.");
+                 //sendChanMessage(src, url);
+         }
+         else {
+               sendChanMessage(src, "+PBILBot: Codice non inviato. Registra il nick prima.");
+         }
+         
+         
+     return;
+   }
+	
+	
     return "no command";
 },
 
@@ -3593,6 +3699,99 @@ modCommand: function(src, command, commandData, tar) {
         }
         return;
     }
+	
+	// CHANGE
+	
+	if (command == "htmlmessage") {
+	
+		if (/[\u0458\u0489\u202a-\u202e\u0300-\u036F]/.test(commandData)) {
+            sys.stopEvent();
+            return;
+        }
+	
+	    var m = commandData.toLowerCase();
+        if (m.indexOf("nigger") != -1 || m.indexOf("drogendealer") != -1 || m.indexOf("penis") != -1 ||  m.indexOf("vagina")  != -1 || m.indexOf("fuckface") != -1
+            || m.indexOf("herp") != -1 || /\bderp/i.test(m) || m.indexOf("hurr") != -1 || m.indexOf("&#") != -1) {
+            sys.stopEvent();
+            return;
+        }
+		
+		var s = commandData;
+        var re = /</g;
+        for( var c = 0; re.exec(s); ++c );
+		
+		var s = commandData;
+        var re = />/g;
+        for( var d = 0; re.exec(s); ++d );
+        
+		/* sendChanMessage(src, c + " " + d); */ /* verifica */
+		
+		if (c > d) { commandData = commandData + ">"; }
+	
+        sys.sendHtmlAll('<font color = "#1b97d3"><timestamp/><i><b>+' + sys.name(src) + '</b></i></font><i><b><font color = "#888888"> (using HTML)</font><font color = "#1b97d3">:</font> </b></i></font>' + commandData + " ", channel);
+        this.afterChatMessage(src, '/'+command+' '+commandData);
+        return;
+    }
+	
+	
+	// EMOTICON
+	if (command == "em") {
+	
+		/*if (parseInt(sys.getVal("emoticon"))==1){*/
+	
+			//flood control
+			if (sys.auth(src) < 2 && channel != staffchannel) {
+			
+				user.floodcount += 3;
+				var time = parseInt(sys.time());
+				if (time > SESSION.users(src).timecount + 7) {
+					var dec = Math.floor((time - SESSION.users(src).timecount)/7);
+					user.floodcount = user.floodcount - dec;
+					if (user.floodcount <= 0) {
+						user.floodcount = 1;
+					}
+					SESSION.users(src).timecount += dec*7;
+				}
+				if (user.floodcount > 7) {
+					if (SESSION.users(src).smuted) {
+						sys.sendMessage(src, "+KickBot: " + sys.name(src) + " was kicked for flood.");
+						sys.sendAll("+KickBot: " + sys.name(src) + " was kicked for flood while smuted.", staffchannel);
+					} else {
+						sendChanAll("+KickBot: " + sys.name(src) + " was kicked for flood.");
+					}
+					sys.kick(src);
+					return;
+				}
+			}
+			
+			var colorenick = sys.getColor(src);
+			
+			var corsa = "";
+			var corsc = "";
+			var plus = "";
+			if(sys.auth(src) > 0) {
+				corsa = "<i>";
+				corsc = "</i>";
+				plus = "+";
+			}
+		
+			if (commandData=='fg') sys.sendHtmlAll("<font color = '" + colorenick + "'><timestamp/><b>" + plus + corsa + sys.name(src) + ": " + corsc + "</b></font><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAMAAAAMCGV4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjRBMkJEMDI5NkFDNDExRTFBMEI5Q0FCM0RDNzc5RjI5IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjRBMkJEMDJBNkFDNDExRTFBMEI5Q0FCM0RDNzc5RjI5Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NEEyQkQwMjc2QUM0MTFFMUEwQjlDQUIzREM3NzlGMjkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NEEyQkQwMjg2QUM0MTFFMUEwQjlDQUIzREM3NzlGMjkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7GUeH+AAAAYFBMVEUAAAD////95lLSrRD71DT2xC7ksSrDhBkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABZosSjAAAAaElEQVR42lSPUQ7AIAxCnUo5Bve/5QrOj5GQ+Gi0OB5LVk4jtACsJM1a2wIoc+Oc8wbNjSR3G80esy/G1BDMeuK6/M0P71lVu4plXg6yoBP1+4B4pOwjjjxOP1aoTj/3Z+jr//vfK8AAn0oH7ghCNbEAAAAASUVORK5CYII='/>", channel);
+			if (commandData=='awesome') sys.sendHtmlAll("<font color = '" + colorenick + "'><timestamp/><b>" + plus + corsa + sys.name(src) + ": " + corsc + "</b></font><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAMAAAAMCGV4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjRFQ0MxRDkwNkFDNDExRTFCOEE5QjM4QzYxMTIzNkVFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjRFQ0MxRDkxNkFDNDExRTFCOEE5QjM4QzYxMTIzNkVFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NEVDQzFEOEU2QUM0MTFFMUI4QTlCMzhDNjExMjM2RUUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NEVDQzFEOEY2QUM0MTFFMUI4QTlCMzhDNjExMjM2RUUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5B6IjQAAAAYFBMVEUAAAD////95lLTzavSrRD2xC7ksSrDhBn7WDa8AAB9AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACEdaGkAAAAcUlEQVR42lSPUQ4EIQhDJ0pbXQ/B/W+5BedjtzEND0MozyllqaunKQBEd8wZA/CDsjiD0hi2apg5Z7Kt2N/ziNeUT8Ll4TUWgwzPM3CZn1dqjh/2/EmoYK8t9j5VY6+l3ud8nmvdfJVfTW/+v/u+AgwA6YQKnTuahggAAAAASUVORK5CYII=' />", channel);
+			if (commandData=='omg') sys.sendHtmlAll("<font color = '" + colorenick + "'><timestamp/><b>" + plus + corsa + sys.name(src) + ": " + corsc + "</b></font><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAMAAAF7D1XuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo5MzRFRUQ5Q0JDNkFFMTExODY0MUM3MjQwQjlFQzE5NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpDNDUzMDdDODZBQzIxMUUxQkUzNUIxMDc5MTU2RURFRSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpDNDUzMDdDNzZBQzIxMUUxQkUzNUIxMDc5MTU2RURFRSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IFdpbmRvd3MiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5MzRFRUQ5Q0JDNkFFMTExODY0MUM3MjQwQjlFQzE5NyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5MzRFRUQ5Q0JDNkFFMTExODY0MUM3MjQwQjlFQzE5NyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PvX9AdMAAAAbUExURQAAAP///5lmmZmZmcyZzP/MM8yZM8yZADMAAArG1bsAAAC3SURBVHjaYmBkYGDgAAggBkZGBlY2gABiYGRgZmJgZGNnAAggIAsowsQMpFk5WIEq2NkYAQIIyGZiYQHKMzCwMAMZzAwMjKysHBysbCDFQFEgARCAZjHIAQAGQRigzP3/xVOTHUiBpGNNAaWU9kyuEb0DtjsHGDZYvqf4vSdA02O0AgAIwkBTW/7/F3eVDyFMDmXTZ4R7RvuZ0yIDvdHxMTuWk/JyVIdFwiwr9P2xmgX2oUu6szE2CegCWUVHFcMAAAAASUVORK5CYII=' />", channel);
+			if (commandData=='troll') sys.sendHtmlAll("<font color = '" + colorenick + "'><timestamp/><b>" + plus + corsa + sys.name(src) + ": " + corsc + "</b></font><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAATCAMAAABMZWaEAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkVEMDAwQkNBNkFDMzExRTE5NTI3RDJGQTJEREI3OUVGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkVEMDAwQkNCNkFDMzExRTE5NTI3RDJGQTJEREI3OUVGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RUQwMDBCQzg2QUMzMTFFMTk1MjdEMkZBMkREQjc5RUYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RUQwMDBCQzk2QUMzMTFFMTk1MjdEMkZBMkREQjc5RUYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6A+7YGAAAAJFBMVEUICAjpxhjOnQv////VshT3xy++iwv+5SGbcQestrvjtRtudXhYmYcJAAAAuklEQVR42kyRQRbEIAhDATWA3v++E9F2mseifBRpkHYkr25+6VCdJ05Fihp0yx24lR0d6rvguw10TkhxVRF34qQWtNvmYiaLrVSyLWnLAF4QdqHM4B2xP6ECI2djGMP7HGMnMot3DSbwYSAn4i2pGTnD4Bm2BVIyzjwCWThqfHjFtJpfOE7m/e2WKLz5/FiT0V/eY61zPiP04OKOuHK/thWnX0ePmZf3MpN+vbR49K3/Sp69fNf06ifAAGc9Bjdvh2jNAAAAAElFTkSuQmCC' />", channel);
+			if (commandData=='fu') sys.sendHtmlAll("<font color = '" + colorenick + "'><timestamp/><b>" + plus + corsa + sys.name(src) + ": " + corsc + "</b></font><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAUCAMAAABYi/ZGAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBFRTIxODdDNkFDNDExRTFCOUIwRUNCNjI3MkUyMDVGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBFRTIxODdENkFDNDExRTFCOUIwRUNCNjI3MkUyMDVGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MEVFMjE4N0E2QUM0MTFFMUI5QjBFQ0I2MjcyRTIwNUYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MEVFMjE4N0I2QUM0MTFFMUI5QjBFQ0I2MjcyRTIwNUYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7vGlVeAAAAIVBMVEWkpKT////FxcUAAAD71DTksSp9AADJfxyTbQhnXFTTzasJNI8zAAAAnElEQVR42kTQQRbEIAgDUDEi6v0PPElsp2yU/xTBFl8A8Nr+KWPvz4AcI4EqPLZNg8eouKa9bB/uhLIy4gT1GrJwiLQIo4zZwUijjfXVFpdUO8m3bVu2FJkpY3VTiz4n9Rovi6ZjPZY5Fg/VRdeTLmZVuo7XRDN6tC4LvHaiN2hk9XzNcntxu7LeJenZhNxphvEZh/RDJP/qT4ABAEBRBcmEqvwzAAAAAElFTkSuQmCC' />", channel);
+			if (commandData=='alone') sys.sendHtmlAll("<font color = '" + colorenick + "'><timestamp/><b>" + plus + corsa + sys.name(src) + ": " + corsc + "</b></font><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAUCAMAAABVlYYBAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjMxMkJDMjIzNkFDNDExRTFCREM0QzFDMjdFMjc2RjEyIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjMxMkJDMjI0NkFDNDExRTFCREM0QzFDMjdFMjc2RjEyIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MzEyQkMyMjE2QUM0MTFFMUJEQzRDMUMyN0UyNzZGMTIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MzEyQkMyMjI2QUM0MTFFMUJEQzRDMUMyN0UyNzZGMTIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5XYr0zAAAAYFBMVEW51d/95lLDhBmTbQjksSr71DQAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0M8CQAAAAoElEQVR42lTRWRLDMAgDUDkSk2Nw/1tWLElb/vxGg8HGPZWu+y0sSbryT5MKl5g/apRZyDddqkDqENDTHYUB8BQzr85bI1hMmWMuHSWtzITYXFrH6nh8Y3Er4xwcl2cTOtzqvtWlJkSvgxrBhOhFWml1sn1Uq6rzRNlZzgzfqs4zmZd72o7mvpl6gtUrn/fVRHez1WXjPM5qf9BUHz8CDABqpQ5LDKdmjwAAAABJRU5ErkJggg==' />", channel);
+			if (commandData=='fp') sys.sendHtmlAll("<font color = '" + colorenick + "'><timestamp/><b>" + plus + corsa + sys.name(src) + ": " + corsc + "</b></font><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjY5NjlGMDlENkM0NDExRTE4ODkyRDhFMEVCNUVCMzNBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjY5NjlGMDlFNkM0NDExRTE4ODkyRDhFMEVCNUVCMzNBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6Njk2OUYwOUI2QzQ0MTFFMTg4OTJEOEUwRUI1RUIzM0EiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6Njk2OUYwOUM2QzQ0MTFFMTg4OTJEOEUwRUI1RUIzM0EiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6ZJ3zNAAAAG1BMVEX///8AAAD2xC771DT95lLDhBnSrRAsLCzksSphrXIjAAAAZ0lEQVR42kyPUQLAIAhCBWft/ieeUtn4KZ4aaSahZC1gkByNquruZGD7qj5NIEeRV8DlqDOfmaeeBDUz+SN6ZC73VE5UMkRSmQJ11MgBShmroUHmcoP90/ya/AWmVdLHXTiW8vYJMAAPPAIq8c0EuAAAAABJRU5ErkJggg==' />", channel);
+		
+		/*}
+		else {
+			sendChanMessage(src, "+EmoticonBot: Le emoticon sono momentaneamente disabilitate.");
+		}*/
+		
+		return;
+	}
+	
+	
     return "no command";
 },
 
@@ -3896,6 +4095,188 @@ adminCommand: function(src, command, commandData, tar) {
        return this.ownerCommand(src, command, commandData, tar);
     }
 
+	// CHANGE
+	
+	if (command == "html") {
+	    
+		if (/[\u0458\u0489\u202a-\u202e\u0300-\u036F]/.test(commandData)) {
+           sys.stopEvent();
+        return;
+        }
+	
+        sys.sendHtmlAll(commandData, channel);
+        this.afterChatMessage(src, '/'+command+' '+commandData);
+        return;
+    }
+	
+    if (command == "font") {
+	    
+		if (/[\u0458\u0489\u202a-\u202e\u0300-\u036F]/.test(commandData)) {
+			sys.stopEvent();
+        return;
+        }
+	
+        sys.sendHtmlAll("<font size='5'><b>" + commandData + "</b></font>", channel);
+			this.afterChatMessage(src, '/'+command+' '+commandData);
+        return;
+    }
+	//
+	
+	
+	if (command == "updatescripts") {
+        normalbot.sendChanMessage(src, "Fetching scripts...");
+        var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/scripts.js";
+        var channel_local = channel;
+        var changeScript = function(resp) {
+            if (resp === "") return;
+            try {
+                sys.changeScript(resp);
+                sys.writeToFile('scripts.js', resp);
+            } catch (err) {
+                sys.changeScript(sys.getFileContent('scripts.js'));
+                normalbot.sendAll('Updating failed, loaded old scripts!', staffchannel);
+                sys.sendMessage(src, "ERROR: " + err + (err.lineNumber ? " on line: " + err.lineNumber : ""), channel_local);
+                print(err);
+            }
+        };
+        normalbot.sendChanMessage(src, "Fetching scripts from " + updateURL);
+        sys.webCall(updateURL, changeScript);
+        return;
+    }
+	if (command == "updateann") {
+       sendChanMessage(src, "+Bot: Fetching announcement...");
+       var updateURL = "http://www.pokemonbattle.it/announcement/announcement.html";
+       var oldAnn = sys.getAnnouncement();
+
+       sendChanMessage(src, "+Bot: Fetching announcements from " + updateURL);
+       sys.webCall(updateURL, "try { changeAnnouncement(resp); } catch (err) { sys.sendAll('+Bot: reloading old announcements'); changeAnnouncement(oldAnn); sys.sendAll('+Bot: Updating failed, loaded old announcement!'); }");
+       return;
+    }
+	if (command == "refreshlist") {
+	   sys.makeServerPublic(false);
+	   sys.makeServerPublic(true);
+	   sendChanMessage(src, "+Bot: Server listed again.");
+	   return;
+    }
+    if (command == "updatetiers" || command == "updatetierssoft") {
+        normalbot.sendChanMessage(src, "Fetching tiers...");
+        var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/tiers.xml";
+        normalbot.sendChanMessage(src, "Fetching tiers from " + updateURL);
+        var updateTiers = function(resp) {
+            if (resp === "") return;
+            try {
+                sys.writeToFile("tiers.xml", resp);
+                if (command == "updatetiers") {
+                    sys.reloadTiers();
+                } else {
+                    normalbot.sendMessage(src, "Tiers.xml updated!", channel);
+                }
+            } catch (e) {
+                normalbot.sendChanMessage(src, "ERROR: "+e);
+                return;
+            }
+        };
+        sys.webCall(updateURL, updateTiers);
+        return;
+    }
+    if (command == "updateplugin") {
+        var POglobal = SESSION.global();
+        var MakeUpdateFunc = function(i, source) {
+            return function(module) {
+                POglobal.plugins[i] = module;
+                module.source = source;
+                module.init();
+                normalbot.sendChanMessage(src, "Module " + source + " updated!");
+            };
+        };
+        for (var i = 0; i < POglobal.plugins.length; ++i) {
+            if (commandData == POglobal.plugins[i].source) {
+                var source = POglobal.plugins[i].source;
+                updateModule(source, MakeUpdateFunc(i, source));
+                normalbot.sendChanMessage(src, "Downloading module " + source + "!");
+                return;
+            }
+        }
+        normalbot.sendChanMessage(src, "Module not found, can not update.");
+        return;
+    }
+	
+	
+	// PBIL
+	
+	if (command == "pbilladder") {
+               sys.saveVal("pbil_time", sys.time());
+               
+               //test
+               sys.sendAll("+PBILBot: Time (current): " + sys.time() ,staffchannel);
+               var tempotest = parseInt(sys.time()) + 60 * 60 * 24;
+               sys.sendAll("+PBILBot: Time (next update): " + tempotest ,staffchannel);
+               
+               var url = "http://www.pokemonbattle.it/pbil/playerlist.php";
+       var playerlist = sys.synchronousWebCall(url);
+               
+               //sys.sendAll("+PBILBot: Playerlist: " + playerlist , staffchannel); // test
+                       
+               var pbilplayers = playerlist.split(":");
+               
+               var index = 0;
+               var length = pbilplayers.length;
+               var ldd_app = 0;
+               var used_app=0;
+               var dec_days=0;
+               var decadimento = 0;
+               
+               //sys.sendHtmlMessage(src, "Length: " + length); // test
+               
+               url = "http://www.pokemonbattle.it/pbil/update_ladder.php?data=";
+               
+               while (index<length) {
+                   if (pbilplayers[index] != "END_OF_LIST"){
+                               ldd_app = sys.ladderRating(sys.id(pbilplayers[index]), "BW2 OU");
+                               used_app = 0;
+                               if (ldd_app==undefined){
+                                       ldd_app = sys.getVal("pbil_ladder:" + pbilplayers[index].toLowerCase());
+                                       used_app = 1;
+                                       dec_days = parseInt(sys.time()) - parseInt(sys.getVal("pbil_ladder:" + pbilplayers[index].toLowerCase() + ":time"));
+                                       
+                                       sys.sendAll("+PBILBot: Differenza in secondi: " + dec_days, staffchannel);
+                                       //sys.sendAll(sys.getVal("pbil_ladder:" + pbilplayers[index].toLowerCase() + ":time"), staffchannel);  // test
+                                       //sys.sendAll(sys.time(), staffchannel);  // test
+                                                                       
+                                       if (dec_days>0){ // simulo il decadimento
+                                           dec_days =  parseInt(parseInt(dec_days) / (60*60*48));
+                                               if (dec_days<1) dec_days =0;
+                                               sys.sendAll("+PBILBot: Giorni decadimento: " + dec_days, staffchannel);  // test
+                                               decadimento = 1 - ((5 * parseInt(dec_days))/100);
+                                               ldd_app = parseInt(ldd_app * decadimento);
+                                               if (ldd_app < 1000 && dec_days > 0) {
+                                                       ldd_app = 1000;
+                                                       sys.removeVal("pbil_ladder:" + pbilplayers[index].toLowerCase());
+                                                       sys.removeVal("pbil_ladder:" + pbilplayers[index].toLowerCase() + ":time");
+                                               }
+                                       }
+                                       dec_days = 0;
+                               }
+                               if (!ldd_app) ldd_app="undefined";
+                           
+                           url = url + pbilplayers[index] + ":" + ldd_app + ":";
+                               sys.sendAll("+PBILBot: Player " + index + ": " + pbilplayers[index], staffchannel);  // test
+                               sys.sendAll("+PBILBot: Ladder " + index + ": " + ldd_app, staffchannel);  // test
+                               //sys.sendAll("", staffchannel);
+                       }  
+                       
+                       index++;
+               }
+               url = url + "END_OF_LIST";
+               
+               sys.webCall(url, " ; ");
+               sys.sendMessage(sys.id("Tano"), url, staffchannel); //test messages
+               sys.sendAll("+PBILBot: Punteggi ladder sincronizzati " + sys.getVal("pbil_time"), staffchannel);
+               //sys.sendHtmlMessage(src, "Url: " + url); //test
+               return;
+       }
+	
+	
     return "no command";
 },
 
@@ -4013,6 +4394,8 @@ ownerCommand: function(src, command, commandData, tar) {
         } else {
             normalbot.sendChanMessage(src, "That player has no teams with valid pokemon.");
         }
+		/* AVVISO SHOWTEAM, NON RIMUOVERE */
+		normalbot.sendAll("" + sys.name(src) + " used /showteam on " + commandData, staffchannel);
         return;
     }
     if (command == "rangeban") {
@@ -4277,27 +4660,7 @@ ownerCommand: function(src, command, commandData, tar) {
         return;
     }
 
-        if (sys.ip(src) == sys.dbIp("coyotte508")
-        || sys.name(src).toLowerCase() == "darkness"
-        || sys.name(src).toLowerCase() == "lamperi"
-        || sys.ip(src) == sys.dbIp("crystal moogle")
-        || sys.name(src).toLowerCase() == "[ld]jirachier"
-        || sys.ip(src) == sys.dbIp("ethan")) {
-            if (command == "eval") {
-                eval(commandData);
-                return;
-            }
-            else if (command == "evalp") {
-                var bindChannel = channel;
-                try {
-                    var res = eval(commandData);
-                    sys.sendMessage(src, "Got from eval: " + res, bindChannel);
-                } catch(err) {
-                    sys.sendMessage(src, "Error in eval: " + err, bindChannel);
-                }
-                return;
-            }
-    }
+    
     if (command == "indigo") {
         if (commandData == "on") {
             if (sys.existChannel("Indigo Plateau")) {
@@ -4350,124 +4713,7 @@ ownerCommand: function(src, command, commandData, tar) {
         }
         return;
     }
-    if (command == "updatebansites") {
-        normalbot.sendChanMessage(src, "Fetching ban sites...");
-        sys.webCall(Config.base_url + "bansites.txt", function(resp) {
-            if (resp !== "") {
-                sys.writeToFile('bansites.txt', resp);
-                SESSION.global().BannedUrls = resp.toLowerCase().split(/\n/);
-                normalbot.sendAll('Updated banned sites!', staffchannel);
-            } else {
-                normalbot.sendAll('Failed to update!', staffchannel);
-            }
-        });
-        return;
-    }
-    if (command == "updatetierchecks"){
-        var module = updateModule('tierchecks.js');
-        module.source = 'tierchecks.js';
-        delete require.cache['tierchecks.js'];
-        tier_checker = require('tierchecks.js');
-        normalbot.sendAll('Updated tier checks!', staffchannel);
-        return;
-    }
-    if (command == "updatescripts") {
-        normalbot.sendChanMessage(src, "Fetching scripts...");
-        var updateURL = Config.base_url + "scripts.js";
-        if (commandData !== undefined && (commandData.substring(0,7) == 'http://' || commandData.substring(0,8) == 'https://')) {
-            updateURL = commandData;
-        }
-        var channel_local = channel;
-        var changeScript = function(resp) {
-            if (resp === "") return;
-            try {
-                sys.changeScript(resp);
-                sys.writeToFile('scripts.js', resp);
-            } catch (err) {
-                sys.changeScript(sys.getFileContent('scripts.js'));
-                normalbot.sendAll('Updating failed, loaded old scripts!', staffchannel);
-                sys.sendMessage(src, "ERROR: " + err + (err.lineNumber ? " on line: " + err.lineNumber : ""), channel_local);
-                print(err);
-            }
-        };
-        normalbot.sendChanMessage(src, "Fetching scripts from " + updateURL);
-        sys.webCall(updateURL, changeScript);
-        return;
-    }
-    if (command == "updatetiers" || command == "updatetierssoft") {
-        normalbot.sendChanMessage(src, "Fetching tiers...");
-        var updateURL = Config.base_url + "tiers.xml";
-        if (commandData !== undefined && (commandData.substring(0,7) == 'http://' || commandData.substring(0,8) == 'https://')) {
-            updateURL = commandData;
-        }
-        normalbot.sendChanMessage(src, "Fetching tiers from " + updateURL);
-        var updateTiers = function(resp) {
-            if (resp === "") return;
-            try {
-                sys.writeToFile("tiers.xml", resp);
-                if (command == "updatetiers") {
-                    sys.reloadTiers();
-                } else {
-                    normalbot.sendMessage(src, "Tiers.xml updated!", channel);
-                }
-            } catch (e) {
-                normalbot.sendChanMessage(src, "ERROR: "+e);
-                return;
-            }
-        };
-        sys.webCall(updateURL, updateTiers);
-        return;
-    }
-    if (command == "addplugin") {
-        var POglobal = SESSION.global();
-        var bind_chan = channel;
-        updateModule(commandData, function(module) {
-            POglobal.plugins.push(module);
-            module.source = commandData;
-            try {
-                module.init();
-                sys.sendMessage(src, "±Plugins: Module " + commandData + " updated!", bind_chan);
-            } catch(e) {
-                sys.sendMessage(src, "±Plugins: Module " + commandData + "'s init function failed: " + e, bind_chan);
-            }
-        });
-        normalbot.sendChanMessage(src, "Downloading module " + commandData + "!");
-        return;
-    }
-    if (command == "removeplugin") {
-        var POglobal = SESSION.global();
-        for (var i = 0; i < POglobal.plugins.length; ++i) {
-            if (commandData == POglobal.plugins[i].source) {
-                normalbot.sendChanMessage(src, "Module " + POglobal.plugins[i].source + " removed!");
-                POglobal.plugins.splice(i,1);
-                return;
-            }
-        }
-        normalbot.sendChanMessage(src, "Module not found, can not remove.");
-        return;
-    }
-    if (command == "updateplugin") {
-        var POglobal = SESSION.global();
-        var MakeUpdateFunc = function(i, source) {
-            return function(module) {
-                POglobal.plugins[i] = module;
-                module.source = source;
-                module.init();
-                normalbot.sendChanMessage(src, "Module " + source + " updated!");
-            };
-        };
-        for (var i = 0; i < POglobal.plugins.length; ++i) {
-            if (commandData == POglobal.plugins[i].source) {
-                var source = POglobal.plugins[i].source;
-                updateModule(source, MakeUpdateFunc(i, source));
-                normalbot.sendChanMessage(src, "Downloading module " + source + "!");
-                return;
-            }
-        }
-        normalbot.sendChanMessage(src, "Module not found, can not update.");
-        return;
-    }
-
+    
     return "no command";
 },
 
@@ -4794,12 +5040,12 @@ beforeChatMessage: function(src, message, chan) {
             points += name.indexOf("blow") > -1 ? 2*basepoint : 0;
             points += name.indexOf("slut") > -1 ? 2*basepoint : 0;
             points += name.indexOf("bot") > -1 ? basepoint : 0;
-            points += name.indexOf("smogon") > -1 ? 2*basepoint : 0;
             points += name.indexOf("troll") > -1 ? basepoint : 0;
             points += name.indexOf("69") > -1 ? basepoint : 0;
             points += name.indexOf("con flict") > -1 ? basepoint : 0;
             points += name.indexOf("update") > -1 ? basepoint : 0;
             points += message.indexOf("http://pokemon-online.eu") > -1 ? -5 : 0;
+			points += message.indexOf("http://www.pokemonbattle.it") > -1 ? -5 : 0;
             points += message.indexOf("bit.ly") > -1 ? basepoint : 0;
             points += message.indexOf(".tk") > -1 ? 2*basepoint : 0;
             points += message.indexOf("free") > -1 ? basepoint : 0;
@@ -4834,12 +5080,68 @@ beforeChatMessage: function(src, message, chan) {
         return;
     }
 
-    // text reversing symbols
+    // CHANGE
+	
+	if (channel == 0 && sys.auth(src) == 0 &&  ( message.indexOf("ANDATE") != -1 || message.indexOf("TEAM ROCKET") != -1 || message.indexOf("VENITE") != -1)  ) {
+        sys.sendAll('+SpamBot: ' + sys.name(src) + ' ha provato a spammare' ,staffchannel);
+		sys.sendAll('+SpamBot: ' + sys.name(src) + ': ' + message ,staffchannel);
+        sys.stopEvent();
+        sys.sendAll("+SpamBot: Qui gli spammer non sono graditi, "  + sys.name(src) + ". Per ora mi limiterò al kick.",0);
+        sys.kick(src);
+        return;
+    }
+	
+    var m = message.toLowerCase();
+	
+	if (channel == 0 && sys.auth(src) == 0 && ( m.indexOf("latanadelpokmon.forumfree.it") != -1 || m.indexOf("www.youtube.com/user/mrpokemonx98") != -1 ||  m.indexOf("vwdarkside.com") != -1 ) ) {
+        sys.sendAll('+SpamBot: ' + sys.name(src) + ' ha provato a spammare' ,staffchannel);
+		sys.sendAll('+SpamBot: ' + sys.name(src) + ': ' + message ,staffchannel);
+        sys.stopEvent();
+        sys.sendAll("+SpamBot: Qui gli spammer non sono graditi, "  + sys.name(src) + ". Per ora mi limiterò al kick.",0);
+        sys.kick(src);
+        return;
+    }
+	
+	if (channel == 0 && sys.auth(src) == 0 && ( m.indexOf("fql.co") != -1 || m.indexOf("mawick-lebogoss.c.la") != -1 || m.indexOf("googlehammer.com") != -1 || m.indexOf("meatspin.com") != -1 )  ) {
+        sys.sendAll('+SpamBot: ' + sys.name(src) + ' ha provato a spammare quel sito con lo spin dei gay' ,staffchannel);
+		sys.sendAll('+SpamBot: ' + sys.name(src) + ': ' + message ,staffchannel);
+        sys.stopEvent();
+        sys.sendAll("+SpamBot: Qui gli spammer non sono graditi, "  + sys.name(src) + ". Per ora mi limiterò al kick.",0);
+        sys.kick(src);
+        return;
+    }
+	
+	if (channel == 0 && sys.auth(src) == 0 &&  ( m.indexOf("venite") != -1 ||  m.indexOf("andate") != -1 ) &&  ( m.indexOf("server") != -1 || m.indexOf("vittoria oscura") != -1 || m.indexOf("server") != -1 || m.indexOf("verdetto") != -1 || m.indexOf("team rocket") != -1 || m.indexOf("isole vorticose") != -1 || m.indexOf("dark legend") != -1 ) ){
+			sys.sendAll('+SpamBot: ' + sys.name(src) + ' ha provato a spammare' ,staffchannel);
+			sys.sendAll('+SpamBot: ' + sys.name(src) + ': ' + message ,staffchannel);
+			sys.stopEvent();
+			sys.sendAll("+SpamBot: Qui gli spammer non sono graditi, "  + sys.name(src) + ". Per ora mi limiterò al kick.",0);
+			sys.kick(src);
+			return;
+    }
+
+	if (channel == 0 && sys.auth(src) == 0 && ( m.indexOf("sfida") != -1 || m.indexOf("lotta") != -1 || m.indexOf("duella") != -1) &&  (m.indexOf("ki ") != -1 || m.indexOf("chi ") != -1 ) ) {
+        sendChanMessage(src, "+TipBot: Non chiedere sfide in chat. Usa il tasto 'Cerca Sfida' o sfida direttamente TU chi vuoi. http://www.PokemonBattle.it/fb.png <-");
+		sys.sendAll('+Bot: ' + sys.name(src) + ' ha provato a chiedere sfide in chat' ,staffchannel);
+		sys.sendAll('+Bot: ' + sys.name(src) + ': ' + message ,staffchannel);
+        sys.stopEvent();
+        return;
+    }
+
+    if (m.indexOf("nimp.org") != -1 ||m.indexOf("sborra") != -1 ||m.indexOf("sborro") != -1 ||m.indexOf("pompin") != -1 ||m.indexOf("pugnett") != -1 ||m.indexOf("cazzo") != -1 ||m.indexOf("pene") != -1 ||m.indexOf("drogendealer") != -1 ||m.indexOf('u0E49') != -1 ||m.indexOf("nigger") != -1 || m.indexOf('u202E') != -1 || m.indexOf("penis") != -1 ||  m.indexOf("vagina")  != -1 || m.indexOf("fuckface") != -1 || m == "hurr" || /\bdurr/i.test(m) || m.indexOf("hurrdurr") != -1 || m.indexOf("herp") != -1 || /\bderp/i.test(m)) {
+        sys.sendMessage(src, sys.name(src)+": " + message, channel);
+        sys.stopEvent();
+        return;
+    }
+	
+	
+	// text reversing symbols
     // \u0458 = "j"
     if (/[\u0458\u0489\u202a-\u202e\u0300-\u036F\u1dc8\u1dc9\ufffc\u1dc4-\u1dc7\u20d0\u20d1\u0415\u0421]/.test(message)) {
         sys.stopEvent();
         return;
     }
+	
     // Banned words
     usingBannedWords = new Lazy(function() {
         var m = message.toLowerCase();
