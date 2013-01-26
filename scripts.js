@@ -3728,9 +3728,10 @@ modCommand: function(src, command, commandData, tar) {
             normalbot.sendAll(sys.name(src) + " passed their auth to " + sys.name(tar) + "!", staffchannel);
         return;
     }
-    if (sys.name(src) == "Viderizer" && (command == "ban" || command == "unban")) {
+	// CHANGE fg
+    /*if (sys.name(src) == "Viderizer" && (command == "ban" || command == "unban")) {
         return this.adminCommand(src, command, commandData, tar);
-    }
+    }*/
     if (command == "skmute" && (sys.auth(src) >= 1 || [/* insert mod list here when this goes to admin+ */].indexOf(sys.name(src).toLowerCase()) >= 0)) {
         if (tar === undefined)
             normalbot.sendMessage(src, "use only for online target ", channel);
