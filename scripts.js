@@ -1332,7 +1332,8 @@ var commands = {
 		"/updateplugin [plugin]: Updates plugin from the web.",
         "/updateScripts: Updates scripts from the web.",
 		"/html: Allows use of HTML.",
-		"/font: BIG text."
+		"/font: BIG text.",
+		"/refreshlist: The server is listed again!"
     ],
     owner: // CHANGE
     [
