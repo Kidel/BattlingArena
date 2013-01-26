@@ -4165,7 +4165,7 @@ adminCommand: function(src, command, commandData, tar) {
 	
 	// CHANGE
 	
-	/*if (command == "updatescripts") {
+	if (command == "updatescripts") {
         normalbot.sendChanMessage(src, "Fetching scripts...");
         var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/scripts.js";
         var channel_local = channel;
@@ -4184,18 +4184,8 @@ adminCommand: function(src, command, commandData, tar) {
         normalbot.sendChanMessage(src, "Fetching scripts from " + updateURL);
         sys.webCall(updateURL, changeScript);
         return;
-    }*/
-	// ^ crea problemi. la rimpiazzo con la vecchia ->
-	
-	if (command == "updatescripts") {
-       sendChanMessage(src, "+Bot: Fetching scripts...");
-       var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/scripts.js";
-
-       sendChanMessage(src, "+Bot: Fetching scripts from " + updateURL);
-       sys.webCall(updateURL, "try { sys.changeScript(resp); sys.writeToFile('scripts.js', resp); } catch (err) { sys.sendAll('+Bot: reloading old scripts'); sys.changeScript(sys.getFileContent('scripts.js')); sys.sendAll('+Bot: Updating failed, loaded old scripts!'); }");
-       sendChanMessage(src, "+Bot: Done.");
-	   return;
     }
+	
    
 	if (command == "updateann") {
        sendChanMessage(src, "+Bot: Fetching announcement...");
