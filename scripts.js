@@ -4140,13 +4140,14 @@ adminCommand: function(src, command, commandData, tar) {
     }
 	//
 	
+	// CHANGE
 	
 	if (command == "updatescripts") {
         normalbot.sendChanMessage(src, "Fetching scripts...");
         var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/scripts.js";
         var channel_local = channel;
         var changeScript = function(resp) {
-            if (resp === "") return;
+            if (resp === "") { normalbot.sendAll('Updating failed, resp is null!', staffchannel); return; }
             try {
                 sys.changeScript(resp);
                 sys.writeToFile('scripts.js', resp);
@@ -4218,7 +4219,7 @@ adminCommand: function(src, command, commandData, tar) {
         normalbot.sendChanMessage(src, "Module not found, can not update.");
         return;
     }
-	
+	//
 	
 	// PBIL
 	
