@@ -4195,7 +4195,6 @@ adminCommand: function(src, command, commandData, tar) {
 
        sendChanMessage(src, "+Bot: Fetching announcements from " + updateURL);
        sys.webCall(updateURL, "try { sys.changeAnnouncement(resp); } catch (err) { sys.sendAll('+Bot: reloading old announcements'); sys.changeAnnouncement(oldAnn); sys.sendAll('+Bot: Updating failed, loaded old announcement!'); }");
-       sendChanMessage(src, "+Bot: Done.");
 	   return;
     }
 	if (command == "refreshlist") {
