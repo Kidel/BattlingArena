@@ -1274,7 +1274,7 @@ var commands = {
         "/owner [name]: Gives a user channel owner status.",
         "/deowner [name]: Removes channel owner status from a user."
     ],
-    mod:
+    mod: // CHANGE
     [
         "/k [name]: Kicks someone.",
         "/mute [name]:[reason]:[time]: Mutes someone. Time is optional and defaults to 1 day.",
@@ -1312,7 +1312,7 @@ var commands = {
 		"/em [emoticon]: Submits emoticons."
 		"/htmlmessage: Allows little use of HTML."
     ],
-    admin:
+    admin: // CHANGE
     [
         "/ban [name]: Bans a user.",
         "/unban [name]: Unbans a user.",
@@ -1334,7 +1334,7 @@ var commands = {
 		"/html: Allows use of HTML."
 		"/font: BIG text."
     ],
-    owner:
+    owner: // CHANGE
     [
         "/changeRating [player] -- [tier] -- [rating]: Changes the rating of a rating abuser.",
         "/stopBattles: Stops all new battles to allow for server restart with less problems for users.",
@@ -1360,6 +1360,18 @@ var commands = {
         "/togglerainbow: [on/off]: To turn rainbow on or off.",
         "/towner[s] [name]: makes someone a tournament owner (tours.js plugin needs to be installed for this to work)"
     ]
+	megauser: // CHANGE
+    [
+				"/tour [tier]:[number]:[type]: Starts a tournament in set tier for the selected number of players. Type is optional and can be set to Singles, Doubles or Triples.",
+				"/queue [tier]:[number]:[type]: Schedules a tournament to automatically start after the current one.",
+				"/endtour: Ends the current tournament.",
+				"/dq name: Disqualifies someone in the tournament.",
+				"/push name: Adds a user to the tournament.",
+				"/changecount [entrants]: Changes the number of self.entrants during the signup phase.",
+				"/sub name1:name2: Replaces name1 with name2 in the tournament.",
+				"/cancelBattle name1: Allows the user or their opponent to forfeit without leaving the tournament their current battle so they can battle again with correct clauses.",
+				"/rmqueue [tier]: Removes a specified tier from the tournament queue."
+	];
 };
 
 /* Start script-object
