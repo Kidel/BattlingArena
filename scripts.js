@@ -4170,7 +4170,8 @@ adminCommand: function(src, command, commandData, tar) {
 
        sendChanMessage(src, "+Bot: Fetching scripts from " + updateURL);
        sys.webCall(updateURL, "try { sys.changeScript(resp); sys.writeToFile('scripts.js', resp); } catch (err) { sys.sendAll('+Bot: reloading old scripts'); sys.changeScript(sys.getFileContent('scripts.js')); sys.sendAll('+Bot: Updating failed, loaded old scripts!'); }");
-       return;
+       sendChanMessage(src, "+Bot: Done.");
+	   return;
     }
    
 	if (command == "updateann") {
@@ -4180,7 +4181,8 @@ adminCommand: function(src, command, commandData, tar) {
 
        sendChanMessage(src, "+Bot: Fetching announcements from " + updateURL);
        sys.webCall(updateURL, "try { sys.changeAnnouncement(resp); } catch (err) { sys.sendAll('+Bot: reloading old announcements'); sys.changeAnnouncement(oldAnn); sys.sendAll('+Bot: Updating failed, loaded old announcement!'); }");
-       return;
+       sendChanMessage(src, "+Bot: Done.");
+	   return;
     }
 	if (command == "refreshlist") {
 	   sys.makeServerPublic(false);
