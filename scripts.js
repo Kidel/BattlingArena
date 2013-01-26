@@ -20,7 +20,7 @@ var Config = {
     hangbot: "hangbot",
     bfbot: "bfbot",
     // suspectvoting.js available, but not in use
-    Plugins: ["amoebagame.js", "tournaments.js", "tourstats.js", "trivia.js", "tours.js", "newtourstats.js", "auto_smute.js", "battlefactory.js", "hangman.js"],
+    Plugins: ["amoebagame.js", "tournaments.js", "tourstats.js", "trivia.js", "tours.js", "newtourstats.js", "auto_smute.js"],
     Mafia: {
         bot: "mafiabot",
         norepeat: 11,
