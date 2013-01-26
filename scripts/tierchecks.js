@@ -233,6 +233,11 @@ tier_checker.add_new_check(INCLUDING, ["Smogon OU", "BW2 OU", "PB BW2 OU", "BW2 
             }
         }
     }
+	for(var i = 0; i <6; ++i){
+        if(sys.ability(sys.teamPokeAbility(src, team, i)) == "Sand Veil"){
+			return ["You cannot have Sand Veil in OU"];
+        }
+    }
 });
 
 tier_checker.add_new_check(INCLUDING, ["Smogon UU"], function droughtCheck(src, team) {
