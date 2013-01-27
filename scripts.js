@@ -21,7 +21,8 @@ var Config = {
     hangbot: "hangbot",
     bfbot: "bfbot",
     // suspectvoting.js available, but not in use
-    Plugins: ["amoebagame.js", "tournaments.js", "tourstats.js", "trivia.js", "tours.js", "newtourstats.js", "auto_smute.js"],
+	// CHANGE , added 'tierchecks.js'
+    Plugins: ["amoebagame.js", "tournaments.js", "tourstats.js", "trivia.js", "tours.js", "newtourstats.js", "auto_smute.js", 'tierchecks.js'],
     Mafia: {
         bot: "mafiabot",
         norepeat: 11,
@@ -101,7 +102,8 @@ var isMafiaAdmin = require('mafia.js').isMafiaAdmin;
 var isMafiaSuperAdmin = require('mafia.js').isMafiaSuperAdmin;
 
 /* we need to make sure the scripts exist */
-var deps = ['crc32.js', 'utilities.js', 'bot.js', 'memoryhash.js', 'tierchecks.js'].concat(Config.Plugins);
+// CHANGE , removed 'tierchecks.js', now it's in Config.Plugins
+var deps = ['crc32.js', 'utilities.js', 'bot.js', 'memoryhash.js'].concat(Config.Plugins);
 var missing = 0;
 for (var i = 0; i < deps.length; ++i) {
     if (!sys.getFileContent("scripts/"+deps[i])) {
