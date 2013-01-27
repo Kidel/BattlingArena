@@ -1323,6 +1323,7 @@ var commands = {
         "/channelusers [channel]: Lists users on a channel.",
 		"/em [emoticon]: Submits emoticons. [emoticon] can be fg, awesome, omg, troll, fu, alone, fp",
 		"/htmlmessage: Allows little use of HTML.",
+		"/ipaliases [username]: Show ip and alias informations of the given username.",
 		"/tourcommands: To see the tour command list. - HAS TO BE USED ON MAIN CHANNEL (the tourchannel)"
     ],
     admin: // CHANGE
@@ -3466,7 +3467,7 @@ modCommand: function(src, command, commandData, tar) {
         sys.sendHtmlMessage(src, res.join("<br>"), channel);
         return;
     }
-    if (command == "userinfo" || command == "whois" || command == "whoistxt") {
+    if (command == "userinfo" || command == "whois" || command == "whoistxt" || command == "ipaliases") {
         var bindChannel = channel;
         if (commandData === undefined) {
             querybot.sendChanMessage(src, "Please provide a username.");
@@ -3522,7 +3523,7 @@ modCommand: function(src, command, commandData, tar) {
             sendChanMessage(src, ":"+JSON.stringify(userJson));
         } else if (command == "userinfo") {
             querybot.sendChanMessage(src, "Username: " + name + " ~ auth: " + authLevel + " ~ contributor: " + contribution + " ~ ip: " + ip + " ~ online: " + (online ? "yes" : "no") + " ~ registered: " + (registered ? "yes" : "no") + " ~ last login: " + lastLogin + " ~ banned: " + (isBanned ? "yes" : "no"));
-        } else if (command == "whois") {
+        } else if (command == "whois" || command == "ipaliases") {
             var whois = function(resp) {
                 /* May have dced, this being an async call */
                 online = sys.loggedIn(tar);
@@ -3587,6 +3588,51 @@ modCommand: function(src, command, commandData, tar) {
             //sys.webCall('http://api.ipinfodb.com/v3/ip-city/?key=' + ipApi + '&ip='+ ip + '&format=JSON', whois);
             whois();
         }
+		
+		
+		// CHANGE
+		var uid = sys.id(ip);
+        if (uid !== undefined) {
+            ip = sys.ip(uid);
+        } else if (sys.dbIp(commandData) !== undefined) {
+            ip = sys.dbIp(commandData);
+        }
+        if (!ip) {
+            querybot.sendChanMessage(src, "Unknown user or IP.");
+            return;
+        }
+        var myAuth = sys.auth(src);
+        var allowedToAlias = function(target) {
+            return !(myAuth < 3 && sys.dbAuth(target) > myAuth);
+        };
+
+        /* Higher auth: don't give the alias list */
+        if (!allowedToAlias(commandData)) {
+            querybot.sendChanMessage(src, "Not allowed to alias higher auth: " + commandData);
+            return;
+        }
+
+        var smessage = "The aliases for the IP " + ip + " are: ";
+        var prefix = "";
+        sys.aliases(ip).map(function(name) {
+            return [sys.dbLastOn(name), name];
+        }).sort().forEach(function(alias_tuple) {
+            var last_login = alias_tuple[0],
+                alias = alias_tuple[1];
+            if (!allowedToAlias(alias)) {
+                return;
+            }
+            var status = (sys.id(alias) !== undefined) ? "online" : "Last Login: " + last_login;
+            smessage = smessage + alias + " ("+status+"), ";
+            if (smessage.length > max_message_length) {
+                querybot.sendChanMessage(src, prefix + smessage + " ...");
+                prefix = "... ";
+                smessage = "";
+            }
+        });
+        querybot.sendChanMessage(src, prefix + smessage);
+		
+		
         return;
     }
     if (command == "aliases") {
