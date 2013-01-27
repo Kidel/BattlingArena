@@ -3,9 +3,9 @@ Code for tours.js
 Coding done by Shadowfist
 */
 
-if (typeof tourschan !== "string") {
-	tourschan = sys.channelId("Main")
-}
+
+	tourschan = sys.channelId("Main");
+
 
 if (typeof tours !== "object") {
 	sys.sendAll("Creating new tournament object", tourschan)
