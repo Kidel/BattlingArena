@@ -1255,7 +1255,7 @@ var commands = {
         "/players: Shows the number of players online.",
         "/sameTier [on/off]: Turn on/off auto-rejection of challenges from players in a different tier from you.",
         "/seen [name]: Allows you to see the last login of a user.",
-		"/tourcommands: To see the tour command list."
+		"/tourcommands: To see the tour command list. - HAS TO BE USED ON MAIN CHANNEL (the tourchannel)"
     ],
     channel:
     [
@@ -1323,7 +1323,7 @@ var commands = {
         "/channelusers [channel]: Lists users on a channel.",
 		"/em [emoticon]: Submits emoticons. [emoticon] can be fg, awesome, omg, troll, fu, alone, fp",
 		"/htmlmessage: Allows little use of HTML.",
-		"/tourcommands: To see the tour command list."
+		"/tourcommands: To see the tour command list. - HAS TO BE USED ON MAIN CHANNEL (the tourchannel)"
     ],
     admin: // CHANGE
     [
