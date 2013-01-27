@@ -81,17 +81,23 @@ var updateModule = function updateModule(module_name, callback) {
    var fname = module_name.split(/\//).pop();
    if (!callback) {
        var resp = sys.synchronousWebCall(url);
-       if (resp === "") return {};
+       if (resp === "") { normalbot.sendAll('Updating failed, resp from ' + url + ' is null!', staffchannel); return {}; }
        sys.writeToFile("scripts/"+fname, resp);
+	   normalbot.sendAll('Writing to file scripts/'+fname, staffchannel);
        delete require.cache[fname];
+	   normalbot.sendAll('Deleting cache', staffchannel);
        var module = require(fname);
+	   normalbot.sendAll('Reloading scripts/'+fname, staffchannel);
        return module;
    } else {
        sys.webCall(url, function updateModule_callback(resp) {
            if (resp === "") { normalbot.sendAll('Updating failed, resp from ' + url + ' is null!', staffchannel); return; }
            sys.writeToFile("scripts/"+fname, resp);
+		   normalbot.sendAll('Writing to file scripts/'+fname, staffchannel);
            delete require.cache[fname];
+		   normalbot.sendAll('Deleting cache', staffchannel);
            var module = require(fname);
+		   normalbot.sendAll('Reloading scripts/'+fname, staffchannel);
            callback(module);
        });
    }
