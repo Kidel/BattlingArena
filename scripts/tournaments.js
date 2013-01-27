@@ -19,7 +19,7 @@ var SLEEP_CLAUSE="Sleep Clause",
 	CHALLENGE_CUP="Challenge Cup",
 	NO_TIMEOUT="No Timeout",
 	SPECIES_CLAUSE="Species Clause",
-	WIFI_CLAUSE="Wifi Clause",
+	WIFI_CLAUSE="BW2 Clause",
 	SELF_KO_CLAUSE="Self KO Clause";
 
 var clauseMap = {
@@ -174,7 +174,7 @@ function Tournament(channel)
 			mode = modeOfTier(tier);
 		}
 		else {
-			var singlesonlytiers = ["DW 1v1", "DW 1v1 Ubers", "CC 1v1", "Wifi CC 1v1", "GBU Singles", "Adv Ubers", "Adv OU", "DP Ubers", "DP OU", "DW OU", "DW Ubers", "Wifi OU", "Wifi Ubers"];
+			var singlesonlytiers = ["CC 1v1", "GBU Singles", "RSE Ubers", "RSE OU", "DP Ubers", "DP OU", "PB BW2 OU", "BW2 OU", "BW2 Ubers"];
 			if ((modeOfTier(tier) == "Doubles" || modeOfTier(tier) == "Triples" || singlesonlytiers.indexOf(tier) != -1) && !cmp(commandpart[2], modeOfTier(tier))) {
 				sendPM(source, "The "+tier+" tier can only be played in " + modeOfTier(tier) + " mode!");
 				return;
