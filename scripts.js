@@ -2131,16 +2131,18 @@ startUpTime: function() {
 afterLogIn : function(src) {
 // CHANGE
 
-	//sys.sendMessage(src, "");
+	sys.sendMessage(src, "");
 	sys.sendMessage(src, "+RuleBot: Scrivi /Rules per vedere le regole.");
 	sys.sendMessage(src, "+CommandBot: Usa !commands o /commands per vedere i comandi.");
 	sys.sendMessage(src, "+RuleBot: E' severamente vietato spammare altri server, sia in canale che in privato. Non vi rendete ridicoli per piacere.");
 	sys.sendMessage(src, "+RuleBot: Non chiedere fantomatici ''test'' per essere auth o ''capopalestra'', tornei fra server o cretinate simili. ");
-	/*sys.sendMessage(src, "+RuleBot: Su questo server non ci sono ''palestre''. Tuttavia sul forum sono periodicamente organizzati tornei ai quali è possibile iscriversi.");*/
+	//sys.sendMessage(src, "+RuleBot: Su questo server non ci sono ''palestre''. Tuttavia sul forum sono periodicamente organizzati tornei ai quali è possibile iscriversi.");
 	sys.sendMessage(src, "+RuleBot: Non chiedere sfide in chat. Usa il tasto 'Cerca Sfida' / 'Find Battle' o sfida direttamente chi vuoi.");
-	sys.sendMessage(src, "+TipBot: Clicca su ''Opzioni'' e poi ''Sort players by tiers''. Se non sai cos'e' una tier, consulta l'introduzione al battling presente su PokemonBattle.it o NetBattleForum.");
+	sys.sendHtmlMessage(src, "<font color = '#3daa68'><timestamp/><b>+RuleBot: </b></font> Non chiedere auth in privato o in main channel. Se vuoi rappresentare la tua community su questo server, proponilo <a href='http://s.battlingarena.forumcommunity.net/?f=8388697'>qui</a>.");
+	sys.sendHtmlMessage(src, "<font color = '#3daa68'><timestamp/><b>+TipBot: </b></font> Clicca su ''Options'' e poi ''Sort players by tiers'' (''Raggruppa giocatori per tier''). Se non sai cos'e' una tier, <a href='http://lmgtfy.com/?q=tier+list+pokemon+italia'>informati</a>.");
 	sys.sendMessage(src, "+TipBot: Chi usa gli uber non sta ''imbrogliando''. Gioca semplicemente in una tier diversa.");
 	sys.sendMessage(src, "+TipBot: Rispetta la tua lingua. Evita di sostituire con la 'k' tutte le 'c' o di usare abbreviazioni da sms.");
+	sys.sendMessage(src, "+TipBot: Per evitare provvedimenti disciplinari, evita di flammare.");
 	sys.sendMessage(src, "");
 	/*
 	sys.sendHtmlMessage(src, "<font color = '#3daa68'><timestamp/><b>+TipBot: </b></font> Scopri come essere megauser e ottenere comandi aggiuntivi, tra cui le emoticon <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAMAAAAMCGV4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjRFQ0MxRDkwNkFDNDExRTFCOEE5QjM4QzYxMTIzNkVFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjRFQ0MxRDkxNkFDNDExRTFCOEE5QjM4QzYxMTIzNkVFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NEVDQzFEOEU2QUM0MTFFMUI4QTlCMzhDNjExMjM2RUUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NEVDQzFEOEY2QUM0MTFFMUI4QTlCMzhDNjExMjM2RUUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5B6IjQAAAAYFBMVEUAAAD////95lLTzavSrRD2xC7ksSrDhBn7WDa8AAB9AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACEdaGkAAAAcUlEQVR42lSPUQ4EIQhDJ0pbXQ/B/W+5BedjtzEND0MozyllqaunKQBEd8wZA/CDsjiD0hi2apg5Z7Kt2N/ziNeUT8Ll4TUWgwzPM3CZn1dqjh/2/EmoYK8t9j5VY6+l3ud8nmvdfJVfTW/+v/u+AgwA6YQKnTuahggAAAAASUVORK5CYII='/>:");
