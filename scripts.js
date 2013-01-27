@@ -2,7 +2,9 @@
 // These scripts will only work on 2.0.00 or newer.
 // You may change these variables as long as you keep the same type
 var Config = {
-    base_url: "https://github.com/Kidel/BattlingArena",
+    //base_url: "https://github.com/Kidel/BattlingArena",
+	// redirect http, non https
+	base_url: "http://www.pokemonbattle.it/battlingarena/plugins.php?p=",
     dataDir: "scriptdata/",
     bot: "bot",
     kickbot: "kickbot",
@@ -28,7 +30,7 @@ var Config = {
         notPlayingMsg: "±Game: The game is in progress. Please type /join to join the next mafia game."
     },
     League: [],
-    DreamWorldTiers: ["No Preview OU", "No Preview Ubers", "DW LC", "DW UU", "DW LU", "DW Uber Triples", "Clear Skies DW"],
+    DreamWorldTiers: ["DW LC", "DW UU", "DW LU", "DW Uber Triples", "Clear Skies DW"],
     superAdmins: [],
     canJoinStaffChannel: [],
     disallowStaffChannel: []
@@ -64,13 +66,16 @@ require = function require(module_name) {
 };
 require.cache = require_cache;
 
+
+// CHANGE
+
 var updateModule = function updateModule(module_name, callback) {
    var base_url = Config.base_url;
    var url;
    if (/^https?:\/\//.test(module_name))
       url = module_name;
    else
-      url = base_url + "scripts/"+ module_name;
+      url = base_url + module_name; //old one: //url = base_url + "scripts/"+ module_name;
    var fname = module_name.split(/\//).pop();
    if (!callback) {
        var resp = sys.synchronousWebCall(url);
@@ -4233,6 +4238,7 @@ adminCommand: function(src, command, commandData, tar) {
         sys.webCall(updateURL, updateTiers);
         return;
     }
+	
     if (command == "updateplugin") {
         var POglobal = SESSION.global();
         var MakeUpdateFunc = function(i, source) {
