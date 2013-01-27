@@ -4,7 +4,7 @@ Coding done by Shadowfist
 */
 
 if (typeof tourschan !== "string") {
-	tourschan = sys.channelId("Tournaments")
+	tourschan = sys.channelId("Main")
 }
 
 if (typeof tours !== "object") {
@@ -529,7 +529,7 @@ function initTours() {
 		tourbreak: parseInt(getConfigValue("tourconfig.txt", "breaktime")),
 		abstourbreak: parseInt(getConfigValue("tourconfig.txt", "absbreaktime")),
 		reminder: parseInt(getConfigValue("tourconfig.txt", "remindertime")),
-		channel: "Tournaments",
+		channel: "Main",
 		errchannel: "Developer's Den",
 		tourbotcolour: "#3DAA68",
 		minpercent: parseInt(getConfigValue("tourconfig.txt", "minpercent")),
@@ -540,7 +540,7 @@ function initTours() {
 	if (Config.Tours.tourbot === undefined) {
 		Config.Tours.tourbot = "\u00B1Genesect: "
 	}
-	tourschan = sys.channelId("Tournaments");
+	tourschan = sys.channelId("Main");
 	tourserrchan = sys.channelId("Indigo Plateau");
 	if (sys.existChannel(Config.Tours.channel)) {
 		tourschan = sys.channelId(Config.Tours.channel)
