@@ -1254,7 +1254,8 @@ var commands = {
         "/uptime: Shows time since the server was last offline.",
         "/players: Shows the number of players online.",
         "/sameTier [on/off]: Turn on/off auto-rejection of challenges from players in a different tier from you.",
-        "/seen [name]: Allows you to see the last login of a user."
+        "/seen [name]: Allows you to see the last login of a user.",
+		"/tourcommands: To see the tour command list."
     ],
     channel:
     [
@@ -1321,7 +1322,8 @@ var commands = {
         "/battlehistory [name]: To view a person's battle history.",
         "/channelusers [channel]: Lists users on a channel.",
 		"/em [emoticon]: Submits emoticons. [emoticon] can be fg, awesome, omg, troll, fu, alone, fp",
-		"/htmlmessage: Allows little use of HTML."
+		"/htmlmessage: Allows little use of HTML.",
+		"/tourcommands: To see the tour command list."
     ],
     admin: // CHANGE
     [
@@ -1371,11 +1373,7 @@ var commands = {
         "/updatetierchecks: To update tier checks.",
         "/togglerainbow: [on/off]: To turn rainbow on or off.",
         "/towner[s] [name]: makes someone a tournament owner (tours.js plugin needs to be installed for this to work)"
-    ],
-	megauser: // CHANGE
-    [
-		"Join #Tournaments to view tour commands"
-	]
+    ]
 };
 
 /* Start script-object
@@ -2416,7 +2414,7 @@ userCommand: function(src, command, commandData, tar) {
         if ( (commandData == "mod" && sys.auth(src) > 0)
             || (commandData == "admin" && sys.auth(src) > 1)
             || (commandData == "owner" && (sys.auth(src) > 2  || isSuperAdmin(src)))
-            || (commandData == "megauser" && (sys.auth(src) > 0 || SESSION.users(src).megauser || SESSION.channels(tourchannel).isChannelOperator(src)))
+            //|| (commandData == "megauser" && (sys.auth(src) > 0 || SESSION.users(src).megauser || SESSION.channels(tourchannel).isChannelOperator(src)))
             || (commandData == "channel") ) {
             sendChanMessage(src, "*** " + commandData.toUpperCase() + " Commands ***");
             commands[commandData].forEach(function(help) {
