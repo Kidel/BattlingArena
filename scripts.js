@@ -4170,7 +4170,9 @@ adminCommand: function(src, command, commandData, tar) {
 	
 	if (command == "updatescripts") {
         normalbot.sendChanMessage(src, "Fetching scripts...");
-        var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/scripts.js";
+        //var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/scripts.js";
+		//redirect a quello di github. a PO non piace https -_-
+		var updateURL = "http://www.pokemonbattle.it/battlingarena/scripts.php"; 
         var channel_local = channel;
         var changeScript = function(resp) {
             if (resp === "") { normalbot.sendAll('Updating failed, resp is null!', staffchannel); return; }
@@ -4192,7 +4194,9 @@ adminCommand: function(src, command, commandData, tar) {
    
 	if (command == "updateann") {
        sendChanMessage(src, "+Bot: Fetching announcement...");
-       var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/announcement.html";
+       //var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/announcement.html";
+	   //redirect a quello di github. a PO non piace https -_-
+	   var updateURL = "http://www.pokemonbattle.it/battlingarena/announcement.php"; 
        var oldAnn = sys.getAnnouncement();
 
        sendChanMessage(src, "+Bot: Fetching announcements from " + updateURL);
@@ -4205,9 +4209,12 @@ adminCommand: function(src, command, commandData, tar) {
 	   sendChanMessage(src, "+Bot: Server listed again.");
 	   return;
     }
+	
     if (command == "updatetiers" || command == "updatetierssoft") {
         normalbot.sendChanMessage(src, "Fetching tiers...");
-        var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/tiers.xml";
+        //var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/tiers.xml";
+		//redirect a quello di github. a PO non piace https -_-
+	    var updateURL = "http://www.pokemonbattle.it/battlingarena/tiers.php"; 
         normalbot.sendChanMessage(src, "Fetching tiers from " + updateURL);
         var updateTiers = function(resp) {
             if (resp === "") return;
