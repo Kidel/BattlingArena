@@ -2073,7 +2073,7 @@ function tourCommand(src, command, commandData) {
 			}
 			return true;
 		}
-		if (command == "help" || command == "commands") {
+		if (command == "tourhelp" || command == "tourcommands") {
 			sys.sendMessage(src, border,tourschan);
 			sys.sendMessage(src, "*** Tournament Commands ***",tourschan);
 			for (var t in tourcommands) {
@@ -2661,10 +2661,10 @@ function tourstart(tier, starter, key, parameters) {
 			sys.sendAll("CLAUSES: "+getTourClauses(tier),channels[x])
 			sys.sendAll("PARAMETERS: "+parameters.mode+" Mode"+(parameters.gen != "default" ? "; Gen: "+getSubgen(parameters.gen,true) : "")+(parameters.type == "double" ? "; Double Elimination" : ""), channels[x])
 			if (channels[x] == tourschan) {
-				sys.sendHtmlAll("<timestamp/> Type <b>/join</b> to enter the tournament, you have "+time_handle(Config.Tours.toursignup)+" to join!", channels[x])
+				sys.sendHtmlAll("<timestamp/> Type <b>/join</b> or click <a href='po:join/join'>HERE</a> to enter the tournament, you have "+time_handle(Config.Tours.toursignup)+" to join!", channels[x])
 			}
 			else {
-				sys.sendAll(Config.Tours.tourbot+"Go to the #"+sys.channel(tourschan)+" channel and type /join to enter the tournament, you have "+time_handle(Config.Tours.toursignup)+" to join!", channels[x])
+				sys.sendAll(Config.Tours.tourbot+"Go to the #"+sys.channel(tourschan)+" channel and type /join or click <a href='po:join/join'>HERE</a> to enter the tournament, you have "+time_handle(Config.Tours.toursignup)+" to join!", channels[x])
 			}
 			sys.sendAll(border, channels[x])
 			sys.sendAll("", channels[x])
@@ -2952,7 +2952,7 @@ function tourprintbracket(key) {
 				tours.tour[key].time = parseInt(sys.time())+Config.Tours.tourdq
 			}
 			if (tours.tour[key].round == 1) {
-				var submessage = "<div style='margin-left: 50px'><br/>Type <b>/join</b> to join late, good while subs last!</div>"
+				var submessage = "<div style='margin-left: 50px'><br/>Type <b>/join</b> or click <a href='po:join/join'>HERE</a> to join late, good while subs last!</div>"
 				var roundposting = "<div style='margin-left: 50px'><b>Round "+tours.tour[key].round+" of the "+getFullTourName(key)+" Tournament</b><br/><table>";
 				for (var x=0; x<tours.tour[key].players.length; x+=2) {
 					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>"
@@ -3490,10 +3490,10 @@ function sendWelcomeMessage(src, chan) {
 	sys.sendMessage(src,"*** Current Tournaments ***",chan)
 	for (var x in tours.tour) {
 		if (tours.tour[x].state == "signups") {
-			sys.sendMessage(src, getFullTourName(x)+": Currently in signups, "+time_handle(tours.tour[x].time-parseInt(sys.time()))+" remaining. Type /join to join.", chan)
+			sys.sendMessage(src, getFullTourName(x)+": Currently in signups, "+time_handle(tours.tour[x].time-parseInt(sys.time()))+" remaining. Type /join or click <a href='po:join/join'>HERE</a> to join.", chan)
 		}
 		else if (tours.tour[x].state == "subround" && tours.tour[x].players.length - tours.tour[x].cpt !== 0) {
-			sys.sendMessage(src, getFullTourName(x)+": Substitute spots are open, type /join to join late.", chan)
+			sys.sendMessage(src, getFullTourName(x)+": Substitute spots are open, type /join or click <a href='po:join/join'>HERE</a> to join late.", chan)
 		}
 		else if (tours.tour[x].state == "final") {
 			sys.sendMessage(src, getFullTourName(x)+": Final Round", chan)
@@ -3606,6 +3606,8 @@ module.exports = {
 		var ret = false;
 		ret |= (isInTour(sys.name(source)) || isInTour(sys.name(dest)));
 		return ret;
+	},
+	beforeChannelJoin : function(src, channel) {
 	},
 	beforeChatMessage : function(src, message, channel) {
 		if (isTourMuted(src) && !isTourAdmin(src) && channel === tourschan) {
