@@ -1,11 +1,8 @@
-﻿/*
+/*
 Code for tours.js
 Coding done by Shadowfist
 */
-
-if (typeof tourschan !== "string") {
-	tourschan = sys.channelId("Tournaments")
-}
+tourschan = sys.channelId("Main")
 
 if (typeof tours !== "object") {
 	sys.sendAll("Creating new tournament object", tourschan)
@@ -493,7 +490,7 @@ function getConfigValue(file, key) {
 			breaktime: 120,
 			absbreaktime: 600,
 			remindertime: 30,
-			channel: "Tournaments",
+			channel: "Main",
 			errchannel: "Developer's Den",
 			tourbotcolour: "#3DAA68",
 			minpercent: 5,
@@ -529,7 +526,7 @@ function initTours() {
 		tourbreak: parseInt(getConfigValue("tourconfig.txt", "breaktime")),
 		abstourbreak: parseInt(getConfigValue("tourconfig.txt", "absbreaktime")),
 		reminder: parseInt(getConfigValue("tourconfig.txt", "remindertime")),
-		channel: "Tournaments",
+		channel: "Main",
 		errchannel: "Developer's Den",
 		tourbotcolour: "#3DAA68",
 		minpercent: parseInt(getConfigValue("tourconfig.txt", "minpercent")),
@@ -540,7 +537,7 @@ function initTours() {
 	if (Config.Tours.tourbot === undefined) {
 		Config.Tours.tourbot = "\u00B1TourBot: "
 	}
-	tourschan = sys.channelId("Tournaments");
+	tourschan = sys.channelId("Main");
 	tourserrchan = sys.channelId("Indigo Plateau");
 	if (sys.existChannel(Config.Tours.channel)) {
 		tourschan = sys.channelId(Config.Tours.channel)
