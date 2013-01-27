@@ -538,7 +538,7 @@ function initTours() {
 		points: true
 	}
 	if (Config.Tours.tourbot === undefined) {
-		Config.Tours.tourbot = "\u00B1Genesect: "
+		Config.Tours.tourbot = "\u00B1TourBot: "
 	}
 	tourschan = sys.channelId("Tournaments");
 	tourserrchan = sys.channelId("Indigo Plateau");
