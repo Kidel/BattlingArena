@@ -73,9 +73,10 @@ require.cache = require_cache;
 var updateModule = function updateModule(module_name, callback) {
    var base_url = Config.base_url;
    var url;
-   if (/^https?:\/\//.test(module_name))
+   // NON VOGLIAMO SIA AGGIORNABILE DA ALTRE URL
+   /*if (/^https?:\/\//.test(module_name))
       url = module_name;
-   else
+   else*/
       url = base_url + module_name; //old one: //url = base_url + "scripts/"+ module_name;
    var fname = module_name.split(/\//).pop();
    if (!callback) {
@@ -87,7 +88,7 @@ var updateModule = function updateModule(module_name, callback) {
        return module;
    } else {
        sys.webCall(url, function updateModule_callback(resp) {
-           if (resp === "") return;
+           if (resp === "") { normalbot.sendAll('Updating failed, resp from ' + url + ' is null!', staffchannel); return; }
            sys.writeToFile("scripts/"+fname, resp);
            delete require.cache[fname];
            var module = require(fname);
