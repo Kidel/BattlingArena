@@ -4,11 +4,11 @@ Coding done by Shadowfist
 */
 
 if (typeof tourschan !== "string") {
-	tourschan = sys.channelId("Main")
+	tourschan = sys.channelId("Tournaments")
 }
 
 if (typeof tours !== "object") {
-	sys.sendAll("Creating new tournament object", tourschan)
+	sys.sendAll("Creating new tournament object", 0)
 	tours = {"queue": [], "globaltime": 0, "key": 0, "keys": [], "tour": {}, "history": [], "touradmins": [], "subscriptions": {}, "activetas": [], "activehistory": [], "tourmutes": {}}
 }
 
@@ -73,7 +73,7 @@ var tourrules = ["*** TOURNAMENT GUIDELINES ***",
 				"- Please ensure you have updated to either the 1.0.60 client or the 2.0 alpha client in order to prevent crashes."]
 // Debug Messages
 function sendDebugMessage(message, chan) {
-	if (chan === tourschan && Config.Tours.debug && sys.existChannel(sys.channel(tourserrchan))) {
+	if (chan === 0 && Config.Tours.debug && sys.existChannel(sys.channel(tourserrchan))) {
 		sys.sendAll(Config.Tours.tourbot+message,tourserrchan)
 	}
 }
@@ -425,17 +425,17 @@ function isSub(name) {
 
 // Sends a message to all tour auth and players in the current tour
 function sendAuthPlayers(message,key) {
-	for (var x in sys.playersOfChannel(tourschan)) {
-		var arr = sys.playersOfChannel(tourschan)
+	for (var x in sys.playersOfChannel(0)) {
+		var arr = sys.playersOfChannel(0)
 		if (isTourAdmin(arr[x]) || tours.tour[key].players.indexOf(sys.name(arr[x]).toLowerCase()) != -1) {
-			sys.sendMessage(arr[x], message, tourschan)
+			sys.sendMessage(arr[x], message, 0)
 		}
 	}
 }
 
 // Sends a html  message to all tour auth and players in the current tour
 function sendHtmlAuthPlayers(message,key) {
-	var arr = sys.playersOfChannel(tourschan)
+	var arr = sys.playersOfChannel(0)
 	for (var x in arr) {
 		if (isTourAdmin(arr[x]) || tours.tour[key].players.indexOf(sys.name(arr[x]).toLowerCase()) != -1) {
 			// send highlighted name in bracket
@@ -445,14 +445,14 @@ function sendHtmlAuthPlayers(message,key) {
 			var regex2 = "<td>"+htmlname+"</td>";
 			var newregex2 = "<td><font style='BACKGROUND-COLOR: #FFAAFF'>"+htmlname+"</font><ping/></td>";
 			var newmessage = message.replace(regex1,newregex1).replace(regex2,newregex2)
-			sys.sendHtmlMessage(arr[x], newmessage, tourschan)
+			sys.sendHtmlMessage(arr[x], newmessage, 0)
 		}
 	}
 }
 
 // Send a flashing bracket
 function sendFlashingBracket(message,key) {
-	var arr = sys.playersOfChannel(tourschan)
+	var arr = sys.playersOfChannel(0)
 	for (var x in arr) {
 		var newmessage = message;
 		if (tours.tour[key].players.indexOf(sys.name(arr[x]).toLowerCase()) != -1) {
@@ -464,16 +464,16 @@ function sendFlashingBracket(message,key) {
 			var newregex2 = "<td><font style='BACKGROUND-COLOR: #FFAAFF'>"+htmlname+"</font><ping/></td>";
 			newmessage = message.replace(regex1,newregex1).replace(regex2,newregex2)
 		}
-		sys.sendHtmlMessage(arr[x], newmessage, tourschan)
+		sys.sendHtmlMessage(arr[x], newmessage, 0)
 	}
 }
 
 // Sends a message to all tour auth
 function sendAllTourAuth(message) {
-	for (var x in sys.playersOfChannel(tourschan)) {
-		var arr = sys.playersOfChannel(tourschan)
+	for (var x in sys.playersOfChannel(0)) {
+		var arr = sys.playersOfChannel(0)
 		if (isTourAdmin(arr[x])) {
-			sys.sendMessage(arr[x], message, tourschan)
+			sys.sendMessage(arr[x], message, 0)
 		}
 	}
 }
@@ -493,7 +493,7 @@ function getConfigValue(file, key) {
 			breaktime: 120,
 			absbreaktime: 600,
 			remindertime: 30,
-			channel: "Main",
+			channel: "Tournaments",
 			errchannel: "Developer's Den",
 			tourbotcolour: "#3DAA68",
 			minpercent: 5,
@@ -503,7 +503,7 @@ function getConfigValue(file, key) {
 		}
 		var configkeys = sys.getValKeys(file)
 		if (configkeys.indexOf(key) == -1) {
-			sys.sendAll("No tour config data detected for '"+key+"', getting default value", tourschan)
+			sys.sendAll("No tour config data detected for '"+key+"', getting default value", 0)
 			return defaultvars[key];
 		}
 		else {
@@ -529,7 +529,7 @@ function initTours() {
 		tourbreak: parseInt(getConfigValue("tourconfig.txt", "breaktime")),
 		abstourbreak: parseInt(getConfigValue("tourconfig.txt", "absbreaktime")),
 		reminder: parseInt(getConfigValue("tourconfig.txt", "remindertime")),
-		channel: "Main",
+		channel: "Tournaments",
 		errchannel: "Developer's Den",
 		tourbotcolour: "#3DAA68",
 		minpercent: parseInt(getConfigValue("tourconfig.txt", "minpercent")),
@@ -540,7 +540,7 @@ function initTours() {
 	if (Config.Tours.tourbot === undefined) {
 		Config.Tours.tourbot = "\u00B1Genesect: "
 	}
-	tourschan = sys.channelId("Main");
+	tourschan = sys.channelId("Tournaments");
 	tourserrchan = sys.channelId("Indigo Plateau");
 	if (sys.existChannel(Config.Tours.channel)) {
 		tourschan = sys.channelId(Config.Tours.channel)
@@ -549,7 +549,7 @@ function initTours() {
 		tourserrchan = sys.channelId(Config.Tours.errchannel)
 	}
 	if (typeof tours != "object") {
-		sys.sendAll("Creating new tournament object", tourschan)
+		sys.sendAll("Creating new tournament object", 0)
 		tours = {"queue": [], "globaltime": 0, "key": 0, "keys": [], "tour": {}, "history": [], "touradmins": [], "subscriptions": {}, "activetas": [], "activehistory": [], "tourmutes": {}}
 	}
 	else {
@@ -567,12 +567,12 @@ function initTours() {
 	}
 	try {
 		getTourWinMessages()
-		sys.sendAll("Win messages added", tourschan)
+		sys.sendAll("Win messages added", 0)
 	}
 	catch (e) {
 		// use a sample set of win messages
 		tourwinmessages = ["annihilated", "threw a table at", "blasted", "captured the flag from", "FALCON PAAAAWNCHED", "haxed", "outsmarted", "won against", "hung, drew and quartered"];
-		sys.sendAll("No win messages detected, using default win messages", tourschan)
+		sys.sendAll("No win messages detected, using default win messages", 0)
 	}
 	try {
 		var data = (sys.getFileContent("touradmins.txt")).split(":::")
@@ -585,15 +585,15 @@ function initTours() {
 		tours.touradmins = data
 	}
 	catch (e) {
-		sys.sendAll("No tour admin data detected, leaving blank", tourschan)
+		sys.sendAll("No tour admin data detected, leaving blank", 0)
 	}
 	try {
 		loadTourMutes()
 	}
 	catch (e) {
-		sys.sendAll("No tourmute data detected, leaving blank", tourschan)
+		sys.sendAll("No tourmute data detected, leaving blank", 0)
 	}
-	sys.sendAll("Version "+Config.Tours.version+" of the tournaments system was loaded successfully in this channel!", tourschan)
+	sys.sendAll("Version "+Config.Tours.version+" of the tournaments system was loaded successfully in this channel!", 0)
 }
 
 /* Tournament Step Event
@@ -622,7 +622,7 @@ function tourStep() {
 	}
 	for (var x in tours.tour) {
 		if (tours.tour[x].time-parseInt(sys.time()) <= 10) {
-			sendDebugMessage("Time Remaining in the "+getFullTourName(x)+" tournament: "+time_handle(tours.tour[x].time-parseInt(sys.time()))+"; State: "+tours.tour[x].state,tourschan)
+			sendDebugMessage("Time Remaining in the "+getFullTourName(x)+" tournament: "+time_handle(tours.tour[x].time-parseInt(sys.time()))+"; State: "+tours.tour[x].state,0)
 		}
 		if (tours.tour[x].state == "signups") {
 			if (tours.tour[x].time <= parseInt(sys.time())) {
@@ -724,7 +724,7 @@ function tourBattleStart(src, dest, clauses, rated, mode, bid) {
 		tours.tour[key].active[name2] = "Battle"// this avoids dq later since they made an attempt to start
 		if (tours.tour[key].state == "final") {
 			sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>The final battle of the "+getFullTourName(key)+" tournament between <b>"+html_escape(sys.name(src))+"</b> and <b>"+html_escape(sys.name(dest))+"</b> just started!</a>",0)
-			sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>The final battle of the "+getFullTourName(key)+" tournament between <b>"+html_escape(sys.name(src))+"</b> and <b>"+html_escape(sys.name(dest))+"</b> just started!</a>",tourschan)
+			sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>The final battle of the "+getFullTourName(key)+" tournament between <b>"+html_escape(sys.name(src))+"</b> and <b>"+html_escape(sys.name(dest))+"</b> just started!</a>", 0)
 		}
 		return true;
 	}
@@ -757,7 +757,7 @@ function tourBattleEnd(winner, loser, result) {
 			return;
 		}
 		if (result == "tie") {
-			sys.sendAll(Config.Tours.tourbot+"The match between "+winname+" and "+losename+" ended in a tie, please rematch!", tourschan)
+			sys.sendAll(Config.Tours.tourbot+"The match between "+winname+" and "+losename+" ended in a tie, please rematch!", 0)
 			return;
 		}
 		battleend(winner, loser, key)
@@ -828,12 +828,12 @@ function tourCommand(src, command, commandData) {
 				for (var x in tiers) {
 					sys.writeToFile("tourscores_"+tiers[x].replace(/ /g,"_")+".txt","")
 				}
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" cleared the tour rankings!",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" cleared the tour rankings!",0)
 				return true;
 			}
 			if (command == "resettours") {
 				tours = {"queue": [], "globaltime": 0, "key": 0, "keys": [], "tour": {}, "history": [], "touradmins": [], "subscriptions": {}, "activetas": [], "activehistory": [], "tourmutes": {}};
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" reset the tour system!",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" reset the tour system!",0)
 				return true;
 			}
 			/*if (command == "clearmonthrankings") { // not needed
@@ -841,7 +841,7 @@ function tourCommand(src, command, commandData) {
 				var themonths = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "decemeber"]
 				var monthlyfile = "tourmonthscore_"+themonths[now.getUTCMonth()]+"_"+now.getUTCFullYear()+".txt"
 				sys.writeToFile(monthlyfile, "")
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" cleared this month's tour rankings!",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" cleared this month's tour rankings!", 0)
 				return true;
 			}*/
 			if (command == "evalvars") {
@@ -849,7 +849,7 @@ function tourCommand(src, command, commandData) {
 				return true;
 			}
 			/*if (command == "sendall") { // unnecessary
-				sys.sendAll(sys.name(src) + ": " + commandData, tourschan);
+				sys.sendAll(sys.name(src) + ": " + commandData, 0);
 				return true;
 			}*/
 			if (command == "fullleaderboard") {
@@ -880,18 +880,18 @@ function tourCommand(src, command, commandData) {
 						list.push([rankingdata[1], rankingdata[0]]);
 					}
 					list.sort(function(a,b) { return b[0] - a[0] ; });
-					sys.sendMessage(src, "*** FULL TOURNAMENT RANKINGS "+(commandData != "" ? "("+commandData+") " : "")+"***",tourschan)
+					sys.sendMessage(src, "*** FULL TOURNAMENT RANKINGS "+(commandData != "" ? "("+commandData+") " : "")+"***",0)
 					for (var x=0; x<65536; x++) {
 						if (x >= list.length) break;
-						sys.sendMessage(src, "#"+(x+1)+": "+(list[x])[1]+" ~ "+(list[x])[0]+" point"+((list[x])[0] != 1 ? "s" : ""),tourschan)
+						sys.sendMessage(src, "#"+(x+1)+": "+(list[x])[1]+" ~ "+(list[x])[0]+" point"+((list[x])[0] != 1 ? "s" : ""),0)
 					}
 				}
 				catch (err) {
 					if (err == "Not a valid tier") {
-						sys.sendMessage(src, Config.Tours.tourbot+commandData+" is not a valid tier!",tourschan)
+						sys.sendMessage(src, Config.Tours.tourbot+commandData+" is not a valid tier!",0)
 					}
 					else {
-						sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet!",tourschan)
+						sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet!",0)
 					}
 				}
 				return true;
@@ -919,14 +919,14 @@ function tourCommand(src, command, commandData) {
 						list.push([rankingdata[1], rankingdata[0]]);
 					}
 					list.sort(function(a,b) { return b[0] - a[0] ; });
-					sys.sendMessage(src, "*** FULL MONTHLY TOURNAMENT RANKINGS "+(commandData != "" ? "("+commandData+") " : "")+"***",tourschan)
+					sys.sendMessage(src, "*** FULL MONTHLY TOURNAMENT RANKINGS "+(commandData != "" ? "("+commandData+") " : "")+"***",0)
 					for (var x=0; x<65536; x++) {
 						if (x >= list.length) break;
-						sys.sendMessage(src, "#"+(x+1)+": "+(list[x])[1]+" ~ "+(list[x])[0]+" point"+((list[x])[0] != 1 ? "s" : ""),tourschan)
+						sys.sendMessage(src, "#"+(x+1)+": "+(list[x])[1]+" ~ "+(list[x])[0]+" point"+((list[x])[0] != 1 ? "s" : ""),0)
 					}
 				}
 				catch (err) {
-					sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet for the month "+commandData+"!",tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet for the month "+commandData+"!",0)
 				}
 				return true;
 			}
@@ -936,24 +936,24 @@ function tourCommand(src, command, commandData) {
 			if (command == "touradmin") {
 				var tadmins = tours.touradmins
 				if (sys.dbIp(commandData) === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"This user doesn't exist!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"This user doesn't exist!",0)
 					return true;
 				}
 				if (!sys.dbRegistered(commandData)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"They aren't registered so you can't give them authority!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"They aren't registered so you can't give them authority!",0)
 					if (sys.id(commandData) !== undefined) {
 						sys.sendMessage(sys.id(commandData), Config.Tours.tourbot+"Please register ASAP, before getting tour authority.")
 					}
 					return true;
 				}
 				if (sys.dbAuth(commandData) >= 1) {
-					sys.sendMessage(src,Config.Tours.tourbot+"They can already start tours!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"They can already start tours!",0)
 					return true;
 				}
 				if (tadmins !== undefined) {
 					for (var t in tadmins) {
 						if (tadmins[t].toLowerCase() == commandData.toLowerCase()) {
-							sys.sendMessage(src,Config.Tours.tourbot+"They are already a tour admin!",tourschan)
+							sys.sendMessage(src,Config.Tours.tourbot+"They are already a tour admin!",0)
 							return true;
 						}
 					}
@@ -961,13 +961,13 @@ function tourCommand(src, command, commandData) {
 				tadmins.push(commandData) 
 				tours.touradmins = tadmins
 				saveTourKeys()
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" promoted "+commandData.toLowerCase()+" to a tournament admin!",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" promoted "+commandData.toLowerCase()+" to a tournament admin!",0)
 				return true;
 			}
 			if (command == "tourdeadmin") {
 				var tadmins = tours.touradmins
 				if (sys.dbIp(commandData) === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"This user doesn't exist!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"This user doesn't exist!",0)
 					return true;
 				}
 				var index = -1
@@ -980,18 +980,18 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (index == -1) {
-					sys.sendMessage(src,Config.Tours.tourbot+"They are not a tour admin!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"They are not a tour admin!",0)
 					return true;
 				}
 				tadmins.splice(index,1) 
 				tours.touradmins = tadmins
 				saveTourKeys()
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" fired "+commandData.toLowerCase()+" from running tournaments!",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" fired "+commandData.toLowerCase()+" from running tournaments!",0)
 				return true;
 			}
 			// active history command
 			if (command == "tahistory") {
-				sys.sendMessage(src, "*** TOUR ADMIN HISTORY ***",tourschan)
+				sys.sendMessage(src, "*** TOUR ADMIN HISTORY ***",0)
 				var length = 168;
 				if (commandData == "") {
 					length = tours.activehistory.length
@@ -1003,13 +1003,13 @@ function tourCommand(src, command, commandData) {
 					length = tours.activehistory.length
 				}
 				for (var x=0;x<length;x++) {
-					sys.sendMessage(src, tours.activehistory[x],tourschan)
+					sys.sendMessage(src, tours.activehistory[x],0)
 				}
 				return true;
 			}
 			if (command == "stopautostart") {
 				tours.globaltime = 0
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" stopped tournaments from auto starting for now, this will be removed when another tour is started.",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" stopped tournaments from auto starting for now, this will be removed when another tour is started.",0)
 				return true;
 			}
 			/*if (command == "forcestart") {
@@ -1020,15 +1020,15 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (key === null) {
-					sys.sendMessage(src, Config.Tours.tourbot+"There are no tournaments currently in signups to force start! Use /tour [tier] instead, or /start to start the next tournament in the queue!", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"There are no tournaments currently in signups to force start! Use /tour [tier] instead, or /start to start the next tournament in the queue!", 0)
 					return true;
 				}
 				if (tours.tour[x].players.length < 3) {
-					sys.sendMessage(src, Config.Tours.tourbot+"There are not enough players to start!", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"There are not enough players to start!", 0)
 					return true;
 				}
 				tourinitiate(key);
-				sys.sendAll(Config.Tours.tourbot+"The "+tours.tour[x].tourtype+" tour was force started by "+sys.name(src)+".", tourschan)
+				sys.sendAll(Config.Tours.tourbot+"The "+tours.tour[x].tourtype+" tour was force started by "+sys.name(src)+".", 0)
 				return true;
 			}*/
 			if (command == "push") {
@@ -1041,13 +1041,13 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (key === null) {
-					sys.sendMessage(src,Config.Tours.tourbot+"You can't push anyone into a tournament now!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"You can't push anyone into a tournament now!",0)
 					return true;
 				}
 				/* Is already in another tour */
 				for (var x in tours.tour) {
 					if (tours.tour[x].players.indexOf(target) != -1) {
-						sys.sendMessage(src,Config.Tours.tourbot+"You can't push them in another tour!",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"You can't push them in another tour!",0)
 						return true;
 					}
 				}
@@ -1080,7 +1080,7 @@ function tourCommand(src, command, commandData) {
 				if (tours.tour[key].players.length >= 256) {
 					tours.tour[key].time = parseInt(sys.time())
 				}
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(target)+" was added to the "+getFullTourName(key)+" tournament by "+sys.name(src)+" (player #"+tours.tour[key].players.length+"), "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? "" : "s")+" remaining!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(target)+" was added to the "+getFullTourName(key)+" tournament by "+sys.name(src)+" (player #"+tours.tour[key].players.length+"), "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? "" : "s")+" remaining!", 0)
 				return true;
 			}
 			// enabled for now!
@@ -1089,14 +1089,14 @@ function tourCommand(src, command, commandData) {
 				if (commandData.indexOf("http://") === 0 || commandData.indexOf("https://") === 0) {
 					url = commandData;
 				}
-				sys.sendMessage(src, Config.Tours.tourbot+"Fetching win messages from "+url, tourschan);
+				sys.sendMessage(src, Config.Tours.tourbot+"Fetching win messages from "+url, 0);
 				sys.webCall(url, function(resp) {
 					if (resp !== "") {
 						sys.writeToFile('tourwinverbs.txt', resp);
 						getTourWinMessages()
-						sys.sendAll(Config.Tours.tourbot + 'Updated win messages!', tourschan);
+						sys.sendAll(Config.Tours.tourbot + 'Updated win messages!', 0);
 					} else {
-						sys.sendMessage(src, Config.Tours.tourbot + 'Failed to update!', tourschan);
+						sys.sendMessage(src, Config.Tours.tourbot + 'Failed to update!', 0);
 					}
 				});
 				return true;
@@ -1114,11 +1114,11 @@ function tourCommand(src, command, commandData) {
 					var parameters = {"mode": data[2], "gen": data[3], "type": data[4]}
 					tours.queue.splice(0,1)
 					tourstart(tourtostart, sys.name(src), tours.key, parameters)
-					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" force started the "+tourtostart+" tournament!",tourschan)
+					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" force started the "+tourtostart+" tournament!",0)
 					return true;
 				}
 				else {
-					sys.sendMessage(src, Config.Tours.tourbot+"There are no tournaments to force start! Use /tour [tier] instead!", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"There are no tournaments to force start! Use /tour [tier] instead!", 0)
 					return true;
 				}
 			}
@@ -1137,17 +1137,17 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (!found) {
-					sys.sendMessage(src, Config.Tours.tourbot+"The tier '"+commandData+"' doesn't exist! Make sure the tier is typed out correctly and that it exists.", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"The tier '"+commandData+"' doesn't exist! Make sure the tier is typed out correctly and that it exists.", 0)
 					return true;
 				}
 				if (tourtier.indexOf("Smogon") != -1 && !isTourSuperAdmin(src)) {
-					sys.sendMessage(src, Config.Tours.tourbot+"You are not permitted to run Smogon tier tournaments!", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"You are not permitted to run Smogon tier tournaments!", 0)
 					return true;
 				}
 				var lasttours = getListOfTours(7);
 				var lastindex = lasttours.indexOf(tourtier);
 				if (lastindex != -1 && !isTourSuperAdmin(src)) {
-					sys.sendMessage(src, Config.Tours.tourbot+"A "+tourtier+" tournament is in the queue, is running or was recently run, no repeating!", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"A "+tourtier+" tournament is in the queue, is running or was recently run, no repeating!", 0)
 					return true;
 				}
 				var isSignups = false;
@@ -1168,7 +1168,7 @@ function tourCommand(src, command, commandData) {
 						if (cmp(parameterset, "mode")) {
 							var singlesonlytiers = ["DW 1v1", "DW 1v1 Ubers", "CC 1v1", "Wifi CC 1v1", "GBU Singles", "Adv Ubers", "Adv OU", "DP Ubers", "DP OU", "DW OU", "DW Ubers", "Wifi OU", "Wifi Ubers"];
 							if ((modeOfTier(tourtier) == "Doubles" || modeOfTier(tourtier) == "Triples" || singlesonlytiers.indexOf(tourtier) != -1) && !cmp(parametervalue, modeOfTier(tourtier))) {
-								sys.sendMessage(src, Config.Tours.tourbot+"The "+tourtier+" tier can only be played in " + modeOfTier(tourtier) + " mode!", tourschan);
+								sys.sendMessage(src, Config.Tours.tourbot+"The "+tourtier+" tier can only be played in " + modeOfTier(tourtier) + " mode!", 0);
 								return true;
 							}
 							if (cmp(parametervalue, "singles")) {
@@ -1188,7 +1188,7 @@ function tourCommand(src, command, commandData) {
 							}
 							else {
 								parameters.gen = "5-1" // BW2
-								sys.sendMessage(src, Config.Tours.tourbot+"Warning! The subgen '"+parametervalue+"' does not exist! Used BW2 instead!", tourschan);
+								sys.sendMessage(src, Config.Tours.tourbot+"Warning! The subgen '"+parametervalue+"' does not exist! Used BW2 instead!", 0);
 							}
 						}
 						else if (cmp(parameterset, "type")) {
@@ -1200,7 +1200,7 @@ function tourCommand(src, command, commandData) {
 							}
 						}
 						else {
-							sys.sendMessage(src, Config.Tours.tourbot+"Warning! The parameter '"+parameterset+"' does not exist!", tourschan);
+							sys.sendMessage(src, Config.Tours.tourbot+"Warning! The parameter '"+parameterset+"' does not exist!", 0);
 						}
 					}
 				}
@@ -1208,12 +1208,12 @@ function tourCommand(src, command, commandData) {
 					parameters.gen = "5-1";
 				}
 				if (tours.queue.length >= Config.Tours.maxqueue && !isTourSuperAdmin(src)) {
-					sys.sendMessage(src, Config.Tours.tourbot+"There are already "+Config.Tours.maxqueue+" or more tournaments in the queue, so you can't add another one!", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"There are already "+Config.Tours.maxqueue+" or more tournaments in the queue, so you can't add another one!", 0)
 					return true;
 				}
 				else if (tours.keys.length > 0 || tours.queue.length > 0 || isSignups) {
 					tours.queue.push(tourtier+":::"+sys.name(src)+":::"+parameters.mode+":::"+parameters.gen+":::"+parameters.type)
-					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" added a "+tourtier+" tournament into the queue! Type /queue to see what is coming up next.",tourschan)
+					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" added a "+tourtier+" tournament into the queue! Type /queue to see what is coming up next.", 0)
 				}
 				else {
 					tourstart(tourtier, sys.name(src), tours.key, parameters)
@@ -1234,13 +1234,13 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (index < 0 || index >= tours.queue.length) {
-					sys.sendMessage(src, Config.Tours.tourbot+"The tier '"+commandData+"' doesn't exist in the queue, so it can't be removed! Make sure the tier is typed out correctly.", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"The tier '"+commandData+"' doesn't exist in the queue, so it can't be removed! Make sure the tier is typed out correctly.", 0)
 					return true;
 				}
 				else {
 					var removedtour = (tours.queue[index].split(":::",1))[0]
 					tours.queue.splice(index, 1)
-					sys.sendAll(Config.Tours.tourbot+"The "+removedtour+" tour (position "+(index+1)+") was removed from the queue by "+sys.name(src)+".", tourschan)
+					sys.sendAll(Config.Tours.tourbot+"The "+removedtour+" tour (position "+(index+1)+") was removed from the queue by "+sys.name(src)+".", 0)
 					return true;
 				}
 			}
@@ -1254,10 +1254,10 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (key === null) {
-					sys.sendMessage(src,Config.Tours.tourbot+"The "+commandData+" tournament is not in progress!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"The "+commandData+" tournament is not in progress!", 0)
 					return true;
 				}
-				sys.sendAll(Config.Tours.tourbot+"The "+getFullTourName(key)+" tournament was cancelled by "+sys.name(src)+"!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+"The "+getFullTourName(key)+" tournament was cancelled by "+sys.name(src)+"!", 0)
 				delete tours.tour[key];
 				tours.keys.splice(tours.keys.indexOf(key), 1);
 				return true;
@@ -1266,31 +1266,31 @@ function tourCommand(src, command, commandData) {
 				var newname = commandData
 				var tadmins = tours.touradmins
 				if (sys.dbIp(newname) === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"This user doesn't exist!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"This user doesn't exist!", 0)
 					return true;
 				}
 				if (!sys.dbRegistered(newname)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"That account isn't registered so you can't give it authority!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"That account isn't registered so you can't give it authority!", 0)
 					return true;
 				}
 				if (sys.dbAuth(newname) >= 1) {
-					sys.sendMessage(src,Config.Tours.tourbot+"That account can already start tours!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"That account can already start tours!", 0)
 					return true;
 				}
 				if (tadmins !== undefined) {
 					for (var t in tadmins) {
 						if (cmp(tadmins[t].toLowerCase(), newname)) {
-							sys.sendMessage(src,Config.Tours.tourbot+"The target is already a tour admin!",tourschan)
+							sys.sendMessage(src,Config.Tours.tourbot+"The target is already a tour admin!", 0)
 							return true;
 						}
 					}
 				}
 				if (sys.id(newname) === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"The target is offline!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"The target is offline!", 0)
 					return true;
 				}
 				if (sys.ip(sys.id(newname)) !== sys.ip(src)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"Both accounts must be on the same IP to switch!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Both accounts must be on the same IP to switch!", 0)
 					return true;
 				}
 				var index = -1;
@@ -1301,13 +1301,13 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (index == -1) {
-					sys.sendMessage(src,Config.Tours.tourbot+"Failed to pass tour auth! Please post about this issue on forums!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Failed to pass tour auth! Please post about this issue on forums!", 0)
 					return true;
 				}
 				tadmins.splice(t, 1, toCorrectCase(newname))
 				tours.touradmins = tadmins
 				saveTourKeys()
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" passed their tour auth to "+toCorrectCase(newname)+"!",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" passed their tour auth to "+toCorrectCase(newname)+"!", 0)
 				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" passed their tour auth to "+toCorrectCase(newname)+"!",sys.channelId("Victory Road"))
 				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" passed their tour auth to "+toCorrectCase(newname)+"!",sys.channelId("Indigo Plateau"))
 				return true;
@@ -1329,17 +1329,17 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (key === null) {
-					sys.sendMessage(src,Config.Tours.tourbot+"That player isn't in a tournament!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"That player isn't in a tournament!", 0)
 					return true;
 				}
 				if (tours.tour[key].state == "signups") {
 					var index = tours.tour[key].players.indexOf(commandData.toLowerCase())
 					tours.tour[key].players.splice(index, 1)
 					tours.tour[key].cpt -= 1
-					sys.sendAll(Config.Tours.tourbot+toCorrectCase(commandData)+" was taken out of the tournament signups by "+sys.name(src)+" from the "+getFullTourName(key)+" tournament!", tourschan);
+					sys.sendAll(Config.Tours.tourbot+toCorrectCase(commandData)+" was taken out of the tournament signups by "+sys.name(src)+" from the "+getFullTourName(key)+" tournament!", 0);
 				}
 				else {
-					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" disqualified "+toCorrectCase(commandData)+" from the "+getFullTourName(key)+" tournament!", tourschan)
+					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" disqualified "+toCorrectCase(commandData)+" from the "+getFullTourName(key)+" tournament!", 0)
 					disqualify(commandData.toLowerCase(), key, false)
 				}
 				addTourActivity(src)
@@ -1354,17 +1354,17 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (key === null) {
-					sys.sendMessage(src,Config.Tours.tourbot+"That player isn't in a tournament!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"That player isn't in a tournament!", 0)
 					return true;
 				}
 				var index = tours.tour[key].battlers.indexOf(commandData.toLowerCase())
 				if (index == -1) {
-					sys.sendMessage(src,Config.Tours.tourbot+"That player isn't battling for the tournament!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"That player isn't battling for the tournament!", 0)
 					return true;
 				}
 				else {
 					var opponent = index%2 === 0 ? tours.tour[key].battlers[index+1] : tours.tour[key].battlers[index-1]
-					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" voided the results of the battle between "+toCorrectCase(commandData)+" and "+toCorrectCase(tours.tour[key].battlers[oppindex])+" in the "+getFullTourName(key)+" tournament, please rematch.", tourschan)
+					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" voided the results of the battle between "+toCorrectCase(commandData)+" and "+toCorrectCase(tours.tour[key].battlers[oppindex])+" in the "+getFullTourName(key)+" tournament, please rematch.", 0)
 					tours.tour[key].battlers.splice(index,1)
 					tours.tour[key].battlers.splice(tours.tour[key].battlers.indexOf(opponent),1)
 				}
@@ -1383,19 +1383,19 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (sys.id(newname) === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"It's not a good idea to sub a player in who isn't on the server at the moment!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"It's not a good idea to sub a player in who isn't on the server at the moment!", 0)
 					return true;
 				}
 				if (key === null) {
-					sys.sendMessage(src,Config.Tours.tourbot+"No substitutes can be made!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"No substitutes can be made!", 0)
 					return true;
 				}
 				if (tours.tour[key].players.indexOf(oldname) == -1) {
-					sys.sendMessage(src,Config.Tours.tourbot+"Your target doesn't exist in the tournament!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Your target doesn't exist in the tournament!", 0)
 					return true;
 				}
 				tours.tour[key].players.splice(tours.tour[key].players.indexOf(oldname),1,newname)
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" substituted "+toCorrectCase(newname)+" in place of "+toCorrectCase(oldname)+" in the "+getFullTourName(key)+" tournament.", tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" substituted "+toCorrectCase(newname)+" in place of "+toCorrectCase(oldname)+" in the "+getFullTourName(key)+" tournament.", 0)
 				addTourActivity(src)
 				return true;
 			}
@@ -1410,37 +1410,37 @@ function tourCommand(src, command, commandData) {
 				var ip = sys.dbIp(tar)
 				if (sys.id(tar) !== undefined) {
 					if (isTourAdmin(sys.id(tar)) && sys.maxAuth(ip) >= sys.auth(src)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Can't mute higher auth!",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Can't mute higher auth!", 0)
 						return true;
 					}
 				}
 				else {
 					if ((tours.touradmins.indexOf(tar.toLowerCase()) > -1 || sys.maxAuth(ip) >= 1) && sys.maxAuth(ip) >= sys.auth(src)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Can't mute higher auth!",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Can't mute higher auth!", 0)
 						return true;
 					}
 				}
 				if (ip === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"This person doesn't exist!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"This person doesn't exist!", 0)
 					return true;
 				}
 				if (tours.tourmutes.hasOwnProperty(ip)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"They are already tourmuted!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"They are already tourmuted!", 0)
 					return true;
 				}
 				if (reason === undefined) {
 					reason = "";
 				}
 				if (reason === "" && !isTourOwner(src)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"You must provide a reason!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"You must provide a reason!", 0)
 					return true;
 				}
 				if (time <= 0) {
-					sys.sendMessage(src,Config.Tours.tourbot+"Can't tourmute someone for less than 1 second!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Can't tourmute someone for less than 1 second!", 0)
 					return true;
 				}
 				if (usingBadWords(reason)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"'"+reason+"' is not a valid reason!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"'"+reason+"' is not a valid reason!", 0)
 					return true;
 				}
 				var maxtime = 0;
@@ -1462,7 +1462,7 @@ function tourCommand(src, command, commandData) {
 				if (time > maxtime) {
 					time = maxtime;
 				}
-				var channels = [sys.channelId("Indigo Plateau"), sys.channelId("Victory Road"), tourschan]
+				var channels = [sys.channelId("Indigo Plateau"), sys.channelId("Victory Road"), 0]
 				tours.tourmutes[ip] = {'expiry': parseInt(sys.time()) + time, 'reason': reason, 'auth': sys.name(src), 'name': tar.toLowerCase()}
 				for (var x in channels) {
 					if (sys.existChannel(sys.channel(channels[x]))) {
@@ -1475,70 +1475,70 @@ function tourCommand(src, command, commandData) {
 			if (command == "tourunmute") {
 				var ip = sys.dbIp(commandData) 
 				if (ip === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"This person doesn't exist!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"This person doesn't exist!", 0)
 					return true;
 				}
 				if (!tours.tourmutes.hasOwnProperty(ip)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"They aren't tourmuted!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"They aren't tourmuted!", 0)
 					return true;
 				}
 				if (ip === sys.ip(src) && !isTourOwner(src)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"You can't unmute yourself!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"You can't unmute yourself!", 0)
 					return true;
 				}
 				delete tours.tourmutes[ip];
-				sys.sendAll(Config.Tours.tourbot+commandData+" was untourmuted by "+sys.name(src)+"!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+commandData+" was untourmuted by "+sys.name(src)+"!", 0)
 				saveTourMutes()
 				return true;
 			}
 			if (command == "tourmutes") {
-				sys.sendMessage(src,"*** TOURS MUTELIST ***",tourschan)
+				sys.sendMessage(src,"*** TOURS MUTELIST ***", 0)
 				for (var t in tours.tourmutes) {
 					if (tours.tourmutes[t].expiry > parseInt(sys.time())) {
-						sys.sendMessage(src, tours.tourmutes[t].name + ": Set by "+tours.tourmutes[t].auth+"; expires in "+time_handle(tours.tourmutes[t].expiry-parseInt(sys.time()))+"; reason: "+tours.tourmutes[t].reason, tourschan)
+						sys.sendMessage(src, tours.tourmutes[t].name + ": Set by "+tours.tourmutes[t].auth+"; expires in "+time_handle(tours.tourmutes[t].expiry-parseInt(sys.time()))+"; reason: "+tours.tourmutes[t].reason, 0)
 					}
 				}
 				return true;
 			}
 			if (command == "config") {
-				sys.sendMessage(src,"*** CURRENT CONFIGURATION ***",tourschan)
-				sys.sendMessage(src,"Maximum Queue Length: "+Config.Tours.maxqueue,tourschan)
-				sys.sendMessage(src,"Maximum Number of Simultaneous Tours: "+Config.Tours.maxrunning,tourschan)
-				sys.sendMessage(src,"Tour Sign Ups Length: "+time_handle(Config.Tours.toursignup),tourschan)
-				sys.sendMessage(src,"Tour Auto DQ length: "+time_handle(Config.Tours.tourdq),tourschan)
-				sys.sendMessage(src,"Tour Activity Check: "+time_handle(Config.Tours.activity),tourschan)
-				sys.sendMessage(src,"Substitute Time: "+time_handle(Config.Tours.subtime),tourschan)
-				sys.sendMessage(src,"Tour Break Time: "+time_handle(Config.Tours.tourbreak),tourschan)
-				sys.sendMessage(src,"Absolute Tour Break Time: "+time_handle(Config.Tours.abstourbreak),tourschan)
-				sys.sendMessage(src,"Tour Reminder Time: "+time_handle(Config.Tours.reminder),tourschan)
-				sys.sendMessage(src,"Auto start when percentage of players is less than: "+Config.Tours.minpercent+"%",tourschan)
-				sys.sendMessage(src,"Bot Name: "+Config.Tours.tourbot,tourschan)
-				sys.sendMessage(src,"Channel: "+Config.Tours.channel,tourschan)
-				sys.sendMessage(src,"Error Channel: "+Config.Tours.errchannel,tourschan)
-				sys.sendMessage(src,"Scoring system activated: "+Config.Tours.points,tourschan)
-				sys.sendMessage(src,"Debug: "+Config.Tours.debug,tourschan)
+				sys.sendMessage(src,"*** CURRENT CONFIGURATION ***", 0)
+				sys.sendMessage(src,"Maximum Queue Length: "+Config.Tours.maxqueue, 0)
+				sys.sendMessage(src,"Maximum Number of Simultaneous Tours: "+Config.Tours.maxrunning, 0)
+				sys.sendMessage(src,"Tour Sign Ups Length: "+time_handle(Config.Tours.toursignup), 0)
+				sys.sendMessage(src,"Tour Auto DQ length: "+time_handle(Config.Tours.tourdq), 0)
+				sys.sendMessage(src,"Tour Activity Check: "+time_handle(Config.Tours.activity), 0)
+				sys.sendMessage(src,"Substitute Time: "+time_handle(Config.Tours.subtime), 0)
+				sys.sendMessage(src,"Tour Break Time: "+time_handle(Config.Tours.tourbreak), 0)
+				sys.sendMessage(src,"Absolute Tour Break Time: "+time_handle(Config.Tours.abstourbreak), 0)
+				sys.sendMessage(src,"Tour Reminder Time: "+time_handle(Config.Tours.reminder), 0)
+				sys.sendMessage(src,"Auto start when percentage of players is less than: "+Config.Tours.minpercent+"%", 0)
+				sys.sendMessage(src,"Bot Name: "+Config.Tours.tourbot, 0)
+				sys.sendMessage(src,"Channel: "+Config.Tours.channel, 0)
+				sys.sendMessage(src,"Error Channel: "+Config.Tours.errchannel, 0)
+				sys.sendMessage(src,"Scoring system activated: "+Config.Tours.points, 0)
+				sys.sendMessage(src,"Debug: "+Config.Tours.debug, 0)
 				return true;
 			}
 			if (command == "configset") {
 				var data = commandData.split(':',2)
 				if (commandData.length < 2) {
-					sys.sendMessage(src,"*** CONFIG SETTINGS ***",tourschan)
-					sys.sendMessage(src,"Usage: /configset [var]:[value]. Variable list and current values are below:",tourschan)
-					sys.sendMessage(src,"Example: '/configset maxqueue:3' will set the maximum queue length to 3:",tourschan)
-					sys.sendMessage(src,"maxqueue: "+Config.Tours.maxqueue,tourschan)
-					sys.sendMessage(src,"maxrunning: "+Config.Tours.maxrunning,tourschan)
-					sys.sendMessage(src,"toursignup: "+time_handle(Config.Tours.toursignup),tourschan)
-					sys.sendMessage(src,"tourdq: "+time_handle(Config.Tours.tourdq),tourschan)
-					sys.sendMessage(src,"touractivity: "+time_handle(Config.Tours.activity),tourschan)
-					sys.sendMessage(src,"subtime: "+time_handle(Config.Tours.subtime),tourschan)
-					sys.sendMessage(src,"breaktime: "+time_handle(Config.Tours.tourbreak),tourschan)
-					sys.sendMessage(src,"absbreaktime: "+time_handle(Config.Tours.abstourbreak),tourschan)
-					sys.sendMessage(src,"remindertime: "+time_handle(Config.Tours.reminder),tourschan)
-					sys.sendMessage(src,"minpercent: "+Config.Tours.minpercent,tourschan)
-					sys.sendMessage(src,"botname: "+Config.Tours.tourbot,tourschan)
-					sys.sendMessage(src,"channel: "+Config.Tours.channel,tourschan)
-					sys.sendMessage(src,"scoring: "+Config.Tours.points,tourschan)
-					sys.sendMessage(src,"debug: "+Config.Tours.debug+" (to change this, type /configset debug [0/1] ~ true = 1; false = 0)",tourschan)
+					sys.sendMessage(src,"*** CONFIG SETTINGS ***", 0)
+					sys.sendMessage(src,"Usage: /configset [var]:[value]. Variable list and current values are below:", 0)
+					sys.sendMessage(src,"Example: '/configset maxqueue:3' will set the maximum queue length to 3:", 0)
+					sys.sendMessage(src,"maxqueue: "+Config.Tours.maxqueue, 0)
+					sys.sendMessage(src,"maxrunning: "+Config.Tours.maxrunning, 0)
+					sys.sendMessage(src,"toursignup: "+time_handle(Config.Tours.toursignup), 0)
+					sys.sendMessage(src,"tourdq: "+time_handle(Config.Tours.tourdq), 0)
+					sys.sendMessage(src,"touractivity: "+time_handle(Config.Tours.activity), 0)
+					sys.sendMessage(src,"subtime: "+time_handle(Config.Tours.subtime), 0)
+					sys.sendMessage(src,"breaktime: "+time_handle(Config.Tours.tourbreak), 0)
+					sys.sendMessage(src,"absbreaktime: "+time_handle(Config.Tours.abstourbreak), 0)
+					sys.sendMessage(src,"remindertime: "+time_handle(Config.Tours.reminder), 0)
+					sys.sendMessage(src,"minpercent: "+Config.Tours.minpercent, 0)
+					sys.sendMessage(src,"botname: "+Config.Tours.tourbot, 0)
+					sys.sendMessage(src,"channel: "+Config.Tours.channel, 0)
+					sys.sendMessage(src,"scoring: "+Config.Tours.points, 0)
+					sys.sendMessage(src,"debug: "+Config.Tours.debug+" (to change this, type /configset debug [0/1] ~ true = 1; false = 0)", 0)
 					return true;
 				}
 				var option = data[0].toLowerCase()
@@ -1550,12 +1550,12 @@ function tourCommand(src, command, commandData) {
 				}
 				if (option == 'maxqueue' || option == "maximum queue length") {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value between 1 and 255 that determines the maximum queue length. Admins and owners can bypass this restriction.",tourschan);
-						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.maxqueue,tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value between 1 and 255 that determines the maximum queue length. Admins and owners can bypass this restriction.", 0);
+						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.maxqueue, 0);
 						return true;
 					}
 					else if (value < 1 || value > 255) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 1 and 255.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 1 and 255.", 0)
 						return true;
 					}
 					Config.Tours.maxqueue = value
@@ -1565,12 +1565,12 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'maxrunning' || option == 'maximum number of simultaneous tours') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value between 1 and 255 that determines the maximum rumber of simultaneous tours.",tourschan);
-						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.maxrunning,tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value between 1 and 255 that determines the maximum rumber of simultaneous tours.", 0);
+						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.maxrunning, 0);
 						return true;
 					}
 					else if (value < 1 || value > 255) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 1 and 255.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 1 and 255.", 0)
 						return true;
 					}
 					Config.Tours.maxrunning = value
@@ -1580,12 +1580,12 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'toursignup' || option == 'tour sign ups length') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 10 and 600 that determines the intial signup length.",tourschan);
-						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.toursignup,tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 10 and 600 that determines the intial signup length.", 0);
+						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.toursignup, 0);
 						return true;
 					}
 					else if (value < 10 || value > 600) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 10 and 600.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 10 and 600.", 0)
 						return true;
 					}
 					Config.Tours.toursignup = value
@@ -1595,12 +1595,12 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'tourdq' || option == 'tour auto dq length') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before inactive users are disqualified.",tourschan);
-						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.tourdq,tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before inactive users are disqualified.", 0);
+						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.tourdq, 0);
 						return true;
 					}
 					else if (value < 30 || value > 300) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 30 and 300.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 30 and 300.", 0)
 						return true;
 					}
 					Config.Tours.tourdq = value
@@ -1610,12 +1610,12 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'touractivity' || option == 'tour activity check') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 60 and 300 that determines how long it is from a user's last message before a user is considered inactive.",tourschan);
-						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.activity,tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 60 and 300 that determines how long it is from a user's last message before a user is considered inactive.", 0);
+						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.activity, 0);
 						return true;
 					}
 					else if (value < 60 || value > 300) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 60 and 300.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 60 and 300.", 0)
 						return true;
 					}
 					Config.Tours.activity = value
@@ -1625,12 +1625,12 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'subtime' || option == 'substitute time') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before subs are disqualified.",tourschan);
-						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.subtime,tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before subs are disqualified.", 0);
+						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.subtime, 0);
 						return true;
 					}
 					else if (value < 30 || value > 300) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 30 and 300.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 30 and 300.", 0)
 						return true;
 					}
 					Config.Tours.subtime = value
@@ -1640,12 +1640,12 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'breaktime' || option == 'tour break time') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before another tournament is started if one gets cancelled.",tourschan);
-						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.breaktime,tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before another tournament is started if one gets cancelled.", 0);
+						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.breaktime, 0);
 						return true;
 					}
 					else if (value < 30 || value > 300) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 30 and 300.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 30 and 300.", 0)
 						return true;
 					}
 					Config.Tours.tourbreak = value
@@ -1655,12 +1655,12 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'absbreaktime' || option == 'absolute tour break time') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 300 and 1800 that influences how long it is between tournaments starting. The actual time will depend on other factors.",tourschan);
-						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.absbreaktime,tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 300 and 1800 that influences how long it is between tournaments starting. The actual time will depend on other factors.", 0);
+						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.absbreaktime, 0);
 						return true;
 					}
 					else if (value < 300 || value > 1800) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 300 and 1800.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 300 and 1800.", 0)
 						return true;
 					}
 					Config.Tours.abstourbreak = value
@@ -1670,12 +1670,12 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'remindertime' || option == 'tour reminder time') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) that determines how long it is before a battle reminder is sent to players from the start of the round",tourschan);
-						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.reminder,tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) that determines how long it is before a battle reminder is sent to players from the start of the round", 0);
+						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.reminder, 0);
 						return true;
 					}
 					else if (value < 15 || value > (Config.Tours.tourdq-30)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 15 and "+(Config.Tours.tourdq-30)+".",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 15 and "+(Config.Tours.tourdq-30)+".", 0)
 						return true;
 					}
 					Config.Tours.reminder = value
@@ -1685,16 +1685,16 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'minpercent') {
 					if (!isTourSuperAdmin(src)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Can't change this config setting, ask an admin for this.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Can't change this config setting, ask an admin for this.", 0)
 						return true;
 					}
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"When the percentage of players drops below this value, a new tournament will start if possible. Overides maximum number of simultaneous tours.",tourschan);
-						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.minpercent+"%",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"When the percentage of players drops below this value, a new tournament will start if possible. Overides maximum number of simultaneous tours.", 0);
+						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.minpercent+"%", 0);
 						return true;
 					}
 					else if (value < 1 || value > 30) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 1 and 30.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Value must be between 1 and 30.", 0)
 						return true;
 					}
 					Config.Tours.minpercent = value
@@ -1704,60 +1704,60 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'botname' || option == 'bot name') {
 					if (!isTourOwner(src)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Can't change the botname, ask an owner for this.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Can't change the botname, ask an owner for this.", 0)
 						return true;
 					}
 					else if (value.length === 0) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Botname can't be empty!",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Botname can't be empty!", 0)
 						return true;
 					}
 					Config.Tours.tourbot = value+": "
-					sendAllTourAuth(Config.Tours.tourbot+sys.name(src)+" set the tourbot name to "+Config.Tours.tourbot,tourschan)
+					sendAllTourAuth(Config.Tours.tourbot+sys.name(src)+" set the tourbot name to "+Config.Tours.tourbot, 0)
 					return true;
 				}
 				else if (option == 'channel') {
 					if (!isTourOwner(src)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Can't change the channel, ask an owner for this.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Can't change the channel, ask an owner for this.", 0)
 						return true;
 					}
 					else if (!sys.existChannel(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"The channel needs to exist!",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"The channel needs to exist!", 0)
 						return true;
 					}
 					Config.Tours.channel = value
-					sendAllTourAuth(Config.Tours.tourbot+sys.name(src)+" set the tournament channel to "+Config.Tours.channel,tourschan)
+					sendAllTourAuth(Config.Tours.tourbot+sys.name(src)+" set the tournament channel to "+Config.Tours.channel, 0)
 					tourschan = sys.channelId(Config.Tours.channel)
-					sys.sendAll("Version "+Config.Tours.version+" of tournaments has been loaded successfully in this channel!", tourschan)
+					sys.sendAll("Version "+Config.Tours.version+" of tournaments has been loaded successfully in this channel!", 0)
 					return true;
 				}
 				else if (option == 'scoring') {
 					if (!isTourOwner(src)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Can't turn scoring on/off, ask an owner for this.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Can't turn scoring on/off, ask an owner for this.", 0)
 						return true;
 					}
 					if (value !== 0 && value != 1) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Value must be 0 (turns debug off) or 1 (turns it on).",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Value must be 0 (turns debug off) or 1 (turns it on).", 0)
 						return true;
 					}
 					Config.Tours.points = (value == 1 ? true : false)
-					sendAllTourAuth(Config.Tours.tourbot+sys.name(src)+" set the scoring mode to "+Config.Tours.points,tourschan)
+					sendAllTourAuth(Config.Tours.tourbot+sys.name(src)+" set the scoring mode to "+Config.Tours.points, 0)
 					return true;
 				}
 				else if (option == 'debug') {
 					if (!isTourOwner(src)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Can't turn debug on/off, ask an owner for this.",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Can't turn debug on/off, ask an owner for this.", 0)
 						return true;
 					}
 					if (value !== 0 && value != 1) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Value must be 0 (turns debug off) or 1 (turns it on).",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Value must be 0 (turns debug off) or 1 (turns it on).", 0)
 						return true;
 					}
 					Config.Tours.debug = (value == 1 ? true : false)
-					sendAllTourAuth(Config.Tours.tourbot+sys.name(src)+" set the debug mode to "+Config.Tours.debug,tourschan)
+					sendAllTourAuth(Config.Tours.tourbot+sys.name(src)+" set the debug mode to "+Config.Tours.debug, 0)
 					return true;
 				}
 				else {
-					sys.sendMessage(src,Config.Tours.tourbot+"The configuration option '"+option+"' does not exist.",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"The configuration option '"+option+"' does not exist.", 0)
 					return true;
 				}
 			}
@@ -1765,11 +1765,11 @@ function tourCommand(src, command, commandData) {
 		// Normal User Commands
 		if (command == "join") {
 			if (!sys.dbRegistered(sys.name(src))) {
-				sys.sendMessage(src, Config.Tours.tourbot+"You need to register to play in #"+sys.channel(tourschan)+"! Click on the 'Register' button below and follow the instructions!", tourschan);
+				sys.sendMessage(src, Config.Tours.tourbot+"You need to register to play in #"+sys.channel(tourschan)+"! Click on the 'Register' button below and follow the instructions!", 0);
 				return true;
 			}
 			if (isTourMuted(src)) {
-				sys.sendMessage(src, Config.Tours.tourbot+"You are tourmuted so you are prohibited from playing!", tourschan);
+				sys.sendMessage(src, Config.Tours.tourbot+"You are tourmuted so you are prohibited from playing!", 0);
 				return true;
 			}
 			var key = null
@@ -1780,11 +1780,11 @@ function tourCommand(src, command, commandData) {
 				}
 			}
 			if (key === null) {
-				sys.sendMessage(src,Config.Tours.tourbot+"No tournament has signups available at the moment!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"No tournament has signups available at the moment!", 0)
 				return true;
 			}
 			if (!sys.hasTier(src, tours.tour[key].tourtype)) {
-				sys.sendMessage(src,Config.Tours.tourbot+"You need to have a "+tours.tour[key].tourtype+" team to join!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"You need to have a "+tours.tour[key].tourtype+" team to join!", 0)
 				return true;
 			}
 			var isInCorrectGen = false;
@@ -1804,7 +1804,7 @@ function tourCommand(src, command, commandData) {
 				}
 			}
 			if (!isInCorrectGen) {
-				sys.sendMessage(src,Config.Tours.tourbot+"Your generation must be set to "+getSubgen(tours.tour[key].parameters.gen, true)+". Change it in the teambuilder.",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"Your generation must be set to "+getSubgen(tours.tour[key].parameters.gen, true)+". Change it in the teambuilder.", 0)
 				return true;
 			}
 			/* Is already in another tour */
@@ -1823,10 +1823,10 @@ function tourCommand(src, command, commandData) {
 				}
 				if (isStillInTour) {
 					if (tours.tour[x].state == "subround" || tours.tour[x].state == "signups") {
-						sys.sendMessage(src,Config.Tours.tourbot+"You can't join twice!",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"You can't join twice!", 0)
 					}
 					else {
-						sys.sendMessage(src,Config.Tours.tourbot+"You can't join two tournaments at once with the same name!",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"You can't join two tournaments at once with the same name!", 0)
 					}
 					return true;
 				}
@@ -1835,7 +1835,7 @@ function tourCommand(src, command, commandData) {
 			for (var a=0; a<tours.tour[key].players.length; a++) {
 				var joinedip = sys.dbIp(tours.tour[key].players[a])
 				if (sys.ip(src) == joinedip && ((sys.maxAuth(sys.ip(src)) < 2 && Config.Tours.debug === true) || (sys.auth(src) < 3 && Config.Tours.debug === false))) {
-					sys.sendMessage(src,Config.Tours.tourbot+"You already joined the tournament under the name '"+tours.tour[key].players[a]+"'!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"You already joined the tournament under the name '"+tours.tour[key].players[a]+"'!", 0)
 					return true;
 				}
 			}
@@ -1873,7 +1873,7 @@ function tourCommand(src, command, commandData) {
 				if (tours.tour[key].players.length >= 256) {
 					tours.tour[key].time = parseInt(sys.time())
 				}
-                sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><b>"+html_escape(sys.name(src))+"</b> is player #"+tours.tour[key].players.length+" to join the "+html_escape(getFullTourName(key))+" tournament! "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? "" : "s")+" remaining!", tourschan)
+                sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><b>"+html_escape(sys.name(src))+"</b> is player #"+tours.tour[key].players.length+" to join the "+html_escape(getFullTourName(key))+" tournament! "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? "" : "s")+" remaining!", 0)
 				return true;
 			}
 			/* subbing */
@@ -1882,7 +1882,7 @@ function tourCommand(src, command, commandData) {
 				for (var k=0;k<tours.tour[key].players.length;k++) {
 					if (tours.tour[key].players[k] == "~Sub "+n+"~") {
 						oldname = "~Sub "+n+"~"
-						sendDebugMessage("Located Sub! Name: "+oldname, tourschan)
+						sendDebugMessage("Located Sub! Name: "+oldname, 0)
 						break;
 					}
 				}
@@ -1891,20 +1891,20 @@ function tourCommand(src, command, commandData) {
 			
 			for (var s=0;s<tours.tour[key].seeds.length;s++) {
 				if (tours.tour[key].seeds[s] == sys.name(src).toLowerCase()) {
-					sys.sendMessage(src,Config.Tours.tourbot+"You can't sub in to the "+getFullTourName(key)+" tournament!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"You can't sub in to the "+getFullTourName(key)+" tournament!", 0)
 					return true;
 				}
 			}
 			
 			if (oldname === null) {
-				sys.sendMessage(src,Config.Tours.tourbot+"There are no subs remaining in the "+getFullTourName(key)+" tournament!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"There are no subs remaining in the "+getFullTourName(key)+" tournament!", 0)
 				return true;
 			}
 			var index = tours.tour[key].players.indexOf(oldname)
 			var newname = sys.name(src).toLowerCase()
 			tours.tour[key].players.splice(index,1,newname)
 			tours.tour[key].cpt += 1
-			sys.sendAll(Config.Tours.tourbot+"Late entrant "+sys.name(src)+" will play against "+(index%2 == 0 ? toCorrectCase(tours.tour[key].players[index+1]) : toCorrectCase(tours.tour[key].players[index-1]))+" in the "+getFullTourName(key)+" tournament. "+(tours.tour[key].players.length - tours.tour[key].cpt)+" sub"+(tours.tour[key].players.length - tours.tour[key].cpt == 1 ? "" : "s") + " remaining.", tourschan)
+			sys.sendAll(Config.Tours.tourbot+"Late entrant "+sys.name(src)+" will play against "+(index%2 == 0 ? toCorrectCase(tours.tour[key].players[index+1]) : toCorrectCase(tours.tour[key].players[index-1]))+" in the "+getFullTourName(key)+" tournament. "+(tours.tour[key].players.length - tours.tour[key].cpt)+" sub"+(tours.tour[key].players.length - tours.tour[key].cpt == 1 ? "" : "s") + " remaining.", 0)
 			return true;
 		}
 		if (command == "unjoin") {
@@ -1916,22 +1916,22 @@ function tourCommand(src, command, commandData) {
 				}
 			}
 			if (key === null) {
-				sys.sendMessage(src,Config.Tours.tourbot+"You can't unjoin now!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"You can't unjoin now!", 0)
 				return true;
 			}
 			var index = tours.tour[key].players.indexOf(sys.name(src).toLowerCase())
 			if (index == -1) {
-				sys.sendMessage(src,Config.Tours.tourbot+"You aren't in the "+getFullTourName(key)+" tournament!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"You aren't in the "+getFullTourName(key)+" tournament!", 0)
 				return true;
 			}
 			tours.tour[key].players.splice(index, 1)
 			tours.tour[key].cpt -= 1
-			sys.sendAll(Config.Tours.tourbot+sys.name(src)+" unjoined the "+getFullTourName(key)+" tournament!", tourschan)
+			sys.sendAll(Config.Tours.tourbot+sys.name(src)+" unjoined the "+getFullTourName(key)+" tournament!", 0)
 			return true;
 		}
 		if (command == "queue" || command == "viewqueue") {
 			var queue = tours.queue
-			sys.sendMessage(src, "*** Upcoming Tours ***", tourschan)
+			sys.sendMessage(src, "*** Upcoming Tours ***", 0)
 			var nextstart = time_handle(tours.globaltime - parseInt(sys.time()))
 			for (var x in tours.tour) {
 				if (tours.tour[x].state == "signups") {
@@ -1946,18 +1946,18 @@ function tourCommand(src, command, commandData) {
 			for (var e in queue) {
 				var queuedata = queue[e].split(":::",5)
 				if (firsttour && nextstart != "Pending") {
-					sys.sendMessage(src,"1) "+queuedata[0]+": Set by "+queuedata[1]+"; Parameters: "+queuedata[2]+" Mode"+(queuedata[3] != "default" ? "; Gen: "+getSubgen(queuedata[3],true) : "")+(queuedata[4] == "double" ? "; Double Elimination" : "")+"; Starts in "+time_handle(tours.globaltime-parseInt(sys.time())),tourschan)
+					sys.sendMessage(src,"1) "+queuedata[0]+": Set by "+queuedata[1]+"; Parameters: "+queuedata[2]+" Mode"+(queuedata[3] != "default" ? "; Gen: "+getSubgen(queuedata[3],true) : "")+(queuedata[4] == "double" ? "; Double Elimination" : "")+"; Starts in "+time_handle(tours.globaltime-parseInt(sys.time())), 0)
 					firsttour = false
 				}
 				else {
-					sys.sendMessage(src,(parseInt(e)+1)+") "+queuedata[0]+": Set by "+queuedata[1]+"; Parameters: "+queuedata[2]+" Mode"+(queuedata[3] != "default" ? "; Gen: "+getSubgen(queuedata[3],true) : "")+(queuedata[4] == "double" ? "; Double Elimination" : ""), tourschan)
+					sys.sendMessage(src,(parseInt(e)+1)+") "+queuedata[0]+": Set by "+queuedata[1]+"; Parameters: "+queuedata[2]+" Mode"+(queuedata[3] != "default" ? "; Gen: "+getSubgen(queuedata[3],true) : "")+(queuedata[4] == "double" ? "; Double Elimination" : ""), 0)
 				}
 			}
 			return true;
 		}
 		if (command == "viewround") {
 			if (tours.keys.length === 0) {
-				sys.sendMessage(src,Config.Tours.tourbot+"No tournament is running at the moment!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"No tournament is running at the moment!", 0)
 				return true;
 			}
 			var postedrounds = false;
@@ -1985,41 +1985,41 @@ function tourCommand(src, command, commandData) {
 				rounddata.push(roundtable+"</table></div>")
 			}
 			if (!postedrounds) {
-				sys.sendMessage(src,Config.Tours.tourbot+"No tournament is running at the moment!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"No tournament is running at the moment!", 0)
 				return true;
 			}
 			else {
 				var roundstosend = htmlborder+rounddata.join(htmlborder)+htmlborder
-				sys.sendHtmlMessage(src, roundstosend, tourschan)
+				sys.sendHtmlMessage(src, roundstosend, 0)
 			}
 			return true;
 		}
 		if (command == "touradmins") {
-			sys.sendMessage(src, "",tourschan)
-			sys.sendMessage(src, "*** TOURNAMENT ADMINS ***",tourschan)
+			sys.sendMessage(src, "", 0)
+			sys.sendMessage(src, "*** TOURNAMENT ADMINS ***", 0)
 			var tal = tours.touradmins
 			var authlist = sys.dbAuths()
 			for (var l in tal) {
 				if (sys.id(tal[l]) !== undefined) {
-					sys.sendMessage(src, toCorrectCase(tal[l]) + " (Online):",tourschan)
+					sys.sendMessage(src, toCorrectCase(tal[l]) + " (Online):", 0)
 				}
 				else {
-					sys.sendMessage(src, tal[l],tourschan)
+					sys.sendMessage(src, tal[l], 0)
 				}
 			}
 			// displays onine auth in "Tours" channel as well
 			for (var m in authlist) {
-				if (sys.id(authlist[m]) !== undefined && tal.indexOf(authlist[m]) == -1 && sys.isInChannel(sys.id(authlist[m]), tourschan)) {
-					sys.sendMessage(src, toCorrectCase(authlist[m]) + " (Online):",tourschan)
+				if (sys.id(authlist[m]) !== undefined && tal.indexOf(authlist[m]) == -1 && sys.isInChannel(sys.id(authlist[m]), 0)) {
+					sys.sendMessage(src, toCorrectCase(authlist[m]) + " (Online):", 0)
 				}
 			}
-			sys.sendMessage(src, "",tourschan)
+			sys.sendMessage(src, "", 0)
 			return true;
 		}
 		if (command == "tourinfo") {
 			try {
 				if (commandData == "") {
-					sys.sendMessage(src,Config.Tours.tourbot+"Please specify a person!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Please specify a person!", 0)
 					return true;
 				}
 				else {
@@ -2034,71 +2034,71 @@ function tourCommand(src, command, commandData) {
 						}
 					}
 					var tourdata = sys.getFileContent("tourdetails.txt")
-					sys.sendMessage(src, "*** TOURNAMENT DETAILS FOR "+commandData+" (Score: "+score+")***",tourschan)
+					sys.sendMessage(src, "*** TOURNAMENT DETAILS FOR "+commandData+" (Score: "+score+")***", 0)
 					var tourinfopieces = tourdata.split("\n")
 					for (var x in tourinfopieces) {
 						var datatoread = tourinfopieces[x].split(":::",4)
 						if (cmp(datatoread[0],commandData)) {
-							sys.sendMessage(src, datatoread[2]+": Won with "+datatoread[1]+" entrants on "+datatoread[3],tourschan)
+							sys.sendMessage(src, datatoread[2]+": Won with "+datatoread[1]+" entrants on "+datatoread[3], 0)
 						}
 					}
 				}
-				sys.sendMessage(src, "",tourschan)
+				sys.sendMessage(src, "", 0)
 			}
 			catch (err) {
-				sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet!",tourschan)
+				sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet!", 0)
 			}
 			return true;
 		}
 		if (command == "activeta") {
-			sys.sendMessage(src, "",tourschan)
-			sys.sendMessage(src, "*** ACTIVE TOURNAMENT ADMINS ***",tourschan)
+			sys.sendMessage(src, "", 0)
+			sys.sendMessage(src, "*** ACTIVE TOURNAMENT ADMINS ***", 0)
 			var tal = tours.touradmins
 			var authlist = sys.dbAuths()
 			for (var l in tal) {
 				if (sys.id(tal[l]) !== undefined && SESSION.users(sys.id(tal[l])).lastline.time + Config.Tours.activity > parseInt(sys.time())) {
-					sys.sendMessage(src, toCorrectCase(tal[l]), tourschan)
+					sys.sendMessage(src, toCorrectCase(tal[l]), 0)
 				}
 			}
 			// displays online active auth in "Tours" channel as well
 			for (var m in authlist) {
-				if (sys.id(authlist[m]) !== undefined && tal.indexOf(authlist[m]) == -1 && sys.isInChannel(sys.id(authlist[m]), tourschan)  && SESSION.users(sys.id(authlist[m])).lastline.time + Config.Tours.activity > parseInt(sys.time())) {
-					sys.sendMessage(src, toCorrectCase(authlist[m]), tourschan)
+				if (sys.id(authlist[m]) !== undefined && tal.indexOf(authlist[m]) == -1 && sys.isInChannel(sys.id(authlist[m]), 0)  && SESSION.users(sys.id(authlist[m])).lastline.time + Config.Tours.activity > parseInt(sys.time())) {
+					sys.sendMessage(src, toCorrectCase(authlist[m]), 0)
 				}
 			}
-			sys.sendMessage(src, "",tourschan)
+			sys.sendMessage(src, "", 0)
 			return true;
 		}
 		if (command == "history") {
-			sys.sendMessage(src, "*** RECENTLY PLAYED TIERS ***",tourschan)
+			sys.sendMessage(src, "*** RECENTLY PLAYED TIERS ***", 0)
 			for (var x in tours.history) {
-				sys.sendMessage(src, tours.history[x],tourschan)
+				sys.sendMessage(src, tours.history[x], 0)
 			}
 			return true;
 		}
 		if (command == "help" || command == "commands") {
-			sys.sendMessage(src, border,tourschan);
-			sys.sendMessage(src, "*** Tournament Commands ***",tourschan);
+			sys.sendMessage(src, border, 0);
+			sys.sendMessage(src, "*** Tournament Commands ***", 0);
 			for (var t in tourcommands) {
-				sys.sendMessage(src, tourcommands[t],tourschan);
+				sys.sendMessage(src, tourcommands[t], 0);
 			}
 			if (isTourAdmin(src)) {
-				sys.sendMessage(src, border,tourschan);
+				sys.sendMessage(src, border, 0);
 				for (var u in touradmincommands) {
 					if (touradmincommands[u] == "*** FOLLOWING COMMANDS ARE ADMIN+ COMMANDS ***" && !isTourSuperAdmin(src)) break;
 					if (touradmincommands[u] == "*** FOLLOWING COMMANDS ARE OWNER+ COMMANDS ***" && !isTourOwner(src)) break;
-					sys.sendMessage(src, touradmincommands[u],tourschan);
+					sys.sendMessage(src, touradmincommands[u], 0);
 				}
 			}
-			sys.sendMessage(src, border,tourschan);
+			sys.sendMessage(src, border, 0);
 			return true;
 		}
 		if (command == "rules" || command == "tourrules") {
-			sys.sendMessage(src, border,tourschan);
+			sys.sendMessage(src, border, 0);
 			for (var t in tourrules) {
-				sys.sendMessage(src, tourrules[t],tourschan);
+				sys.sendMessage(src, tourrules[t], 0);
 			}
-			sys.sendMessage(src, border,tourschan);
+			sys.sendMessage(src, border, 0);
 			return true;
 		}
 		if (command == "leaderboard") {
@@ -2129,18 +2129,18 @@ function tourCommand(src, command, commandData) {
 					list.push([rankingdata[1], rankingdata[0]]);
 				}
 				list.sort(function(a,b) { return b[0] - a[0] ; });
-				sys.sendMessage(src, "*** TOURNAMENT RANKINGS "+(commandData != "" ? "("+commandData+") " : "")+"***",tourschan)
+				sys.sendMessage(src, "*** TOURNAMENT RANKINGS "+(commandData != "" ? "("+commandData+") " : "")+"***", 0)
 				for (var x=0; x<20; x++) {
 					if (x >= list.length) break;
-					sys.sendMessage(src, "#"+(x+1)+": "+(list[x])[1]+" ~ "+(list[x])[0]+" point"+((list[x])[0] != 1 ? "s" : ""),tourschan)
+					sys.sendMessage(src, "#"+(x+1)+": "+(list[x])[1]+" ~ "+(list[x])[0]+" point"+((list[x])[0] != 1 ? "s" : ""), 0)
 				}
 			}
 			catch (err) {
 				if (err == "Not a valid tier") {
-					sys.sendMessage(src, Config.Tours.tourbot+commandData+" is not a valid tier!",tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+commandData+" is not a valid tier!", 0)
 				}
 				else {
-					sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet!",tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet!", 0)
 				}
 			}
 			return true;
@@ -2168,14 +2168,14 @@ function tourCommand(src, command, commandData) {
 					list.push([rankingdata[1], rankingdata[0]]);
 				}
 				list.sort(function(a,b) { return b[0] - a[0] ; });
-				sys.sendMessage(src, "*** MONTHLY TOURNAMENT RANKINGS "+(commandData != "" ? "("+commandData+") " : "")+"***",tourschan)
+				sys.sendMessage(src, "*** MONTHLY TOURNAMENT RANKINGS "+(commandData != "" ? "("+commandData+") " : "")+"***", 0)
 				for (var x=0; x<20; x++) {
 					if (x >= list.length) break;
-					sys.sendMessage(src, "#"+(x+1)+": "+(list[x])[1]+" ~ "+(list[x])[0]+" point"+((list[x])[0] != 1 ? "s" : ""),tourschan)
+					sys.sendMessage(src, "#"+(x+1)+": "+(list[x])[1]+" ~ "+(list[x])[0]+" point"+((list[x])[0] != 1 ? "s" : ""), 0)
 				}
 			}
 			catch (err) {
-				sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet for the month "+commandData+"!",tourschan)
+				sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet for the month "+commandData+"!", 0)
 			}
 			return true;
 		}
@@ -2189,7 +2189,7 @@ function tourCommand(src, command, commandData) {
 // Auto DQs inactive players
 function removeinactive(key) {
 	try {
-		sendDebugMessage("Removing Inactive Players", tourschan)
+		sendDebugMessage("Removing Inactive Players", 0)
 		var activelist = tours.tour[key].active;
 		var playercycle = tours.tour[key].players.length
 		var currentround = tours.tour[key].round
@@ -2199,53 +2199,53 @@ function removeinactive(key) {
 			var dq1 = true;
 			var dq2 = true;
 			if (tours.tour[key].winners.indexOf(player1) != -1) {
-				sendDebugMessage(player1+" won against "+player2+"; continuing", tourschan)
+				sendDebugMessage(player1+" won against "+player2+"; continuing", 0)
 				continue;
 			}
 			if (tours.tour[key].winners.indexOf(player2) != -1) {
-				sendDebugMessage(player2+" won against "+player1+"; continuing", tourschan)
+				sendDebugMessage(player2+" won against "+player1+"; continuing", 0)
 				continue;
 			}
 			if (tours.tour[key].battlers.indexOf(player1) != -1 || tours.tour[key].battlers.indexOf(player2) != -1) {
-				sendDebugMessage(player1+" is battling against "+player2+"; continuing", tourschan)
+				sendDebugMessage(player1+" is battling against "+player2+"; continuing", 0)
 				continue;
 			}
 			if (player1 == "~DQ~" || player2 == "~DQ~" || player1 == "~Bye~" || player2 == "~Bye~") {
-				sendDebugMessage("We don't need to check", tourschan)
+				sendDebugMessage("We don't need to check", 0)
 				continue;
 			}
 			if (activelist.hasOwnProperty(player1)) {
 				if (activelist[player1] == "Battle" || (typeof activelist[player1] == "number" && activelist[player1]+Config.Tours.activity >= parseInt(sys.time()))) {
-					sendDebugMessage(player1+" is active; continuing", tourschan)
+					sendDebugMessage(player1+" is active; continuing", 0)
 					dq1 = false
 				}
 			}
 			else {
-				sendDebugMessage(player1+" is not active; disqualifying", tourschan)
+				sendDebugMessage(player1+" is not active; disqualifying", 0)
 			}
 			if (activelist.hasOwnProperty(player2)) {
 				if (activelist[player2] == "Battle" || (typeof activelist[player2] == "number" && activelist[player2]+Config.Tours.activity >= parseInt(sys.time()))) {
-					sendDebugMessage(player2+" is active; continuing", tourschan)
+					sendDebugMessage(player2+" is active; continuing", 0)
 					dq2 = false
 				}
 			}
 			else {
-				sendDebugMessage(player2+" is not active; disqualifying", tourschan)
+				sendDebugMessage(player2+" is not active; disqualifying", 0)
 			}
 			if (dq1 && dq2) {
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" and "+toCorrectCase(player2)+" are both disqualified for inactivity in the "+getFullTourName(key)+" tournament!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" and "+toCorrectCase(player2)+" are both disqualified for inactivity in the "+getFullTourName(key)+" tournament!", 0)
 				dqboth(player1, player2, key)
 			}
 			else if (dq2) {
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player2)+" was disqualified from the "+getFullTourName(key)+" tournament for inactivity!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player2)+" was disqualified from the "+getFullTourName(key)+" tournament for inactivity!", 0)
 				disqualify(player2,key,false)
 			}
 			else if (dq1) {
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" was disqualified from the "+getFullTourName(key)+" tournament for inactivity!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" was disqualified from the "+getFullTourName(key)+" tournament for inactivity!", 0)
 				disqualify(player1,key,false)
 			}
 			else if ((tours.tour[key].time-parseInt(sys.time()))%60 === 0){
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" and "+toCorrectCase(player2)+" are both active, please battle in the "+getFullTourName(key)+" tournament ASAP!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" and "+toCorrectCase(player2)+" are both active, please battle in the "+getFullTourName(key)+" tournament ASAP!", 0)
 			}
 			// if the round advances due to DQ, don't keep checking :x
 			if (tours.tour[key].round !== currentround) {
@@ -2274,15 +2274,15 @@ function sendReminder(key) {
 				continue;
 			}
 			if ((isSub(player) || isSub(opponent)) && sys.id(player) !== undefined) {
-				sys.sendMessage(sys.id(player), Config.Tours.tourbot+"Your sub will be disqualified in "+time_handle(tours.tour[key].time-parseInt(sys.time())), tourschan)
+				sys.sendMessage(sys.id(player), Config.Tours.tourbot+"Your sub will be disqualified in "+time_handle(tours.tour[key].time-parseInt(sys.time())), 0)
 			}
 			else if (sys.id(player) !== undefined) {
-				if (sys.isInChannel(sys.id(player), tourschan)) {
-					sys.sendHtmlMessage(sys.id(player), "<ping/><font color=red><timestamp/> "+html_escape(toCorrectCase(player))+", you must battle <b>"+(z%2 === 0 ? html_escape(toCorrectCase(tours.tour[key].players[z+1])) : html_escape(toCorrectCase(tours.tour[key].players[z-1])))+"</b> in the <b>"+html_escape(getFullTourName(key))+"</b> tournament, otherwise you may be disqualified for inactivity! You should talk to your opponent in #"+sys.channel(tourschan)+" to avoid disqualification.</font>", tourschan)
+				if (sys.isInChannel(sys.id(player), 0)) {
+					sys.sendHtmlMessage(sys.id(player), "<ping/><font color=red><timestamp/> "+html_escape(toCorrectCase(player))+", you must battle <b>"+(z%2 === 0 ? html_escape(toCorrectCase(tours.tour[key].players[z+1])) : html_escape(toCorrectCase(tours.tour[key].players[z-1])))+"</b> in the <b>"+html_escape(getFullTourName(key))+"</b> tournament, otherwise you may be disqualified for inactivity! You should talk to your opponent in #"+sys.channel(tourschan)+" to avoid disqualification.</font>", 0)
 				}
 				else {
 					sys.sendHtmlMessage(sys.id(player), "<ping/><font color=red><timestamp/> "+html_escape(toCorrectCase(player))+", you must battle <b>"+(z%2 === 0 ? html_escape(toCorrectCase(tours.tour[key].players[z+1])) : html_escape(toCorrectCase(tours.tour[key].players[z-1])))+"</b> in the <b>"+html_escape(getFullTourName(key))+"</b> tournament, otherwise you may be disqualified for inactivity! You should talk to your opponent in #"+sys.channel(tourschan)+" to avoid disqualification.</font>")
-					sys.sendMessage(sys.id(player), Config.Tours.tourbot+"Please rejoin the #"+Config.Tours.channel+" channel to ensure you do not miss out on information you need!", tourschan)
+					sys.sendMessage(sys.id(player), Config.Tours.tourbot+"Please rejoin the #"+Config.Tours.channel+" channel to ensure you do not miss out on information you need!", 0)
 				}
 			}
 		}
@@ -2319,7 +2319,7 @@ function disqualify(player, key, silent) {
 				tours.tour[key].winners.push(opponent)
 				tours.tour[key].losers.push(player)
 				if (!silent) {
-					sys.sendAll(Config.Tours.tourbot+toCorrectCase(opponent)+" advances to the next round of the "+getFullTourName(key)+" by default!", tourschan)
+					sys.sendAll(Config.Tours.tourbot+toCorrectCase(opponent)+" advances to the next round of the "+getFullTourName(key)+" by default!", 0)
 				}
 			}
 			else {
@@ -2331,7 +2331,7 @@ function disqualify(player, key, silent) {
 			tours.tour[key].winners.splice(winnerindex,1,opponent)
 			tours.tour[key].losers.splice(tours.tour[key].losers.indexOf(opponent),1,player)
 			if (!silent) {
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(opponent)+" advances to the next round of the "+getFullTourName(key)+" because "+toCorrectCase(player)+" was disqualified!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(opponent)+" advances to the next round of the "+getFullTourName(key)+" because "+toCorrectCase(player)+" was disqualified!", 0)
 			}
 		}
 		var battlesleft = parseInt(tours.tour[key].players.length/2)-tours.tour[key].winners.length
@@ -2390,7 +2390,7 @@ function removesubs(key) {
 		}
 		tours.tour[key].state = "round"
 		if (advanced.length > 0) {
-			sys.sendAll(Config.Tours.tourbot+advanced.join(", ")+(advanced.length == 1 ? " advances" : " advance")+" to the next round! Subs are now gone.", tourschan)
+			sys.sendAll(Config.Tours.tourbot+advanced.join(", ")+(advanced.length == 1 ? " advances" : " advance")+" to the next round! Subs are now gone.", 0)
 		}
 	}
 	catch (err) {
@@ -2427,7 +2427,7 @@ function removebyes(key) {
 			}
 		}
 		if (advanced.length > 0) {
-			sys.sendAll(Config.Tours.tourbot+advanced.join(", ")+(advanced.length == 1 ? " advances" : " advance")+" to the next round due to a bye!", tourschan)
+			sys.sendAll(Config.Tours.tourbot+advanced.join(", ")+(advanced.length == 1 ? " advances" : " advance")+" to the next round due to a bye!", 0)
 		}
 	}
 	catch (err) {
@@ -2638,7 +2638,7 @@ function advanceround(key) {
 // starts a tournament
 function tourstart(tier, starter, key, parameters) {
 	try {
-		var channels = tourschan === 0 ? [0] : [0, tourschan];
+		var channels = tourschan === 0 ? [0] : [0, 0];
 		tours.tour[key] = {}
 		tours.tour[key].state = "signups"
 		tours.tour[key].time = parseInt(sys.time())+Config.Tours.toursignup
@@ -2684,8 +2684,8 @@ function tourstart(tier, starter, key, parameters) {
 			var id = playerson[x];
 			var poUser = SESSION.users(id);
 			if (sys.loggedIn(id) && poUser && poUser.tiers && poUser.tiers.indexOf(tier) != -1 && isInTour(sys.name(id)) === false) {
-				if (sys.isInChannel(id, tourschan)) {
-					sys.sendHtmlMessage(playerson[x], "<font color=red>You are currently alerted when a "+tier+" tournament is started!</font><ping/>",tourschan);
+				if (sys.isInChannel(id, 0)) {
+					sys.sendHtmlMessage(playerson[x], "<font color=red>You are currently alerted when a "+tier+" tournament is started!</font><ping/>", 0);
 					continue;
 				}
 			}
@@ -2701,7 +2701,7 @@ function tourinitiate(key) {
 	try {
 		var size = tourmakebracket(key)
 		if (size < 3) {
-			sys.sendAll(Config.Tours.tourbot+"The "+getFullTourName(key)+" tournament was cancelled by the server! You need at least 3 players! (A new tournament will start in "+time_handle(Config.Tours.tourbreak)+").", tourschan)
+			sys.sendAll(Config.Tours.tourbot+"The "+getFullTourName(key)+" tournament was cancelled by the server! You need at least 3 players! (A new tournament will start in "+time_handle(Config.Tours.tourbreak)+").", 0)
 			delete tours.tour[key];
 			tours.keys.splice(tours.keys.indexOf(key), 1)
 			tours.globaltime = parseInt(sys.time())+Config.Tours.tourbreak; // for next tournament
@@ -2882,7 +2882,7 @@ function tourprintbracket(key) {
 	try {
 		tours.tour[key].round += 1
 		if (tours.tour[key].players.length == 1) { // winner
-			var channels = [0, tourschan]
+			var channels = [0, 0]
 			var winner = toCorrectCase(tours.tour[key].players[0])
 			if (winner !== "~Bye~") {
 				for (var x in channels) {
@@ -2896,7 +2896,7 @@ function tourprintbracket(key) {
 				}
 				awardTourPoints(winner.toLowerCase(), tours.tour[key].cpt, tours.tour[key].tourtype, tours.tour[key].parameters.type == "double" ? true : false)
 			}
-			else sys.sendAll(Config.Tours.tourbot+"The "+getFullTourName(key)+" ended by default!", tourschan)
+			else sys.sendAll(Config.Tours.tourbot+"The "+getFullTourName(key)+" ended by default!", 0)
 			tours.history.unshift(getFullTourName(key)+": Won by "+winner+" with "+tours.tour[key].cpt+" players")
 			if (tours.history.length > 25) {
 				tours.history.pop()
@@ -2911,7 +2911,7 @@ function tourprintbracket(key) {
 		else if (tours.tour[key].players.length == 2) { // finals
 			/* Here in case it's ~Bye~ vs ~Bye~ */
 			if (tours.tour[key].players[0] == "~Bye~" && tours.tour[key].players[1] == "~Bye~") {
-				sys.sendAll(Config.Tours.tourbot+"The "+getFullTourName(key)+" ended by default!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+"The "+getFullTourName(key)+" ended by default!", 0)
 				delete tours.tour[key];
 				tours.keys.splice(tours.keys.indexOf(key), 1);
 				if (tours.keys.length === 0) {
@@ -3514,21 +3514,21 @@ function sendWelcomeMessage(src, chan) {
 
 function dumpVars(src) {
 	var activelist = [];
-	sys.sendMessage(src, border, tourschan)
-	sys.sendMessage(src, "*** Variable Dump ***", tourschan)
-	sys.sendMessage(src, "*** Main ***", tourschan)
-	sys.sendMessage(src, "GlobalTime: "+tours.globaltime, tourschan)
-	sys.sendMessage(src, "CurrentTime: "+sys.time(), tourschan)
-	sys.sendMessage(src, "% players in Tours: "+Math.floor(calcPercentage())+"%", tourschan)
+	sys.sendMessage(src, border, 0)
+	sys.sendMessage(src, "*** Variable Dump ***", 0)
+	sys.sendMessage(src, "*** Main ***", 0)
+	sys.sendMessage(src, "GlobalTime: "+tours.globaltime, 0)
+	sys.sendMessage(src, "CurrentTime: "+sys.time(), 0)
+	sys.sendMessage(src, "% players in Tours: "+Math.floor(calcPercentage())+"%", 0)
 	for (var x in tours.tour) {
 		activelist = [];
-		sys.sendMessage(src, "*** Round "+tours.tour[x].round+"; "+getFullTourName(x)+" Tour (key "+x+")***", tourschan)
-		sys.sendMessage(src, "Time: "+tours.tour[x].time, tourschan)
-		sys.sendMessage(src, "Players: "+tours.tour[x].players, tourschan)
-		sys.sendMessage(src, "Battlers: "+tours.tour[x].battlers, tourschan)
-		sys.sendMessage(src, "Winners: "+tours.tour[x].winners, tourschan)
-		sys.sendMessage(src, "Losers: "+tours.tour[x].losers, tourschan)
-		sys.sendMessage(src, "Total Players: "+tours.tour[x].cpt, tourschan)
+		sys.sendMessage(src, "*** Round "+tours.tour[x].round+"; "+getFullTourName(x)+" Tour (key "+x+")***", 0)
+		sys.sendMessage(src, "Time: "+tours.tour[x].time, 0)
+		sys.sendMessage(src, "Players: "+tours.tour[x].players, 0)
+		sys.sendMessage(src, "Battlers: "+tours.tour[x].battlers, 0)
+		sys.sendMessage(src, "Winners: "+tours.tour[x].winners, 0)
+		sys.sendMessage(src, "Losers: "+tours.tour[x].losers, 0)
+		sys.sendMessage(src, "Total Players: "+tours.tour[x].cpt, 0)
 		for (var y in tours.tour[x].active) {
 			if (tours.tour[x].active[y] === "Battle") {
 				activelist.push(y + "(Battle)")
@@ -3539,10 +3539,10 @@ function dumpVars(src) {
 				}
 			}
 		}
-		sys.sendMessage(src, "Active: "+activelist.join("; "), tourschan)
-		sys.sendMessage(src, "Seeds: "+tours.tour[x].seeds, tourschan)
+		sys.sendMessage(src, "Active: "+activelist.join("; "), 0)
+		sys.sendMessage(src, "Seeds: "+tours.tour[x].seeds, 0)
 	}
-	sys.sendMessage(src, border, tourschan)
+	sys.sendMessage(src, border, 0)
 }
 
 // end tournament functions
@@ -3612,7 +3612,7 @@ module.exports = {
 	},
 	beforeChatMessage : function(src, message, channel) {
 		if (isTourMuted(src) && !isTourAdmin(src) && channel === tourschan) {
-			sys.sendMessage(src,Config.Tours.tourbot+"You are tourmuted by "+tours.tourmutes[sys.ip(src)].auth+". This expires in "+time_handle(tours.tourmutes[sys.ip(src)].expiry-parseInt(sys.time()))+". [Reason: "+tours.tourmutes[sys.ip(src)].reason+"]",tourschan)
+			sys.sendMessage(src,Config.Tours.tourbot+"You are tourmuted by "+tours.tourmutes[sys.ip(src)].auth+". This expires in "+time_handle(tours.tourmutes[sys.ip(src)].expiry-parseInt(sys.time()))+". [Reason: "+tours.tourmutes[sys.ip(src)].reason+"]", 0)
 			return true;
 		}
 		else return false;
