@@ -1,6 +1,6 @@
 {
     "1-1-2013": {
-        "tier": "Wifi UU",
+        "tier": "BW2 UU",
         "settings": {}
     },
     "2-1-2013": {
@@ -12,7 +12,7 @@
         "settings": {}
     },
     "4-1-2013": {
-        "tier": "Wifi OU",
+        "tier": "BW2 OU",
         "settings": {}
     },
     "5-1-2013": {
@@ -22,19 +22,11 @@
         }
     },
     "6-1-2013": {
-        "tier": "Wifi LC",
-        "settings": {}
-    },
-    "7-1-2013": {
-        "tier": "Random Battle",
+        "tier": "BW2 LC",
         "settings": {}
     },
     "8-1-2013": {
         "tier": "HGSS OU",
-        "settings": {}
-    },
-    "9-1-2013": {
-        "tier": "Wifi LU",
         "settings": {}
     },
     "10-1-2013": {
@@ -44,33 +36,23 @@
         }
     },
     "11-1-2013": {
-        "tier": "Wifi Ubers",
-        "settings": {}
-    },
-    "12-1-2013": {
-        "tier": "Battle Factory",
+        "tier": "BW2 Ubers",
         "settings": {}
     },
     "13-1-2013": {
-        "tier": "Wifi OU",
+        "tier": "BW2 OU",
         "settings": {}
     },
     "14-1-2013": {
         "tier": "Monogen",
         "settings": {}
     },
-    "15-1-2013": {
-        "tier": "Wifi CC 1v1",
-        "settings": {
-            "gen": "RBY"
-        }
-    },
     "16-1-2013": {
-        "tier": "ADV OU",
+        "tier": "RSE OU",
         "settings": {}
     },
     "17-1-2013": {
-        "tier": "Wifi NU",
+        "tier": "BW2 NU",
         "settings": {}
     },
     "18-1-2013": {
@@ -78,7 +60,7 @@
         "settings": {}
     },
     "19-1-2013": {
-        "tier": "Wifi UU",
+        "tier": "BW2 UU",
         "settings": {}
     },
     "20-1-2013": {
@@ -98,7 +80,7 @@
         }
     },
     "23-1-2013": {
-        "tier": "Wifi LU",
+        "tier": "BW2 LU",
         "settings": {}
     },
     "24-1-2013": {
@@ -106,7 +88,7 @@
         "settings": {}
     },
     "25-1-2013": {
-        "tier": "Wifi OU",
+        "tier": "BW2 OU",
         "settings": {}
     },
     "26-1-2013": {
@@ -114,11 +96,11 @@
         "settings": {}
     },
     "27-1-2013": {
-        "tier": "Wifi NU",
+        "tier": "BW2 NU",
         "settings": {}
     },
     "28-1-2013": {
-        "tier": "No Preview OU",
+        "tier": "PB BW2 OU",
         "settings": {}
     },
     "29-1-2013": {
@@ -126,13 +108,13 @@
         "settings": {}
     },
     "30-1-2013": {
-        "tier": "Wifi Ubers",
+        "tier": "BW2 Ubers",
         "settings": {}
     },
     "31-1-2013": {
         "tier": "Challenge Cup",
         "settings": {
-            "gen": "ADV"
+            "gen": "RSE"
         }
     }
 }
