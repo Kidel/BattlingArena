@@ -1099,7 +1099,7 @@ module.exports = {
 		}
 		permaTours = SESSION.global().permaTours;
 
-		var tourchannel, channelname = "Tournaments";
+		var tourchannel, channelname = "Main";
 		if (sys.existChannel(channelname)) {
 			tourchannel = sys.channelId(channelname);
 		} else {
@@ -1212,7 +1212,7 @@ module.exports = {
 
 	onHelp: function(src, topic, channel) {
 		var help = [];
-		if (topic == "tournaments") {
+		if (topic != "Tournaments") {
 			help = [
 				"/join: Enters you to in a tournament.",
 				"/unjoin: Withdraws you from a tournament.",
