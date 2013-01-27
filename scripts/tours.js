@@ -73,7 +73,7 @@ var tourrules = ["*** TOURNAMENT GUIDELINES ***",
 				"- Please ensure you have updated to either the 1.0.60 client or the 2.0 alpha client in order to prevent crashes."]
 // Debug Messages
 function sendDebugMessage(message, chan) {
-	if (chan === 0 && Config.Tours.debug && sys.existChannel(sys.channel(tourserrchan))) {
+	if ((chan === 0 || chan === tourschan) && Config.Tours.debug && sys.existChannel(sys.channel(tourserrchan))) {
 		sys.sendAll(Config.Tours.tourbot+message,tourserrchan)
 	}
 }
@@ -1765,7 +1765,7 @@ function tourCommand(src, command, commandData) {
 		// Normal User Commands
 		if (command == "join") {
 			if (!sys.dbRegistered(sys.name(src))) {
-				sys.sendMessage(src, Config.Tours.tourbot+"You need to register to play in #"+sys.channel(tourschan)+"! Click on the 'Register' button below and follow the instructions!", 0);
+				sys.sendMessage(src, Config.Tours.tourbot+"You need to register to play a tournament! Click on the 'Register' button below and follow the instructions!", 0);
 				return true;
 			}
 			if (isTourMuted(src)) {
@@ -2663,7 +2663,7 @@ function tourstart(tier, starter, key, parameters) {
 			sys.sendHtmlAll("<timestamp/> A <b><a href='http://wiki.pokemon-online.eu/view/"+tier.replace(/ /g,"_")+"'>"+tier+"</a></b> tournament has opened for signups! (Started by <b>"+html_escape(starter)+"</b>)", channels[x])
 			sys.sendAll("CLAUSES: "+getTourClauses(tier),channels[x])
 			sys.sendAll("PARAMETERS: "+parameters.mode+" Mode"+(parameters.gen != "default" ? "; Gen: "+getSubgen(parameters.gen,true) : "")+(parameters.type == "double" ? "; Double Elimination" : ""), channels[x])
-			if (channels[x] == tourschan) {
+			if (channels[x] == tourschan || channels[x] == 0) {
 				sys.sendHtmlAll("<timestamp/> Type <b>/join</b> to enter the tournament, you have "+time_handle(Config.Tours.toursignup)+" to join!", channels[x])
 			}
 			else {
@@ -3445,7 +3445,7 @@ function getListOfTours(num) {
 
 // variance function that influences time between tournaments. The higher this is, the faster tours will start.
 function calcVariance() {
-	var playersInChan = parseInt((sys.playersOfChannel(tourschan)).length)
+	var playersInChan = parseInt((sys.playersOfChannel(0)).length)
 	var playersInTours = 0;
 	for (var x in tours.tour) {
 		if (tours.tour[x].players !== undefined) {
@@ -3467,9 +3467,9 @@ function calcVariance() {
 }
 
 function calcPercentage() { // calc percentage of players in tournaments playing
-	var playersInChan = parseInt((sys.playersOfChannel(tourschan)).length)
+	var playersInChan = parseInt((sys.playersOfChannel(0)).length)
 	var playersInTours = 0;
-	var playerList = sys.playersOfChannel(tourschan)
+	var playerList = sys.playersOfChannel(0)
 	for (var x in playerList) {
 		var playerName = sys.name(playerList[x]);
 		if (isInTour(playerName)) {
