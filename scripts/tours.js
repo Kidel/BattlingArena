@@ -3,9 +3,9 @@ Code for tours.js
 Coding done by Shadowfist
 */
 
-
-	tourschan = sys.channelId("Main");
-
+if (typeof tourschan !== "string") {
+	tourschan = sys.channelId("Tournaments")
+}
 
 if (typeof tours !== "object") {
 	sys.sendAll("Creating new tournament object", tourschan)
@@ -493,7 +493,7 @@ function getConfigValue(file, key) {
 			breaktime: 120,
 			absbreaktime: 600,
 			remindertime: 30,
-			channel: "Tournaments",
+			channel: "Main",
 			errchannel: "Developer's Den",
 			tourbotcolour: "#3DAA68",
 			minpercent: 5,
