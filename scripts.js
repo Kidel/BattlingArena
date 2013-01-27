@@ -1851,8 +1851,10 @@ kickAll : function(ip) {
 beforeChannelJoin : function(src, channel) {
     var poUser = SESSION.users(src);
     var poChannel = SESSION.channels(channel);
-
-    callplugins("beforeChannelJoin", src, channel);
+	if (sys.channel(channel) == "join"){
+		callplugins("beforeChatMessage", src, "/join", channel)
+		sys.stopEvent();
+	}
 
     // Can't ban from main
     if (channel === 0) return;
