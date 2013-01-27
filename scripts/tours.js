@@ -4,7 +4,7 @@ Coding done by Shadowfist
 */
 
 if (typeof tourschan !== "string") {
-	tourschan = sys.channelId("Tournaments")
+	tourschan = sys.channelId("Main")
 }
 
 if (typeof tours !== "object") {
