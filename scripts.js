@@ -1851,11 +1851,11 @@ kickAll : function(ip) {
 beforeChannelJoin : function(src, channel) {
     var poUser = SESSION.users(src);
     var poChannel = SESSION.channels(channel);
+	// CHANGE
 	if (sys.channel(channel) == "join"){
-		callplugins("beforeChatMessage", src, "/join", channel)
 		sys.stopEvent();
+		this.beforeChatMessage(src, "/join", 0);
 	}
-
     // Can't ban from main
     if (channel === 0) return;
     
