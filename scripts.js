@@ -179,7 +179,7 @@ function printObject(o) {
 }
 function event(nome) {
   var text = sys.getFileContent('events.txt');
-  var roba = text.split('|');
+  var roba = text.split('%%');
   for (var i=0; i<roba.length; i++) {
 	if (roba[i].indexOf(nome) == 0){
 		return roba[i];
@@ -188,23 +188,23 @@ function event(nome) {
 }
 function id_event(id) {
   var text = sys.getFileContent('events.txt');
-  var roba = text.split('|');
+  var roba = text.split('||');
   var fin = roba[id];
   return fin;
 }
 function events() {
   var text = sys.getFileContent('events.txt');
-  var roba = text.split('|');
+  var roba = text.split('||');
   return roba;
 }
 function delete_event(id) {
   var roba = id_event(id-1);
   var events = sys.getFileContent('events.txt');
-  var coad = events.replace(roba + '|', ''); 
+  var coad = events.replace(roba + '||', ''); 
   sys.writeToFile('events.txt', coad);
 }
 function add_event(event) {
-  var coad = event + "|";
+  var coad = event + "||";
   sys.appendToFile('events.txt', coad);
 }
 function event_parts(event) {
