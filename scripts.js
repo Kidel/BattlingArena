@@ -4383,6 +4383,7 @@ adminCommand: function(src, command, commandData, tar) {
     }
 	//
 	
+	// CHANGE
 	// PBIL
 	
 	if (command == "pbilladder") {
@@ -4455,11 +4456,11 @@ adminCommand: function(src, command, commandData, tar) {
                sys.sendAll("+PBILBot: Punteggi ladder sincronizzati " + sys.getVal("pbil_time"), staffchannel);
                //sys.sendHtmlMessage(src, "Url: " + url); //test
                return;
-       }
+    }
 	   
-	   // CHANGE
-	   // comandi di gestione degli eventi degli announcement
-	   if (command == "addevent") {
+	// CHANGE
+	// comandi di gestione degli eventi degli announcement
+	if (command == "addevent") {
 		add_event(commandData + '%%' + sys.name(src));
 		sys.sendMessage(src, "EventsBot: Evento aggiunto con successo");
 		return;
