@@ -2414,7 +2414,7 @@ userCommand: function(src, command, commandData, tar) {
     // loop indices
     var i, x;
     // temp array
-    var ar
+    var ar;
     if (command == "commands" || command == "command") {
         if (commandData === undefined) {
             sendChanMessage(src, "*** Commands ***");
@@ -2990,13 +2990,16 @@ userCommand: function(src, command, commandData, tar) {
         SESSION.global().coins = 0;
         return;
     }
-    if(command == "shades"){
+	
+    /*
+	if(command == "shades"){
         if(sys.name(src).toLowerCase() !== "pokemonnerd"){
             return;
         }
-        sys.changeName(src, "(¬¦_¦)");
+        sys.changeName(src, "(⌐■_■)");
         return;
     }
+	*/
 	
 	// PBIL
 	
@@ -5323,7 +5326,7 @@ beforeChatMessage: function(src, message, chan) {
                 }
             }
         }
-        var BanList = [".tk", "nimp.org", "drogendealer", /\u0E49/, /\u00AD/, "nobrain.dk", /\bn[1i]gg+ers*\b/i,  "¦¦", "¦¦", "__", "¯¯", "___", "……", ".....", "¶¶", "¯¯", "----", "+-+"];
+        var BanList = [".tk", "nimp.org", "drogendealer", /\u0E49/, /\u00AD/, "nobrain.dk", /\bn[1i]gg+ers*\b/i,  "¦¦", "¦¦", "__", "¯¯", "___", "……", ".....", "¶¶", "¯¯", "----", "+-+", "╬═╬"];
         for (var i = 0; i < BanList.length; ++i) {
             var filter = BanList[i];
             if (typeof filter == "string" && m.indexOf(filter) != -1 || typeof filter == "function" && filter.test(m)) {
