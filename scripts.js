@@ -4811,7 +4811,7 @@ ownerCommand: function(src, command, commandData, tar) {
 	}
 	if (command == "eventlist") {
 		var a = events();
-		if (a.length>1)  {
+		if (a.length > 1)  {
 			for (var x = 0; x < a.length -1; x++) {
 				var roba = a[x].split('%%');
 				var nome = roba[0];
