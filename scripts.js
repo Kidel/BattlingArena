@@ -4460,14 +4460,19 @@ adminCommand: function(src, command, commandData, tar) {
 	   
 	// CHANGE
 	// comandi di gestione degli eventi degli announcement
+	if (command == "resetevents") {
+		sys.writeToFile('events.txt', "");
+		sys.sendMessage(src, "EventsBot: Eventi azzerati.");
+		return;
+	}
 	if (command == "addevent") {
 		add_event(commandData + '%%' + sys.name(src));
-		sys.sendMessage(src, "EventsBot: Evento aggiunto con successo");
+		sys.sendMessage(src, "EventsBot: Evento aggiunto con successo.");
 		return;
 	}
 	if (command == "delevent") {
 		delete_event(commandData);
-		sys.sendMessage(src, "EventsBot: Evento eliminato con successo");
+		sys.sendMessage(src, "EventsBot: Evento eliminato con successo.");
 		return;
 	}
 	if (command == "eventnumber") {
@@ -4508,7 +4513,7 @@ adminCommand: function(src, command, commandData, tar) {
 				sys.sendMessage(src, "");
 			}
 		}
-		else sys.sendMessage(src, "The event list is empty.");
+		else sys.sendMessage(src, "La lista degli eventi è vuota.");
 		return;
 	}
 	//
