@@ -1381,7 +1381,6 @@ var commands = {
         "/updateScripts: Updates scripts from the web.",
 		"/html: Allows use of HTML.",
 		"/font: BIG text.",
-		"/refreshlist: The server is listed again!",
 		"*** Event Commands ***",
 		"/resetevents: Deletes event list.",
 		"/eventlist: Displays event list and rapid commands to add/delete them.",
