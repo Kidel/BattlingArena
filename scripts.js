@@ -4800,26 +4800,32 @@ ownerCommand: function(src, command, commandData, tar) {
 		var data = roba[1];
 		var link = roba[2];
 		var tier = roba[3];
+		sys.sendMessage(src, "");
+		sys.sendMessage(src, "*** Event " + commandData + " ***");
 		sys.sendMessage(src, "Nome: " + nome);
 		sys.sendMessage(src, "Data: " + data);
 		sys.sendMessage(src, "Link: " + link);
 		sys.sendMessage(src, "Tier: " + tier);
+		sys.sendMessage(src, "");
 		return;
 	}
 	if (command == "eventlist") {
 		var a = events();
-		for (var x = 0; x < a.length; x++) {
-			var roba = a[x].split('%%');
-			var nome = roba[0];
-			var data = roba[1];
-			var link = roba[2];
-			var tier = roba[3];
-			sys.sendMessage(src, "Event " + (x+1));
-			sys.sendMessage(src, "Nome: " + nome);
-			sys.sendMessage(src, "Data: " + data);
-			sys.sendMessage(src, "Link: " + link);
-			sys.sendMessage(src, "Tier: " + tier);
-			sys.sendMessage(src, "");
+		if (a.length>0)  {
+			for (var x = 0; x < a.length; x++) {
+				var roba = a[x].split('%%');
+				var nome = roba[0];
+				var data = roba[1];
+				var link = roba[2];
+				var tier = roba[3];
+				sys.sendMessage(src, "");
+				sys.sendMessage(src, "*** Event " + (x+1) + " ***");
+				sys.sendMessage(src, "Nome: " + nome);
+				sys.sendMessage(src, "Data: " + data);
+				sys.sendMessage(src, "Link: " + link);
+				sys.sendMessage(src, "Tier: " + tier);
+				sys.sendMessage(src, "");
+			}
 		}
 		return;
 	}
