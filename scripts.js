@@ -4303,7 +4303,7 @@ adminCommand: function(src, command, commandData, tar) {
 
 		// aggiunta degli eventi
 		var a = events();
-		var eventstring = "";
+		var eventstring = "<br>";
 		if (a.length > 1)  {
 			for (var x = 0; x < a.length -1; x++) {
 				var roba = a[x].split('%%');
