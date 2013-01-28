@@ -4478,7 +4478,7 @@ adminCommand: function(src, command, commandData, tar) {
 		sys.sendMessage(src, "EventsBot: Evento aggiunto con successo.");
 		return;
 	  }
-	  else sys.sendMessage(src, "Numero di parametri non corretto. Usa '/commands admin' per conoscere la giusta sintassi.");
+	  else sys.sendMessage(src, "EventsBot: Numero di parametri non corretto. Usa '/commands admin' per conoscere la giusta sintassi.");
 	}
 	if (command == "delevent") {
 	  if(commandData !== undefined) {
