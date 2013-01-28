@@ -179,7 +179,7 @@ function printObject(o) {
 }
 function event(nome) {
   var text = sys.getFileContent('events.txt');
-  var roba = text.split('%%');
+  var roba = text.split('||');
   for (var i=0; i<roba.length; i++) {
 	if (roba[i].indexOf(nome) == 0){
 		return roba[i];
