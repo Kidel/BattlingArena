@@ -4282,36 +4282,22 @@ adminCommand: function(src, command, commandData, tar) {
 	
    
 	if (command == "updateann") {
-       sendChanMessage(src, "+Bot: Fetching announcement...");
-       //var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/announcement.html";
-	   //redirect a quello di github. a PO non piace https -_-
-	   var updateURL = "http://www.pokemonbattle.it/battlingarena/announcement.php"; 
-       var oldAnn = sys.getAnnouncement();
-       
-	   /*
-       sendChanMessage(src, "+Bot: Fetching announcements from " + updateURL);
-       sys.webCall(updateURL, "try { sys.changeAnnouncement(resp); } catch (err) { sys.sendAll('+Bot: reloading old announcements'); sys.changeAnnouncement(oldAnn); sys.sendAll('+Bot: Updating failed, loaded old announcement!'); }");
-	   */
-	   
-	   var channel_local = channel;
-       var changeAnn = function(resp) {
-            if (resp === "") { normalbot.sendAll('Updating failed, resp is null!', staffchannel); return; }
-            try {
-                sys.changeAnnouncement(resp);
-            } catch (err) {
-                sys.changeAnnouncement(oldAnn);
-                sys.sendAll('+Bot: reloading old announcements');
-            }
-        };
-        sendChanMessage(src, "+Bot: Fetching announcements from " + updateURL);
-        sys.webCall(updateURL, changeAnn);
-	   
-	   
-	   // aggiunta degli eventi
-	   var newAnn = sys.getAnnouncement();
-	   var splitAnn = newAnn.split('{{EVENTS}}');
-	   var a = events();
-	   var eventstring = "";
+		sendChanMessage(src, "+Bot: Fetching announcement...");
+		//var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/announcement.html";
+		//redirect a quello di github. a PO non piace https -_-
+		var updateURL = "http://www.pokemonbattle.it/battlingarena/announcement.php"; 
+		var oldAnn = sys.getAnnouncement();
+
+		/*
+		sendChanMessage(src, "+Bot: Fetching announcements from " + updateURL);
+		sys.webCall(updateURL, "try { sys.changeAnnouncement(resp); } catch (err) { sys.sendAll('+Bot: reloading old announcements'); sys.changeAnnouncement(oldAnn); sys.sendAll('+Bot: Updating failed, loaded old announcement!'); }");
+		*/
+
+		var channel_local = channel;
+
+		// aggiunta degli eventi
+		var a = events();
+		var eventstring = "";
 		if (a.length > 1)  {
 			for (var x = 0; x < a.length -1; x++) {
 				var roba = a[x].split('%%');
@@ -4324,13 +4310,23 @@ adminCommand: function(src, command, commandData, tar) {
 			}
 		}
 		else eventstring = "-";
-		
-		var eventAnn = splitAnn[0] + eventstring + splitAnn[1];
-		
-		sys.changeAnnouncement(eventAnn);
-		
-		sys.sendAll('+Bot: updated announcements');
-	   return;
+
+		var changeAnn = function(resp) {
+			if (resp === "") { normalbot.sendAll('Updating failed, resp is null!', staffchannel); return; }
+			try {
+				var splitAnn = resp.split('{{EVENTS}}');
+				var eventAnn = splitAnn[0] + eventstring + splitAnn[1];
+				//sys.changeAnnouncement(resp);
+				sys.changeAnnouncement(eventAnn);
+			} catch (err) {
+				sys.changeAnnouncement(oldAnn);
+				sys.sendAll('+Bot: reloading old announcements');
+			}
+		};
+		sendChanMessage(src, "+Bot: Fetching announcements from " + updateURL);
+		sys.webCall(updateURL, changeAnn);
+
+		return;
     }
 	
 	if (command == "refreshlist") {
