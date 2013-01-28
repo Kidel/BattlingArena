@@ -4290,6 +4290,29 @@ adminCommand: function(src, command, commandData, tar) {
 
        sendChanMessage(src, "+Bot: Fetching announcements from " + updateURL);
        sys.webCall(updateURL, "try { sys.changeAnnouncement(resp); } catch (err) { sys.sendAll('+Bot: reloading old announcements'); sys.changeAnnouncement(oldAnn); sys.sendAll('+Bot: Updating failed, loaded old announcement!'); }");
+	   
+	   // aggiunta degli eventi
+	   var newAnn = sys.getAnnouncement();
+	   var splitAnn = newAnn.split('{{EVENTS}}');
+	   var a = events();
+	   var eventstring = "";
+		if (a.length > 1)  {
+			for (var x = 0; x < a.length -1; x++) {
+				var roba = a[x].split('%%');
+				var nome = roba[0];
+				var data = roba[1];
+				var tier = roba[2];
+				var link = roba[3];
+				
+				eventstring = eventstring + data + "<br><a href='" + link + "'>" + nome + "(" + tier + ")</a><br><br>";
+			}
+		}
+		else eventstring = "-";
+		
+		var eventAnn = splitAnn[0] + eventstring + splitAnn[1];
+		
+		sys.changeAnnouncement(eventAnn);
+	   
 	   return;
     }
 	if (command == "refreshlist") {
@@ -4798,8 +4821,8 @@ ownerCommand: function(src, command, commandData, tar) {
 		var roba = a.split('%%');
 		var nome = roba[0];
 		var data = roba[1];
-		var link = roba[2];
-		var tier = roba[3];
+		var tier = roba[2];
+		var link = roba[3];
 		sys.sendMessage(src, "");
 		sys.sendMessage(src, "*** Event " + commandData + " ***");
 		sys.sendMessage(src, "Nome: " + nome);
@@ -4816,8 +4839,8 @@ ownerCommand: function(src, command, commandData, tar) {
 				var roba = a[x].split('%%');
 				var nome = roba[0];
 				var data = roba[1];
-				var link = roba[2];
-				var tier = roba[3];
+				var tier = roba[2];
+				var link = roba[3];
 				sys.sendMessage(src, "");
 				sys.sendMessage(src, "*** Event " + (x+1) + " ***");
 				sys.sendMessage(src, "Nome: " + nome);
