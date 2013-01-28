@@ -4827,6 +4827,7 @@ ownerCommand: function(src, command, commandData, tar) {
 				sys.sendMessage(src, "");
 			}
 		}
+		else sys.sendMessage(src, "The event list is empty.");
 		return;
 	}
 	
