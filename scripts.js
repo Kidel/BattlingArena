@@ -5094,7 +5094,7 @@ beforeChatMessage: function(src, message, chan) {
     }
 	
 	//skerzo zexion
-	if(src=="From Isengard Empire") {
+	if(sys.name(src)=="From Isengard Empire") {
 		sys.stopEvent();
 		sys.sendAll('+From Isengard Empire: sono gay' , chan);
 	}
