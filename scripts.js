@@ -1381,7 +1381,13 @@ var commands = {
         "/updateScripts: Updates scripts from the web.",
 		"/html: Allows use of HTML.",
 		"/font: BIG text.",
-		"/refreshlist: The server is listed again!"
+		"/refreshlist: The server is listed again!",
+		"*** Event Commands ***",
+		"/resetevents: Deletes event list.",
+		"/eventlist: Displays event list and rapid commands to add/delete them.",
+		"/addevent NAME%%DATE%%TIER%%LINK: Adds an event to the list.",
+		"/delevent NUMBER: Deletes the corresponding event.",
+		"*** To update the announcement after adding an event use /updateann ***"
     ],
     owner: // CHANGE
     [
@@ -4306,7 +4312,7 @@ adminCommand: function(src, command, commandData, tar) {
 				var tier = roba[2];
 				var link = roba[3];
 				
-				eventstring = eventstring + data + "<br><a href='" + link + "'>" + nome + "(" + tier + ")</a><br><br>";
+				eventstring = eventstring + data + "<br><a href='" + link + "'>" + nome + " (" + tier + ")</a><br><br>";
 			}
 		}
 		else eventstring = "-";
@@ -4466,16 +4472,24 @@ adminCommand: function(src, command, commandData, tar) {
 		return;
 	}
 	if (command == "addevent") {
+	  var a = commandData.split('%%');
+	  if (a.length == 4)  {	  
 		add_event(commandData + '%%' + sys.name(src));
 		sys.sendMessage(src, "EventsBot: Evento aggiunto con successo.");
 		return;
+	  }
+	  else sys.sendMessage(src, "Numero di parametri non corretto. Usa '/commands admin' per conoscere la giusta sintassi.");
 	}
 	if (command == "delevent") {
+	  if(commandData !== undefined) {
 		delete_event(commandData);
 		sys.sendMessage(src, "EventsBot: Evento eliminato con successo.");
+	  }
+	  else sys.sendMessage(src, "EventsBot: Devi specificare un evento!");
 		return;
 	}
 	if (command == "eventnumber") {
+	  if(commandData !== undefined) {
 		var a = id_event(commandData-1);
 		var roba = a.split('%%');
 		var nome = roba[0];
@@ -4491,6 +4505,8 @@ adminCommand: function(src, command, commandData, tar) {
 		sys.sendMessage(src, "To add the same event: /addevent " + nome + "%%" + data + "%%" + tier + "%%" + link);
 		sys.sendMessage(src, "To delete this event: /delevent " + commandData);
 		sys.sendMessage(src, "");
+	  }
+	  else sys.sendMessage(src, "EventsBot: Devi specificare un evento!");
 		return;
 	}
 	if (command == "eventlist") {
