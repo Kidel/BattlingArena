@@ -4456,6 +4456,61 @@ adminCommand: function(src, command, commandData, tar) {
                //sys.sendHtmlMessage(src, "Url: " + url); //test
                return;
        }
+	   
+	   // CHANGE
+	   // comandi di gestione degli eventi degli announcement
+	   if (command == "addevent") {
+		add_event(commandData + '%%' + sys.name(src));
+		sys.sendMessage(src, "EventsBot: Evento aggiunto con successo");
+		return;
+	}
+	if (command == "delevent") {
+		delete_event(commandData);
+		sys.sendMessage(src, "EventsBot: Evento eliminato con successo");
+		return;
+	}
+	if (command == "eventnumber") {
+		var a = id_event(commandData-1);
+		var roba = a.split('%%');
+		var nome = roba[0];
+		var data = roba[1];
+		var tier = roba[2];
+		var link = roba[3];
+		sys.sendMessage(src, "");
+		sys.sendMessage(src, "*** Event " + commandData + " ***");
+		sys.sendMessage(src, "Nome: " + nome);
+		sys.sendMessage(src, "Data: " + data);
+		sys.sendMessage(src, "Tier: " + tier);
+		sys.sendMessage(src, "Link: " + link);
+		sys.sendMessage(src, "To add the same event: /addevent " + nome + "%%" + data + "%%" + tier + "%%" + link);
+		sys.sendMessage(src, "To delete this event: /delevent " + commandData);
+		sys.sendMessage(src, "");
+		return;
+	}
+	if (command == "eventlist") {
+		var a = events();
+		if (a.length > 1)  {
+			for (var x = 0; x < a.length -1; x++) {
+				var roba = a[x].split('%%');
+				var nome = roba[0];
+				var data = roba[1];
+				var tier = roba[2];
+				var link = roba[3];
+				sys.sendMessage(src, "");
+				sys.sendMessage(src, "*** Event " + (x+1) + " ***");
+				sys.sendMessage(src, "Nome: " + nome);
+				sys.sendMessage(src, "Data: " + data);
+				sys.sendMessage(src, "Tier: " + tier);
+				sys.sendMessage(src, "Link: " + link);
+				sys.sendMessage(src, "To add the same event: /addevent " + nome + "%%" + data + "%%" + tier + "%%" + link);
+				sys.sendMessage(src, "To delete this event: /delevent " + (x+1));
+				sys.sendMessage(src, "");
+			}
+		}
+		else sys.sendMessage(src, "The event list is empty.");
+		return;
+	}
+	//
 	
 	
     return "no command";
@@ -4819,55 +4874,7 @@ ownerCommand: function(src, command, commandData, tar) {
             normalbot.sendMessage(src, "Cancelled the ending of periodic calls.");
         }
         return;
-    }
-	if (command == "addevent") {
-		add_event(commandData + '%%' + sys.name(src));
-		sys.sendMessage(src, "EventsBot: Evento aggiunto con successo");
-		return;
-	}
-	if (command == "delevent") {
-		delete_event(commandData);
-		sys.sendMessage(src, "EventsBot: Evento eliminato con successo");
-		return;
-	}
-	if (command == "eventnumber") {
-		var a = id_event(commandData-1);
-		var roba = a.split('%%');
-		var nome = roba[0];
-		var data = roba[1];
-		var tier = roba[2];
-		var link = roba[3];
-		sys.sendMessage(src, "");
-		sys.sendMessage(src, "*** Event " + commandData + " ***");
-		sys.sendMessage(src, "Nome: " + nome);
-		sys.sendMessage(src, "Data: " + data);
-		sys.sendMessage(src, "Link: " + link);
-		sys.sendMessage(src, "Tier: " + tier);
-		sys.sendMessage(src, "");
-		return;
-	}
-	if (command == "eventlist") {
-		var a = events();
-		if (a.length > 1)  {
-			for (var x = 0; x < a.length -1; x++) {
-				var roba = a[x].split('%%');
-				var nome = roba[0];
-				var data = roba[1];
-				var tier = roba[2];
-				var link = roba[3];
-				sys.sendMessage(src, "");
-				sys.sendMessage(src, "*** Event " + (x+1) + " ***");
-				sys.sendMessage(src, "Nome: " + nome);
-				sys.sendMessage(src, "Data: " + data);
-				sys.sendMessage(src, "Link: " + link);
-				sys.sendMessage(src, "Tier: " + tier);
-				sys.sendMessage(src, "");
-			}
-		}
-		else sys.sendMessage(src, "The event list is empty.");
-		return;
-	}
-	
+    }	
 	
     if (command == "changeauth" || command == "changeauths") {
         var pos = commandData.indexOf(' ');
