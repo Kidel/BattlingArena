@@ -4288,15 +4288,10 @@ adminCommand: function(src, command, commandData, tar) {
 	   var updateURL = "http://www.pokemonbattle.it/battlingarena/announcement.php"; 
        var oldAnn = sys.getAnnouncement();
 
-       sendChanMessage(src, "+Bot: Fetching announcements from " + updateURL);
-       sys.webCall(updateURL, "try { sys.changeAnnouncement(resp); } catch (err) { sys.sendAll('+Bot: reloading old announcements'); sys.changeAnnouncement(oldAnn); sys.sendAll('+Bot: Updating failed, loaded old announcement!'); }");
-	   
 	   // aggiunta degli eventi
-	   var newAnn = sys.getAnnouncement();
-	   var splitAnn = newAnn.split('{{EVENTS}}');
 	   var a = events();
 	   var eventstring = "";
-		if (a.length > 1)  {
+	   if (a.length > 1)  {
 			for (var x = 0; x < a.length -1; x++) {
 				var roba = a[x].split('%%');
 				var nome = roba[0];
@@ -4306,15 +4301,15 @@ adminCommand: function(src, command, commandData, tar) {
 				
 				eventstring = eventstring + data + "<br><a href='" + link + "'>" + nome + "(" + tier + ")</a><br><br>";
 			}
-		}
-		else eventstring = "-";
+	   }
+	   else eventstring = "-";
 		
-		var eventAnn = splitAnn[0] + eventstring + splitAnn[1];
-		
-		sys.changeAnnouncement(eventAnn);
+       sendChanMessage(src, "+Bot: Fetching announcements from " + updateURL);
+       sys.webCall(updateURL, "try { var splitAnn = resp.split('{{EVENTS}}'); var eventAnn = splitAnn[0] + eventstring + splitAnn[1]; sys.changeAnnouncement(eventAnn); } catch (err) { sys.sendAll('+Bot: reloading old announcements'); sys.changeAnnouncement(oldAnn); sys.sendAll('+Bot: Updating failed, loaded old announcement!'); }");
 	   
 	   return;
     }
+	
 	if (command == "refreshlist") {
 	   sys.makeServerPublic(false);
 	   sys.makeServerPublic(true);
