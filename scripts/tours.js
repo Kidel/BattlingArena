@@ -487,7 +487,7 @@ function getConfigValue(file, key) {
 			tourdq: 180,
 			subtime: 90,
 			touractivity: 400,
-			breaktime: 360,
+			breaktime: 900,
 			absbreaktime: 600,
 			remindertime: 30,
 			channel: "Main",
