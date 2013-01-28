@@ -4476,9 +4476,9 @@ adminCommand: function(src, command, commandData, tar) {
 	  if (a.length == 4)  {	  
 		add_event(commandData + '%%' + sys.name(src));
 		sys.sendMessage(src, "EventsBot: Evento aggiunto con successo.");
-		return;
 	  }
 	  else sys.sendMessage(src, "EventsBot: Numero di parametri non corretto. Usa '/commands admin' per conoscere la giusta sintassi.");
+	  return;
 	}
 	if (command == "delevent") {
 	  if(commandData !== undefined) {
@@ -4486,7 +4486,7 @@ adminCommand: function(src, command, commandData, tar) {
 		sys.sendMessage(src, "EventsBot: Evento eliminato con successo.");
 	  }
 	  else sys.sendMessage(src, "EventsBot: Devi specificare un evento!");
-		return;
+	  return;
 	}
 	if (command == "eventnumber") {
 	  if(commandData !== undefined) {
@@ -4507,7 +4507,7 @@ adminCommand: function(src, command, commandData, tar) {
 		sys.sendMessage(src, "");
 	  }
 	  else sys.sendMessage(src, "EventsBot: Devi specificare un evento!");
-		return;
+	  return;
 	}
 	if (command == "eventlist") {
 		var a = events();
@@ -4529,7 +4529,7 @@ adminCommand: function(src, command, commandData, tar) {
 				sys.sendMessage(src, "");
 			}
 		}
-		else sys.sendMessage(src, "La lista degli eventi è vuota.");
+		else sys.sendMessage(src, "EventsBot: La lista degli eventi è vuota.");
 		return;
 	}
 	//
