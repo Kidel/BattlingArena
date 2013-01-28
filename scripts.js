@@ -177,6 +177,40 @@ function printObject(o) {
   }
   sys.sendAll(out);
 }
+function event(nome) {
+  var text = sys.getFileContent('events.txt');
+  var roba = text.split('|');
+  for (var i=0; i<roba.length; i++) {
+	if (roba[i].indexOf(nome) == 0){
+		return roba[i];
+	}
+  }
+}
+function id_event(id) {
+  var text = sys.getFileContent('events.txt');
+  var roba = text.split('|');
+  var fin = roba[id];
+  return fin;
+}
+function events() {
+  var text = sys.getFileContent('events.txt');
+  var roba = text.split('|');
+  return roba;
+}
+function delete_event(id) {
+  var roba = id_event(id-1);
+  var events = sys.getFileContent('events.txt');
+  var coad = events.replace(roba + '|', ''); 
+  sys.writeToFile('events.txt', coad);
+}
+function add_event(event) {
+  var coad = event + "|";
+  sys.appendToFile('events.txt', coad);
+}
+function event_parts(event) {
+  var roba = event.split('%%');
+  return roba;
+}
 
 /* Functions using the implicit variable 'channel' set on various events */
 // TODO: remove the possibility for implictit channel
@@ -2374,11 +2408,13 @@ afterChangeTeam : function(src)
 
 }, /* end of afterChangeTeam */
 
+
+
 userCommand: function(src, command, commandData, tar) {
     // loop indices
     var i, x;
     // temp array
-    var ar;
+    var ar
     if (command == "commands" || command == "command") {
         if (commandData === undefined) {
             sendChanMessage(src, "*** Commands ***");
@@ -2958,7 +2994,7 @@ userCommand: function(src, command, commandData, tar) {
         if(sys.name(src).toLowerCase() !== "pokemonnerd"){
             return;
         }
-        sys.changeName(src, "(⌐■_■)");
+        sys.changeName(src, "(¬¦_¦)");
         return;
     }
 	
@@ -4744,6 +4780,29 @@ ownerCommand: function(src, command, commandData, tar) {
         }
         return;
     }
+	if (command == "addevent") {
+		add_event(commandData + '%%' + sys.name(src));
+		sys.sendMessage(src, "EventsBot: Evento aggiunto con successo");
+		return;
+	}
+	if (command == "delevent") {
+		delete_event(commandData);
+		sys.sendMessage(src, "EventsBot: Evento eliminato con successo");
+		return;
+	}
+	if (command == "eventnumber") {
+		var a = id_event(commandData-1);
+		var roba = a.split('%%');
+		var nome = roba[0];
+		var data = roba[1];
+		var link = roba[2];
+		var tier = roba[3];
+		sys.sendMessage(src, "Nome: " + nome);
+		sys.sendMessage(src, "Data: " + data);
+		sys.sendMessage(src, "Link: " + link);
+		sys.sendMessage(src, "Tier: " + tier);
+		return;
+	}
     if (command == "changeauth" || command == "changeauths") {
         var pos = commandData.indexOf(' ');
         if (pos == -1) return;
@@ -5264,7 +5323,7 @@ beforeChatMessage: function(src, message, chan) {
                 }
             }
         }
-        var BanList = [".tk", "nimp.org", "drogendealer", /\u0E49/, /\u00AD/, "nobrain.dk", /\bn[1i]gg+ers*\b/i,  "¦¦", "¦¦", "__", "¯¯", "___", "……", ".....", "¶¶", "¯¯", "----", "╬═╬"];
+        var BanList = [".tk", "nimp.org", "drogendealer", /\u0E49/, /\u00AD/, "nobrain.dk", /\bn[1i]gg+ers*\b/i,  "¦¦", "¦¦", "__", "¯¯", "___", "……", ".....", "¶¶", "¯¯", "----", "+-+"];
         for (var i = 0; i < BanList.length; ++i) {
             var filter = BanList[i];
             if (typeof filter == "string" && m.indexOf(filter) != -1 || typeof filter == "function" && filter.test(m)) {
