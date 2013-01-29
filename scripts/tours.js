@@ -500,7 +500,7 @@ function getConfigValue(file, key) {
 		}
 		var configkeys = sys.getValKeys(file)
 		if (configkeys.indexOf(key) == -1) {
-			sys.sendAll("No tour config data detected for '"+key+"', getting default value", tourschan)
+			sys.sendAll("No tour config data detected for '"+key+"', getting default value", tourserrchan)
 			return defaultvars[key];
 		}
 		else {
