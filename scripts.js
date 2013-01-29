@@ -5514,7 +5514,9 @@ beforeChatMessage: function(src, message, chan) {
         }
 
         sys.stopEvent();
-        print("-- Command: " + sys.name(src) + ": " + message);
+        if (message.indexof('/idle ') != 0 && message.indexof('/publicbattles ') != 0){
+        	print("-- Command: " + sys.name(src) + ": " + message);
+        }
 
         var commandData;
         var pos = message.indexOf(' ');
