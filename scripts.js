@@ -5514,10 +5514,13 @@ beforeChatMessage: function(src, message, chan) {
         }
 
         sys.stopEvent();
-        if (message.indexOf('/idle ') != 0 && message.indexOf('/publicbattles ') != 0){
+		
+        if (message.indexOf('/idle ') != 0) {
         	print("-- Command: " + sys.name(src) + ": " + message);
         }
-
+        if (message.indexOf('/public') != 0 && message.indexOf('battles ') != 0) {
+        	print("-- Command: " + sys.name(src) + ": " + message);
+        }
         var commandData;
         var pos = message.indexOf(' ');
 
