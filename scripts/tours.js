@@ -483,10 +483,10 @@ function getConfigValue(file, key) {
 			maxqueue: 4,
 			maxarray: 1023,
 			maxrunning: 3,
-			toursignup: 400,
+			toursignup: 100,
 			tourdq: 180,
 			subtime: 90,
-			touractivity: 400,
+			touractivity: 100,
 			breaktime: 900,
 			absbreaktime: 600,
 			remindertime: 30,
@@ -500,7 +500,7 @@ function getConfigValue(file, key) {
 		}
 		var configkeys = sys.getValKeys(file)
 		if (configkeys.indexOf(key) == -1) {
-			//sys.sendAll("No tour config data detected for '"+key+"', getting default value", sys.channelId("Indigo Plateau"))
+			sys.sendAll("No tour config data detected for '"+key+"', getting default value", tourschan)
 			return defaultvars[key];
 		}
 		else {
