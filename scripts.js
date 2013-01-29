@@ -4021,6 +4021,46 @@ meon: function(src, commandData) {
 },
 
 adminCommand: function(src, command, commandData, tar) {
+
+	// CHANGE
+	// tour config commands
+	if(command == "setuptourconfig") {
+		sys.writeToFile("tourconfig.txt", "");
+		sys.saveVal("tourconfig.txt", "maxqueue", "4");
+		sys.saveVal("tourconfig.txt", "maxarray", "1023");
+		sys.saveVal("tourconfig.txt", "maxrunning", "3");
+		sys.saveVal("tourconfig.txt", "toursignup", "100");
+		sys.saveVal("tourconfig.txt", "tourdq", "180");
+		sys.saveVal("tourconfig.txt", "subtime", "90");
+		sys.saveVal("tourconfig.txt", "touractivity", "100");
+		sys.saveVal("tourconfig.txt", "breaktime", "900");
+		sys.saveVal("tourconfig.txt", "absbreaktime", "600");
+		sys.saveVal("tourconfig.txt", "remindertime", "30");
+		sys.saveVal("tourconfig.txt", "channel", "Main");
+		sys.saveVal("tourconfig.txt", "errchannel", "Developer's Den");
+		sys.saveVal("tourconfig.txt", "tourbotcolour", "#3DAA68");
+		sys.saveVal("tourconfig.txt", "minpercent", "5");
+		sys.saveVal("tourconfig.txt", "version", "1.321b");
+		sys.saveVal("tourconfig.txt", "debug", "false");
+		sys.saveVal("tourconfig.txt", "points", "true");
+		sys.sendMessage(src, "+Bot: Configurazione tour resettata.");
+		return;
+	}
+	if(command == "tourconfig") {	  
+		if(commandData !== undefined) {
+			var space = commandData.indexOf(':');
+			if (space != -1) {
+				var conf = commandData.split(":");
+				sys.saveVal("tourconfig.txt", conf[0], conf[1]);
+				sys.sendMessage(src, "+Bot: Configurazione tour modificata.");
+			}
+			else sys.sendMessage(src, "+Bot: Sintassi errata! Servono 2 parametri divisi da ':'.");
+		}
+		else sys.sendMessage(src, "+Bot: Sintassi errata!");
+		return;
+	}
+	//
+	
     if (command == "memorydump") {
         sendChanMessage(src, sys.memoryDump());
         return;
@@ -4495,24 +4535,24 @@ adminCommand: function(src, command, commandData, tar) {
 	// comandi di gestione degli eventi degli announcement
 	if (command == "resetevents") {
 		sys.writeToFile('events.txt', "");
-		sys.sendMessage(src, "EventsBot: Eventi azzerati.");
+		sys.sendMessage(src, "+EventsBot: Eventi azzerati.");
 		return;
 	}
 	if (command == "addevent") {
 	  var a = commandData.split('%%');
 	  if (a.length == 4)  {	  
 		add_event(commandData + '%%' + sys.name(src));
-		sys.sendMessage(src, "EventsBot: Evento aggiunto con successo.");
+		sys.sendMessage(src, "+EventsBot: Evento aggiunto con successo.");
 	  }
-	  else sys.sendMessage(src, "EventsBot: Numero di parametri non corretto. Usa '/commands admin' per conoscere la giusta sintassi.");
+	  else sys.sendMessage(src, "+EventsBot: Numero di parametri non corretto. Usa '/commands admin' per conoscere la giusta sintassi.");
 	  return;
 	}
 	if (command == "delevent") {
 	  if(commandData !== undefined) {
 		delete_event(commandData);
-		sys.sendMessage(src, "EventsBot: Evento eliminato con successo.");
+		sys.sendMessage(src, "+EventsBot: Evento eliminato con successo.");
 	  }
-	  else sys.sendMessage(src, "EventsBot: Devi specificare un evento!");
+	  else sys.sendMessage(src, "+EventsBot: Devi specificare un evento!");
 	  return;
 	}
 	if (command == "eventnumber") {
@@ -4535,7 +4575,7 @@ adminCommand: function(src, command, commandData, tar) {
 		sys.sendMessage(src, "To delete this event: /delevent " + commandData);
 		sys.sendMessage(src, "");
 	  }
-	  else sys.sendMessage(src, "EventsBot: Devi specificare un evento!");
+	  else sys.sendMessage(src, "+EventsBot: Devi specificare un evento!");
 	  return;
 	}
 	if (command == "eventlist") {
@@ -4560,7 +4600,7 @@ adminCommand: function(src, command, commandData, tar) {
 				sys.sendMessage(src, "");
 			}
 		}
-		else sys.sendMessage(src, "EventsBot: La lista degli eventi è vuota.");
+		else sys.sendMessage(src, "+EventsBot: La lista degli eventi è vuota.");
 		return;
 	}
 	//
