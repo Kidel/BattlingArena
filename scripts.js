@@ -5473,7 +5473,7 @@ beforeChatMessage: function(src, message, chan) {
     }
 
 	if (channel == 0 && sys.auth(src) == 0 && ( m.indexOf("sfida") != -1 || m.indexOf("lotta") != -1 || m.indexOf("duella") != -1) &&  (m.indexOf("ki ") != -1 || m.indexOf("chi ") != -1 ) ) {
-        sendChanMessage(src, "+TipBot: Non chiedere sfide in chat. Usa il tasto 'Cerca Sfida' o sfida direttamente TU chi vuoi. http://www.PokemonBattle.it/fb.png <-");
+        sendChanMessage(src, "+TipBot: Non chiedere sfide in chat. Usa il tasto 'Cerca Sfida' o sfida direttamente TU chi vuoi. http://findbattlebutton.info/ <-");
 		sys.sendAll('+Bot: ' + sys.name(src) + ' ha provato a chiedere sfide in chat' ,staffchannel);
 		sys.sendAll('+Bot: ' + sys.name(src) + ': ' + message ,staffchannel);
         sys.stopEvent();
@@ -5737,6 +5737,8 @@ beforeChatMessage: function(src, message, chan) {
             sys.playerIds().forEach(function(id) {
                 if (sys.loggedIn(id) && SESSION.users(id).smute.active) {
                     sendChanMessage(id,  sys.name(src)+": "+message);
+					
+					// CHANGE
 					sendChanAll(sys.name(src)+": " + message, watchchannel);
                 }
             });
