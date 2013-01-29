@@ -285,7 +285,7 @@ function time_handle(time) { //time in seconds
 // This function will get a user's current tournament points overall
 
 function getTourWinMessages() {
-	var content = sys.getFileContent("tourwinverbs.txt")
+	var content = sys.getFileContent("tourconfig/tourwinverbs.txt")
 	tourwinmessages = content.split("\n")
 }
 
@@ -1083,14 +1083,14 @@ function tourCommand(src, command, commandData) {
 			}
 			// enabled for now!
 			if (command == "updatewinmessages") {
-				var url = "https://raw.github.com/lamperi/po-server-goodies/master/tourwinverbs.txt"
+				var url = "https://github.com/Kidel/BattlingArena/tree/master/tourconfig/tourwinverbs.txt"
 				if (commandData.indexOf("http://") === 0 || commandData.indexOf("https://") === 0) {
 					url = commandData;
 				}
 				sys.sendMessage(src, Config.Tours.tourbot+"Fetching win messages from "+url, tourschan);
 				sys.webCall(url, function(resp) {
 					if (resp !== "") {
-						sys.writeToFile('tourwinverbs.txt', resp);
+						sys.writeToFile('tourconfig/tourwinverbs.txt', resp);
 						getTourWinMessages()
 						sys.sendAll(Config.Tours.tourbot + 'Updated win messages!', tourschan);
 					} else {
