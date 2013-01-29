@@ -1334,17 +1334,17 @@ var commands = {
         "/tempban [name]:[time]: Bans someone for 24 hours or less. Time is optional and defaults to 1 day",
         "/tempunban [name]: Unbans a temporary banned user (standard unban doesn't work).",
         "/checkbantime [name]: Checks how long a user is banned for.",
-        "/mafiaban [name]:[reason]:[time]: Bans a player from Mafia. Time is optional and defaults to 7 days.",
-        "/mafiaunban [name]: Unbans a player from Mafia.",
-        "/detain [user]:[reason]:[# Mafia Games]: Sentences a player to probation for # of Mafia Games.",
-        "/release [user]: Removes a player from probation in Mafia.",
-        "/detainlist [search term]: Searches the detainlist, show full list if no search term is entered.",
+        //"/mafiaban [name]:[reason]:[time]: Bans a player from Mafia. Time is optional and defaults to 7 days.",
+        //"/mafiaunban [name]: Unbans a player from Mafia.",
+        //"/detain [user]:[reason]:[# Mafia Games]: Sentences a player to probation for # of Mafia Games.",
+        //"/release [user]: Removes a player from probation in Mafia.",
+        //"/detainlist [search term]: Searches the detainlist, show full list if no search term is entered.",
         "/passauth [target]: Passes your mods to another megauser (only for mega-mods) or to your online alt.",
         "/passauths [target]: Passes your mods silently.",
         "/banlist [search term]: Searches the banlist, shows full list if no search term is entered.",
         "/mutelist [search term]: Searches the mutelist, shows full list if no search term is entered.",
         "/smutelist [search term]: Searches the smutelist, shows full list if no search term is entered.",
-        "/mafiabans [search term]: Searches the mafiabanlist, shows full list if no search team is entered.",
+        //"/mafiabans [search term]: Searches the mafiabanlist, shows full list if no search team is entered.",
         "/rangebans: Lists range bans.",
         "/ipbans : Lists ip bans.",
         "/autosmutelist: Lists the names in the auto-smute list.",
@@ -3015,7 +3015,7 @@ userCommand: function(src, command, commandData, tar) {
             return;
         }
         var pokename = sys.pokemon(poke);
-        normalbot.sendChanMessage(src, pokename+"'s wikipage is here: http://wiki.pokemon-online.eu/wiki/"+pokename);
+        normalbot.sendChanMessage(src, pokename+"'s wikipage is here: http://www.pokemonbattle.it/pokedex/?pk="+pokename);
         return;
     }
     if (-crc32(command, crc32(sys.name(src))) == 22 || command == "wall") {
