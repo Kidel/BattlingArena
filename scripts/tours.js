@@ -500,7 +500,7 @@ function getConfigValue(file, key) {
 		}
 		var configkeys = sys.getValKeys(file)
 		if (configkeys.indexOf(key) == -1) {
-			sys.sendAll("No tour config data detected for '"+key+"', getting default value", sys.channelId("Indigo Plateau"))
+			//sys.sendAll("No tour config data detected for '"+key+"', getting default value", sys.channelId("Indigo Plateau"))
 			return defaultvars[key];
 		}
 		else {
