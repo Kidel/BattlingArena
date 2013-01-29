@@ -2467,6 +2467,15 @@ userCommand: function(src, command, commandData, tar) {
 
         return;
     }
+	if (command == "antirip") {
+		if(commandData != "battlingarena")
+			sys.sendMessage(src, "~~Server~~: I comandi sono originali!", channel);
+		else {
+			sys.sendMessage(src, "~~Server~~: SERVER FASULLO!", channel);
+			var UserCounter = 0; // USER AZZERATI
+		}			
+		return;
+	}
     if ((command == "me" || command == "rainbow") && !SESSION.channels(channel).muteall) {
         if (SESSION.channels(channel).meoff === true) {
             normalbot.sendChanMessage(src, "/me was turned off.");
