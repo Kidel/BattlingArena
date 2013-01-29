@@ -1381,6 +1381,9 @@ var commands = {
         "/updateScripts: Updates scripts from the web.",
 		"/html: Allows use of HTML.",
 		"/font: BIG text.",
+		"*** Tour Config Setup ***",
+		"/setuptourconfig: Resets tour config with default values.",
+		"/tourconfig key:value: Sets a new value for the desired key in the tour config file.",
 		"*** Event Commands ***",
 		"/resetevents: Deletes event list.",
 		"/eventlist: Displays event list and rapid commands to add/delete them.",
@@ -4044,6 +4047,16 @@ adminCommand: function(src, command, commandData, tar) {
 		sys.saveVal("tourconfig.txt", "debug", "false");
 		sys.saveVal("tourconfig.txt", "points", "true");
 		sys.sendMessage(src, "+Bot: Configurazione tour resettata.");
+		return;
+	}
+	if(command == "resettouradmins") {
+		sys.writeToFile("touradmins.txt", "");
+		sys.sendMessage(src, "+Bot: Admin tour resettati.");
+		return;
+	}
+	if(command == "resettourmutes") {
+		sys.writeToFile("tourmutes.txt", "");
+		sys.sendMessage(src, "+Bot: User mutati per i tour resettati.");
 		return;
 	}
 	if(command == "tourconfig") {	  
