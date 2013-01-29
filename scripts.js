@@ -5515,10 +5515,7 @@ beforeChatMessage: function(src, message, chan) {
 
         sys.stopEvent();
 		
-        if (message.indexOf('/idle ') != 0) {
-        	print("-- Command: " + sys.name(src) + ": " + message);
-        }
-        if (message.indexOf('/public') != 0 && message.indexOf('battles ') != 0) {
+        if (message.indexOf('/idle ') != 0 && (message.indexOf('/public') != 0 && message.indexOf('battles ') != 7)) {
         	print("-- Command: " + sys.name(src) + ": " + message);
         }
         var commandData;
