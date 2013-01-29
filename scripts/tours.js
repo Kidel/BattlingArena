@@ -564,7 +564,7 @@ function initTours() {
 	}
 	try {
 		getTourWinMessages()
-		sys.sendAll("Win messages added", tourschan)
+		//sys.sendAll("Win messages added", tourschan)
 	}
 	catch (e) {
 		// use a sample set of win messages
@@ -590,7 +590,7 @@ function initTours() {
 	catch (e) {
 		sys.sendAll("No tourmute data detected, leaving blank", tourschan)
 	}
-	sys.sendAll("Version "+Config.Tours.version+" of the tournaments system was loaded successfully in this channel!", tourschan)
+	sys.sendMessage(src, "+TourBot: Version "+Config.Tours.version+" of the tournaments system was loaded successfully in this channel!", tourschan);
 }
 
 /* Tournament Step Event
