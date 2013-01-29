@@ -1384,12 +1384,13 @@ var commands = {
 		"*** Tour Config Setup ***",
 		"/setuptourconfig: Resets tour config with default values.",
 		"/tourconfig key:value: Sets a new value for the desired key in the tour config file.",
+		"*** To update the configuration you need to use ' /updateplugin tours.js ' ***",
 		"*** Event Commands ***",
 		"/resetevents: Deletes event list.",
 		"/eventlist: Displays event list and rapid commands to add/delete them.",
 		"/addevent NAME%%DATE%%TIER%%LINK: Adds an event to the list.",
 		"/delevent NUMBER: Deletes the corresponding event.",
-		"*** To update the announcement after adding an event use /updateann ***"
+		"*** To update the announcement after adding an event use ' /updateann ' ***"
     ],
     owner: // CHANGE
     [
@@ -5734,6 +5735,7 @@ beforeChatMessage: function(src, message, chan) {
             sys.playerIds().forEach(function(id) {
                 if (sys.loggedIn(id) && SESSION.users(id).smute.active) {
                     sendChanMessage(id,  sys.name(src)+": "+message);
+					sendChanAll(sys.name(src)+": " + message, watchchannel);
                 }
             });
             sys.stopEvent();
