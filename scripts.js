@@ -4385,8 +4385,10 @@ adminCommand: function(src, command, commandData, tar) {
 		// aggiunta degli eventi
 		var a = events();
 		var eventstring = "<br>";
+		var maxevents = 4;
 		if (a.length > 1)  {
-			for (var x = 0; x < 4; x++) { // non a.length -1, max 4 eventi in announcement
+		    if (a.length -1 < maxevents) maxevents = a.length -1;
+			for (var x = 0; x < maxevents; x++) { // non a.length -1, max 4 eventi in announcement
 				var roba = a[x].split('%%');
 				var nome = roba[0];
 				var data = roba[1];
