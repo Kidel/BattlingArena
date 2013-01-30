@@ -1271,7 +1271,7 @@ bfbot = new Bot(Config.bfbot);
 var commands = {
     user:
     [
-        "/rules [x]: Shows the rules (x is optionally parameter to show a specific rule)",
+        "/darules [x]: Shows the rules (x is optionally parameter to show a specific rule)",
         "/ranking: Shows your ranking in your current tier.",
         "/myalts: Lists your alts.",
         "/me [message]: Sends a message with *** before your name.",
@@ -2180,7 +2180,7 @@ afterLogIn : function(src) {
 // CHANGE
 
 	sys.sendMessage(src, "");
-	sys.sendMessage(src, "+RuleBot: Scrivi /Rules per vedere le regole.");
+	sys.sendMessage(src, "+RuleBot: Scrivi /DaRules per vedere le regole.");
 	sys.sendMessage(src, "+CommandBot: Usa !commands o /commands per vedere i comandi.");
 	sys.sendMessage(src, "+RuleBot: E' severamente vietato spammare altri server, sia in canale che in privato. Non vi rendete ridicoli per piacere.");
 	sys.sendMessage(src, "+RuleBot: Non chiedere fantomatici ''test'' per essere auth o ''capopalestra'', tornei fra server o cretinate simili. ");
@@ -2202,7 +2202,7 @@ afterLogIn : function(src) {
 	sys.sendMessage(src, "+PBILBot: Collega il nick " + sys.name(src) + " e pubblica il tuo punteggio ladder online! ");
     */
 	/*
-    sys.sendMessage(src, "*** Type in /Rules to see the rules. ***");
+    sys.sendMessage(src, "*** Type in /DaRules to see the rules. ***");
     commandbot.sendMessage(src, "Use !commands to see the commands!");
 	*/
     if (sys.numPlayers() > maxPlayersOnline) {
@@ -2561,7 +2561,7 @@ userCommand: function(src, command, commandData, tar) {
         sendChanMessage(src, "");
         return;
     }
-    if (command == "rules") {
+    if (command == "darules") {
         if (commandData === "mafia") {
             require('mafia.js').showRules(src, commandData, channel);
             return;
@@ -5419,7 +5419,7 @@ beforeChatMessage: function(src, message, chan) {
         SESSION.users(src).un("mute");
         normalbot.sendChanMessage(src, "your mute has expired.");
     }
-    if (sys.auth(src) < 3 && SESSION.users(src).mute.active && message != "!join" && message != "/rules" && message != "/join" && message != "!rules") {
+    if (sys.auth(src) < 3 && SESSION.users(src).mute.active && message != "!join" && message != "/rules" && message != "/darules" && message != "/join" && message != "!rules") {
         var muteinfo = SESSION.users(src).mute;
         normalbot.sendChanMessage(src, "You are muted" + (muteinfo.by ? " by " + muteinfo.by : '')+". " + (muteinfo.expires > 0 ? "Mute expires in " + getTimeString(muteinfo.expires - parseInt(sys.time(), 10)) + ". " : '') + (muteinfo.reason ? "[Reason: " + muteinfo.reason + "]" : ''));
         sys.stopEvent();
