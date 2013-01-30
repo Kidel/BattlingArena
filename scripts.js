@@ -1560,7 +1560,9 @@ init : function() {
     "5. Non trollate, non flammate o tormentate altri giocatori; non lamentatevi dell'hax, se proprio dovete farlo limitatevi ad una riga:",
     "-: Non insultate in chat o in PM ne' sfidate continuamente la stessa persona; comportamenti simili non verranno tollerati. Eccessiva volgarità, come le bestemmie o gli insulti ai familiari, non sono tollerate.",
     "6. Non cercate di aggirare il Regolamento:",
-    "-: ''La legge non ammette ignoranza''; se non conosci il Regolamento non sei autorizzato a non rispettarlo, ma sei comunque tenuto a non infrangerlo; per ogni lamentela esiste la sezione 'Lamentele' sul Forum di Supporto del Server; se non usi questa funzionalità, evita di assillare di PM altre Auth che magari non conoscono i fatti."
+    "-: ''La legge non ammette ignoranza''; se non conosci il Regolamento non sei autorizzato a non rispettarlo, ma sei comunque tenuto a non infrangerlo; per ogni lamentela esiste la sezione 'Lamentele' sul Forum di Supporto del Server; se non usi questa funzionalità, evita di assillare di PM altre Auth che magari non conoscono i fatti.",
+	" *** end ***",
+	""
     ];
 
     if (typeof authStats == 'undefined')
