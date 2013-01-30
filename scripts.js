@@ -1550,17 +1550,17 @@ init : function() {
     "*** [ITA] Battling Arena Server Rules ***",
     "",
     "1. [ITA] Battling Arena è un Server prevalentemente italiano:",
-    "- Tutti sono i benvenuti nel Server finché rispettano queste regole; se uno straniero usa la propria lingua per comunicare, chiedetegli gentilmente di usare l'inglese.",
+    "-: Tutti sono i benvenuti nel Server finché rispettano queste regole; se uno straniero usa la propria lingua per comunicare, chiedetegli gentilmente di usare l'inglese.",
     "2. Diciamo NO allo spam, al flood, al materiale osceno e alla text art:",
-    "- Non postate links che non siano di un sito famoso (Smogon, Serebii, Youtube, Facebook...) o di uno dei siti dei Teams o Communities che trovate esposti in alto nel Server; se avete una piccola Community e volete unirvi a noi, usate il Forum di Supporto per farvi avanti. Non monopolizzate la chat copincollando messaggi lunghi o con messaggi in rapida successione. Postare in ASCII è passibile di ban, così come inviare links legati in qualunque modo alla pornografia.",
+    "-: Non postate links che non siano di un sito famoso (Smogon, Serebii, Youtube, Facebook...) o di uno dei siti dei Teams o Communities che trovate esposti in alto nel Server; se avete una piccola Community e volete unirvi a noi, usate il Forum di Supporto per farvi avanti. Non monopolizzate la chat copincollando messaggi lunghi o con messaggi in rapida successione. Postare in ASCII è passibile di ban, così come inviare links legati in qualunque modo alla pornografia.",
     "3. Usate il comando Find Battle o partecipate ai tornei invece di intasare la main chat con le richieste:",
-    "- Il Server è statisticamente pieno, se non trovate nessuno per giocare significa che siete degli sfigati pazzeschi, altrimenti vuol dire che semplicemente non lo state cercando. Usate l'apposito comando o partecipate ai tornei. Se giocate in tiers minori, potete chiedere in Main Chat, ma in maniera moderata.",
+    "-: Il Server è statisticamente pieno, se non trovate nessuno per giocare significa che siete degli sfigati pazzeschi, altrimenti vuol dire che semplicemente non lo state cercando. Usate l'apposito comando o partecipate ai tornei. Se giocate in tiers minori, potete chiedere in Main Chat, ma in maniera moderata.",
     "4. Non chiedere di diventare Auth dal Server, esiste il Forum di Supporto per questo:",
-    "- Chiederlo in Main Chat o in PM ad una attuale Auth significa perdere concrete possibilità di diventarlo in futuro, perche' significa che non siete abituati a leggere e/o seguire le regole: non è una buona caratteristica per un'auth!",
+    "-: Chiederlo in Main Chat o in PM ad una attuale Auth significa perdere concrete possibilità di diventarlo in futuro, perche' significa che non siete abituati a leggere e/o seguire le regole: non è una buona caratteristica per un'auth!",
     "5. Non trollate, non flammate o tormentate altri giocatori; non lamentatevi dell'hax, se proprio dovete farlo limitatevi ad una riga:",
-    "- Non insultate in chat o in PM ne' sfidate continuamente la stessa persona; comportamenti simili non verranno tollerati. Eccessiva volgarità, come le bestemmie o gli insulti ai familiari, non sono tollerate.",
+    "-: Non insultate in chat o in PM ne' sfidate continuamente la stessa persona; comportamenti simili non verranno tollerati. Eccessiva volgarità, come le bestemmie o gli insulti ai familiari, non sono tollerate.",
     "6. Non cercate di aggirare il Regolamento:",
-    "- ''La legge non ammette ignoranza''; se non conosci il Regolamento non sei autorizzato a non rispettarlo, ma sei comunque tenuto a non infrangerlo; per ogni lamentela esiste la sezione 'Lamentele' sul Forum di Supporto del Server; se non usi questa funzionalità, evita di assillare di PM altre Auth che magari non conoscono i fatti."
+    "-: ''La legge non ammette ignoranza''; se non conosci il Regolamento non sei autorizzato a non rispettarlo, ma sei comunque tenuto a non infrangerlo; per ogni lamentela esiste la sezione 'Lamentele' sul Forum di Supporto del Server; se non usi questa funzionalità, evita di assillare di PM altre Auth che magari non conoscono i fatti."
     ];
 
     if (typeof authStats == 'undefined')
