@@ -1271,7 +1271,8 @@ bfbot = new Bot(Config.bfbot);
 var commands = {
     user:
     [
-        "/darules [x]: Shows the rules (x is optionally parameter to show a specific rule)",
+        "/darules [x]: Shows the rules (x is optionally numeric parameter to show a specific rule).",
+		"/regolamento [x]: Same as above.",
         "/ranking: Shows your ranking in your current tier.",
         "/myalts: Lists your alts.",
         "/me [message]: Sends a message with *** before your name.",
@@ -1546,20 +1547,20 @@ init : function() {
     else sys.webCall(Config.base_url + PROXY_FILE, addProxybans);
 
     rules = [ "",
-    "*** Pokémon Online Server Rules ***",
+    "*** [ITA] Battling Arena Server Rules ***",
     "",
-    "1. Pokemon Online is an international server:",
-    "- Respect other peoples' cultures and do not demand they speak English. Everyone is welcome at Pokemon Online, as long as they follow the rules.",
-    "2. No advertising, excessive messages, inappropriate/obscene links, or text art:",
-    "- Do not post links unless they are to notable sites (Youtube, Smogon, Serebii, PokemonBattle.it, etc). We are not interested in your start-up community. Do not monopolize the chat with large amounts of messages, or short ones in rapid succession. Posting ASCII art is punishable with a ban, as is posting anything with any type of pornography.",
-    "3. Use Find Battle, or join tournaments instead of asking in the main chat:",
-    "- The official channels on Pokemon Online have too much activity to allow battle requests in the chat. Use Find Battle or go join the tournaments channel and participate. The only exception is if you are unable to find a battle for a low-played tier, then asking once every 5 minutes or so is acceptable.",
-    "4. Do not ask for authority:",
-    "- By asking, you may have eliminated your chances of becoming one in the future. If you are genuinely interested in becoming a staff member then a good way to get noticed is to become an active member of the community. Engaging others in intelligent chats and offering to help with graphics, programming, the wiki, or our YouTube channel (among others) is a good way to get noticed.",
-    "5. No trolling, flaming, or harassing other players. Do not complain about hax in the chat, beyond a one line comment:",
-    "- Inciting responses with inflammatory comments, using verbal abuse against other players, or spamming them via chat/PM/challenges will not be tolerated. Harassing other players by constantly aggravating them or revealing personal information will be severely punished. A one line comment regarding hax after a loss to vent is fine, but excessive bemoaning is not acceptable. Excessive vulgarity will not be tolerated",
-    "6. Do not attempt to circumvent the rules:",
-    "- Ignorance of the rules is not a valid reason for breaking them. Do not attempt to find or create any loopholes in these rules, or try to adapt them in order to have a punishment overturned or to justify your actions. Doing so may incur a further punishment. Make valid appeals directly to the authority of the server."
+    "1. [ITA] Battling Arena è un Server prevalentemente italiano:",
+    "- Tutti sono i benvenuti nel Server finché rispettano queste regole; se uno straniero usa la propria lingua per comunicare, chiedetegli gentilmente di usare l'inglese.",
+    "2. Diciamo NO allo spam, al flood, al materiale osceno e alla text art:",
+    "- Non postate links che non siano di un sito famoso (Smogon, Serebii, Youtube, Facebook...) o di uno dei siti dei Teams o Communities che trovate esposti in alto nel Server; se avete una piccola Community e volete unirvi a noi, usate il Forum di Supporto per farvi avanti. Non monopolizzate la chat copincollando messaggi lunghi o con messaggi in rapida successione. Postare in ASCII è passibile di ban, così come inviare links legati in qualunque modo alla pornografia.",
+    "3. Usate il comando Find Battle o partecipate ai tornei invece di intasare la main chat con le richieste:",
+    "- Il Server è statisticamente pieno, se non trovate nessuno per giocare significa che siete degli sfigati pazzeschi, altrimenti vuol dire che semplicemente non lo state cercando. Usate l'apposito comando o partecipate ai tornei. Se giocate in tiers minori, potete chiedere in Main Chat, ma in maniera moderata.",
+    "4. Non chiedere di diventare Auth dal Server, esiste il Forum di Supporto per questo:",
+    "- Chiederlo in Main Chat o in PM ad una attuale Auth significa perdere concrete possibilità di diventarlo in futuro, perche' significa che non siete abituati a leggere e/o seguire le regole: non è una buona caratteristica per un'auth!",
+    "5. Non trollate, non flammate o tormentate altri giocatori; non lamentatevi dell'hax, se proprio dovete farlo limitatevi ad una riga:",
+    "- Non insultate in chat o in PM ne' sfidate continuamente la stessa persona; comportamenti simili non verranno tollerati. Eccessiva volgarità, come le bestemmie o gli insulti ai familiari, non sono tollerate.",
+    "6. Non cercate di aggirare il Regolamento:",
+    "- ''La legge non ammette ignoranza''; se non conosci il Regolamento non sei autorizzato a non rispettarlo, ma sei comunque tenuto a non infrangerlo; per ogni lamentela esiste la sezione 'Lamentele' sul Forum di Supporto del Server; se non usi questa funzionalità, evita di assillare di PM altre Auth che magari non conoscono i fatti."
     ];
 
     if (typeof authStats == 'undefined')
@@ -2180,7 +2181,7 @@ afterLogIn : function(src) {
 // CHANGE
 
 	sys.sendMessage(src, "");
-	sys.sendMessage(src, "+RuleBot: Scrivi /DaRules per vedere le regole.");
+	sys.sendMessage(src, "+RuleBot: Scrivi /DaRules o /regolamento per vedere le regole.");
 	sys.sendMessage(src, "+CommandBot: Usa !commands o /commands per vedere i comandi.");
 	sys.sendMessage(src, "+RuleBot: E' severamente vietato spammare altri server, sia in canale che in privato. Non vi rendete ridicoli per piacere.");
 	sys.sendMessage(src, "+RuleBot: Non chiedere fantomatici ''test'' per essere auth o ''capopalestra'', tornei fra server o cretinate simili. ");
@@ -2561,7 +2562,7 @@ userCommand: function(src, command, commandData, tar) {
         sendChanMessage(src, "");
         return;
     }
-    if (command == "darules") {
+    if (command == "darules" || command == "regolamento") {
         if (commandData === "mafia") {
             require('mafia.js').showRules(src, commandData, channel);
             return;
@@ -5419,7 +5420,7 @@ beforeChatMessage: function(src, message, chan) {
         SESSION.users(src).un("mute");
         normalbot.sendChanMessage(src, "your mute has expired.");
     }
-    if (sys.auth(src) < 3 && SESSION.users(src).mute.active && message != "!join" && message != "/rules" && message != "/darules" && message != "/join" && message != "!rules") {
+    if (sys.auth(src) < 3 && SESSION.users(src).mute.active && message != "!join" && message != "/rules" && message != "/darules" && message != "/regolamento" && message != "/join" && message != "!rules") {
         var muteinfo = SESSION.users(src).mute;
         normalbot.sendChanMessage(src, "You are muted" + (muteinfo.by ? " by " + muteinfo.by : '')+". " + (muteinfo.expires > 0 ? "Mute expires in " + getTimeString(muteinfo.expires - parseInt(sys.time(), 10)) + ". " : '') + (muteinfo.reason ? "[Reason: " + muteinfo.reason + "]" : ''));
         sys.stopEvent();
