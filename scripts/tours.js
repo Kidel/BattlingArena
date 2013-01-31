@@ -1870,7 +1870,7 @@ function tourCommand(src, command, commandData) {
 				if (tours.tour[key].players.length >= 256) {
 					tours.tour[key].time = parseInt(sys.time());
 				}
-                sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><b>"+html_escape(sys.name(src))+"</b> E' il giocatore #"+tours.tour[key].players.length+" ad essere iscritto al torneo "+html_escape(getFullTourName(key))+"! "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? "ultimo secondo rimanente" : "secondi rimanenti")+"!", tourschan);
+                sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><b>"+html_escape(sys.name(src))+"</b> E' il giocatore #"+tours.tour[key].players.length+" ad essere iscritto al torneo "+html_escape(getFullTourName(key))+"! "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? "o rimanente" : "i rimanenti")+"!", tourschan);
 				return true;
 			}
 			/* subbing */
