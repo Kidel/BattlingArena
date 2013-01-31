@@ -20,6 +20,9 @@ var Config = {
     querybot: "querybot",
     hangbot: "hangbot",
     bfbot: "bfbot",
+	// CHANGE
+	// oltre a questi ci sono emoticonbot, eventbot, PBILbot, tipbot, tourbot (file esterno), rulebot, spambot
+	//
     // suspectvoting.js available, but not in use
     Plugins: ["tournaments.js", "tourstats.js", "tours.js", "newtourstats.js", "auto_smute.js"],
     Mafia: {
@@ -2185,26 +2188,26 @@ afterLogIn : function(src) {
 // CHANGE
 
 	sys.sendMessage(src, "");
-	sys.sendMessage(src, "+RuleBot: Scrivi /DaRules o /regolamento per vedere le regole.");
-	sys.sendMessage(src, "+CommandBot: Usa !commands o /commands per vedere i comandi.");
-	sys.sendMessage(src, "+RuleBot: E' severamente vietato spammare altri server, sia in canale che in privato. Non vi rendete ridicoli per piacere.");
-	sys.sendMessage(src, "+RuleBot: Non chiedere fantomatici ''test'' per essere auth o ''capopalestra'', tornei fra server o cretinate simili. ");
-	//sys.sendMessage(src, "+RuleBot: Su questo server non ci sono ''palestre''. Tuttavia sul forum sono periodicamente organizzati tornei ai quali è possibile iscriversi.");
-	sys.sendMessage(src, "+RuleBot: Non chiedere sfide in chat. Usa il tasto 'Cerca Sfida' / 'Find Battle' o sfida direttamente chi vuoi.");
-	sys.sendHtmlMessage(src, "<font color = '#3daa68'><timestamp/><b>+RuleBot: </b></font> Non chiedere auth in privato o in main channel. Se vuoi rappresentare la tua community su questo server, proponilo <a href='http://s.battlingarena.forumcommunity.net/?f=8388697'>qui</a>.");
-	sys.sendHtmlMessage(src, "<font color = '#3daa68'><timestamp/><b>+TipBot: </b></font> Clicca su ''Options'' e poi ''Sort players by tiers'' (''Raggruppa giocatori per tier''). Se non sai cos'e' una tier, <a href='http://lmgtfy.com/?q=tier+list+pokemon+italia'>informati</a>.");
-	sys.sendMessage(src, "+TipBot: Chi usa gli uber non sta ''imbrogliando''. Gioca semplicemente in una tier diversa.");
-	sys.sendMessage(src, "+TipBot: Rispetta la tua lingua. Evita di sostituire con la 'k' tutte le 'c' o di usare abbreviazioni da sms.");
-	sys.sendMessage(src, "+TipBot: Per evitare provvedimenti disciplinari, evita di flammare.");
+	sys.sendMessage(src, "±rulebot: Scrivi /DaRules o /regolamento per vedere le regole.");
+	sys.sendMessage(src, "±commandbot: Usa !commands o /commands per vedere i comandi.");
+	sys.sendMessage(src, "±rulebot: E' severamente vietato spammare altri server, sia in canale che in privato. Non vi rendete ridicoli per piacere.");
+	sys.sendMessage(src, "±rulebot: Non chiedere fantomatici ''test'' per essere auth o ''capopalestra'', tornei fra server o cretinate simili. ");
+	//sys.sendMessage(src, "±rulebot: Su questo server non ci sono ''palestre''. Tuttavia sul forum sono periodicamente organizzati tornei ai quali è possibile iscriversi.");
+	sys.sendMessage(src, "±rulebot: Non chiedere sfide in chat. Usa il tasto 'Cerca Sfida' / 'Find Battle' o sfida direttamente chi vuoi.");
+	sys.sendHtmlMessage(src, "<font color = '#3daa68'><timestamp/><b>±rulebot: </b></font> Non chiedere auth in privato o in main channel. Se vuoi rappresentare la tua community su questo server, proponilo <a href='http://s.battlingarena.forumcommunity.net/?f=8388697'>qui</a>.");
+	sys.sendHtmlMessage(src, "<font color = '#3daa68'><timestamp/><b>±tipbot: </b></font> Clicca su ''Options'' e poi ''Sort players by tiers'' (''Raggruppa giocatori per tier''). Se non sai cos'e' una tier, <a href='http://lmgtfy.com/?q=tier+list+pokemon+italia'>informati</a>.");
+	sys.sendMessage(src, "±tipbot: Chi usa gli uber non sta ''imbrogliando''. Gioca semplicemente in una tier diversa.");
+	sys.sendMessage(src, "±tipbot: Rispetta la tua lingua. Evita di sostituire con la 'k' tutte le 'c' o di usare abbreviazioni da sms.");
+	sys.sendMessage(src, "±tipbot: Per evitare provvedimenti disciplinari, evita di flammare.");
 	sys.sendMessage(src, "");
 	/*
-	sys.sendHtmlMessage(src, "<font color = '#3daa68'><timestamp/><b>+TipBot: </b></font> Scopri come essere megauser e ottenere comandi aggiuntivi, tra cui le emoticon <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAMAAAAMCGV4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjRFQ0MxRDkwNkFDNDExRTFCOEE5QjM4QzYxMTIzNkVFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjRFQ0MxRDkxNkFDNDExRTFCOEE5QjM4QzYxMTIzNkVFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NEVDQzFEOEU2QUM0MTFFMUI4QTlCMzhDNjExMjM2RUUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NEVDQzFEOEY2QUM0MTFFMUI4QTlCMzhDNjExMjM2RUUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5B6IjQAAAAYFBMVEUAAAD////95lLTzavSrRD2xC7ksSrDhBn7WDa8AAB9AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACEdaGkAAAAcUlEQVR42lSPUQ4EIQhDJ0pbXQ/B/W+5BedjtzEND0MozyllqaunKQBEd8wZA/CDsjiD0hi2apg5Z7Kt2N/ziNeUT8Ll4TUWgwzPM3CZn1dqjh/2/EmoYK8t9j5VY6+l3ud8nmvdfJVfTW/+v/u+AgwA6YQKnTuahggAAAAASUVORK5CYII='/>:");
-	sys.sendMessage(src, "+TipBot: http://www.pokemonbattle.it/forum/viewtopic.php?f=16&t=1647&p=33768#p33768.");
+	sys.sendHtmlMessage(src, "<font color = '#3daa68'><timestamp/><b>±tipbot: </b></font> Scopri come essere megauser e ottenere comandi aggiuntivi, tra cui le emoticon <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAMAAAAMCGV4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjRFQ0MxRDkwNkFDNDExRTFCOEE5QjM4QzYxMTIzNkVFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjRFQ0MxRDkxNkFDNDExRTFCOEE5QjM4QzYxMTIzNkVFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NEVDQzFEOEU2QUM0MTFFMUI4QTlCMzhDNjExMjM2RUUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NEVDQzFEOEY2QUM0MTFFMUI4QTlCMzhDNjExMjM2RUUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5B6IjQAAAAYFBMVEUAAAD////95lLTzavSrRD2xC7ksSrDhBn7WDa8AAB9AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACEdaGkAAAAcUlEQVR42lSPUQ4EIQhDJ0pbXQ/B/W+5BedjtzEND0MozyllqaunKQBEd8wZA/CDsjiD0hi2apg5Z7Kt2N/ziNeUT8Ll4TUWgwzPM3CZn1dqjh/2/EmoYK8t9j5VY6+l3ud8nmvdfJVfTW/+v/u+AgwA6YQKnTuahggAAAAASUVORK5CYII='/>:");
+	sys.sendMessage(src, "±tipbot: http://www.pokemonbattle.it/forum/viewtopic.php?f=16&t=1647&p=33768#p33768.");
 	sys.sendMessage(src, "");
 	*/
 	/*
-	sys.sendMessage(src, "+PBILBot: Dimostra di essere il migliore con la PBIL: http://www.pokemonbattle.it/pbil/ ");
-	sys.sendMessage(src, "+PBILBot: Collega il nick " + sys.name(src) + " e pubblica il tuo punteggio ladder online! ");
+	sys.sendMessage(src, "±PBILbot: Dimostra di essere il migliore con la PBIL: http://www.pokemonbattle.it/pbil/ ");
+	sys.sendMessage(src, "±PBILbot: Collega il nick " + sys.name(src) + " e pubblica il tuo punteggio ladder online! ");
     */
 	/*
     sys.sendMessage(src, "*** Digita /DaRules per leggere il Regolamento. ***");
@@ -2271,14 +2274,14 @@ afterLogIn : function(src) {
            sys.saveVal("pbil_time", sys.time());
                
                //test
-               sys.sendAll("+PBILBot: Time (current): " + sys.time() ,staffchannel);
+               sys.sendAll("±PBILbot: Time (current): " + sys.time() ,staffchannel);
                var tempotest = parseInt(sys.time()) + 60 * 60 * 24;
-               sys.sendAll("+PBILBot: Time (next update): " + tempotest ,staffchannel);
+               sys.sendAll("±PBILbot: Time (next update): " + tempotest ,staffchannel);
                
                var url = "http://www.pokemonbattle.it/pbil/playerlist.php";
        var playerlist = sys.synchronousWebCall(url);
                
-               //sys.sendAll("+PBILBot: Playerlist: " + playerlist , staffchannel); // test
+               //sys.sendAll("±PBILbot: Playerlist: " + playerlist , staffchannel); // test
                        
                var pbilplayers = playerlist.split(":");
                
@@ -2302,14 +2305,14 @@ afterLogIn : function(src) {
                                        used_app = 1;
                                        dec_days = parseInt(sys.time()) - parseInt(sys.getVal("pbil_ladder:" + pbilplayers[index].toLowerCase() + ":time"));
                                        
-                                       sys.sendAll("+PBILBot: Differenza in secondi: " + dec_days, staffchannel);
+                                       sys.sendAll("±PBILbot: Differenza in secondi: " + dec_days, staffchannel);
                                        //sys.sendAll(sys.getVal("pbil_ladder:" + pbilplayers[index].toLowerCase() + ":time"), staffchannel);  // test
                                        //sys.sendAll(sys.time(), staffchannel);  // test
                                                                        
                                        if (dec_days>0){ // simulo il decadimento
                                            dec_days =  parseInt(parseInt(dec_days) / (60*60*48));
                                                if (dec_days<1) dec_days =0;
-                                               sys.sendAll("+PBILBot: Giorni decadimento: " + dec_days, staffchannel);  // test
+                                               sys.sendAll("±PBILbot: Giorni decadimento: " + dec_days, staffchannel);  // test
                                                decadimento = 1 - ((5 * parseInt(dec_days))/100);
                                                ldd_app = parseInt(ldd_app * decadimento);
                                                if (ldd_app < 1000 && dec_days > 0) {
@@ -2323,8 +2326,8 @@ afterLogIn : function(src) {
                                if (!ldd_app) ldd_app="undefined";
                            
                            url = url + pbilplayers[index] + ":" + ldd_app + ":";
-                               sys.sendAll("+PBILBot: Player " + index + ": " + pbilplayers[index], staffchannel);  // test
-                               sys.sendAll("+PBILBot: Ladder " + index + ": " + ldd_app, staffchannel);  // test
+                               sys.sendAll("±PBILbot: Player " + index + ": " + pbilplayers[index], staffchannel);  // test
+                               sys.sendAll("±PBILbot: Ladder " + index + ": " + ldd_app, staffchannel);  // test
                                //sys.sendAll("", staffchannel);
                        }  
                        
@@ -2334,7 +2337,7 @@ afterLogIn : function(src) {
                
                sys.webCall(url, " ; ");
                
-               sys.sendAll("+PBILBot: Punteggi ladder sincronizzati " + sys.getVal("pbil_time"), staffchannel);
+               sys.sendAll("±PBILbot: Punteggi ladder sincronizzati " + sys.getVal("pbil_time"), staffchannel);
                //sys.sendHtmlMessage(src, "Punteggi ladder sincronizzati <timestamp/>");
                //sys.sendHtmlMessage(src, "Url: " + url);
        }
@@ -3050,13 +3053,13 @@ userCommand: function(src, command, commandData, tar) {
 	
 	if (command == "pbilval") {
          if (commandData === undefined) {
-         sendChanMessage(src, "+PBILBot: Devi specificare il codice corretto per /pbilval");
+         sendChanMessage(src, "±PBILbot: Devi specificare il codice corretto per /pbilval");
           return;
          }          
          var m = commandData.toLowerCase();
      if (m.indexOf("nigger") != -1 || m.indexOf("drogendealer") != -1 || m.indexOf("penis") != -1 ||  m.indexOf("vagina")  != -1 || m.indexOf("fuckface") != -1
            || m.indexOf("herp") != -1 || /\bderp/i.test(m) || m.indexOf("/") != -1) {
-                       sendChanMessage(src, "+PBILBot: Devi specificare il codice corretto per /pbilval");
+                       sendChanMessage(src, "±PBILbot: Devi specificare il codice corretto per /pbilval");
            sys.stopEvent();
            return;
      }
@@ -3066,13 +3069,13 @@ userCommand: function(src, command, commandData, tar) {
          if (registered){          
                  var url = "http://www.pokemonbattle.it/pbil/server_validation.php?codex=" + commandData ;
                  var post = {'namex':sys.name(src)};
-                 sys.webCall(url, "sendChanMessage(src,'+PBILBot: Invio in corso...'); ",post);
+                 sys.webCall(url, "sendChanMessage(src,'±PBILbot: Invio in corso...'); ",post);
                  
-                 sendChanMessage(src, "+PBILBot: Codice inviato correttamente. Verifica la riuscita dell'operazione ricaricando la pagina del tuo profilo.");
+                 sendChanMessage(src, "±PBILbot: Codice inviato correttamente. Verifica la riuscita dell'operazione ricaricando la pagina del tuo profilo.");
                  //sendChanMessage(src, url);
          }
          else {
-               sendChanMessage(src, "+PBILBot: Codice non inviato. Registra il nick prima.");
+               sendChanMessage(src, "±PBILbot: Codice non inviato. Registra il nick prima.");
          }
          
          
@@ -3963,7 +3966,7 @@ modCommand: function(src, command, commandData, tar) {
 		
 		/*}
 		else {
-			sendChanMessage(src, "+EmoticonBot: Le emoticon sono momentaneamente disabilitate.");
+			sendChanMessage(src, "±emoticonbot: Le emoticon sono momentaneamente disabilitate.");
 		}*/
 		
 		return;
@@ -4055,17 +4058,17 @@ adminCommand: function(src, command, commandData, tar) {
 		sys.saveVal("tourconfig.txt", "version", "1.321b");
 		sys.saveVal("tourconfig.txt", "debug", "false");
 		sys.saveVal("tourconfig.txt", "points", "true");
-		sys.sendMessage(src, "+Bot: Configurazione tour resettata.");
+		sys.sendMessage(src, "±bot: Configurazione tour resettata.");
 		return;
 	}
 	if(command == "resettouradmins") {
 		sys.writeToFile("touradmins.txt", "");
-		sys.sendMessage(src, "+Bot: Admin tour resettati.");
+		sys.sendMessage(src, "±bot: Admin tour resettati.");
 		return;
 	}
 	if(command == "resettourmutes") {
 		sys.writeToFile("tourmutes.txt", "");
-		sys.sendMessage(src, "+Bot: User mutati per i tour resettati.");
+		sys.sendMessage(src, "±bot: User mutati per i tour resettati.");
 		return;
 	}
 	if(command == "tourconfig") {	  
@@ -4074,11 +4077,11 @@ adminCommand: function(src, command, commandData, tar) {
 			if (space != -1) {
 				var conf = commandData.split(":");
 				sys.saveVal("tourconfig.txt", conf[0], conf[1]);
-				sys.sendMessage(src, "+Bot: Configurazione tour modificata.");
+				sys.sendMessage(src, "±bot: Configurazione tour modificata.");
 			}
-			else sys.sendMessage(src, "+Bot: Sintassi errata! Servono 2 parametri divisi da ':'.");
+			else sys.sendMessage(src, "±bot: Sintassi errata! Servono 2 parametri divisi da ':'.");
 		}
-		else sys.sendMessage(src, "+Bot: Sintassi errata!");
+		else sys.sendMessage(src, "±bot: Sintassi errata!");
 		return;
 	}
 	//
@@ -4377,15 +4380,15 @@ adminCommand: function(src, command, commandData, tar) {
 	
    
 	if (command == "updateann") {
-		sendChanMessage(src, "±Bot: Sto aggiornando l'annuncio...");
+		sendChanMessage(src, "±bot: Sto aggiornando l'annuncio...");
 		//var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/announcement.html";
 		//redirect a quello di github. a PO non piace https -_-
 		var updateURL = "http://www.pokemonbattle.it/battlingarena/announcement.php"; 
 		var oldAnn = sys.getAnnouncement();
 
 		/*
-		sendChanMessage(src, "±Bot: Sto prendendo l'annuncio da " + updateURL);
-		sys.webCall(updateURL, "try { sys.changeAnnouncement(resp); } catch (err) { sys.sendAll('+Bot: reloading old announcements'); sys.changeAnnouncement(oldAnn); sys.sendAll('+Bot: Updating failed, loaded old announcement!'); }");
+		sendChanMessage(src, "±bot: Sto prendendo l'annuncio da " + updateURL);
+		sys.webCall(updateURL, "try { sys.changeAnnouncement(resp); } catch (err) { sys.sendAll('±bot: reloading old announcements'); sys.changeAnnouncement(oldAnn); sys.sendAll('±bot: Updating failed, loaded old announcement!'); }");
 		*/
 
 		var channel_local = channel;
@@ -4417,10 +4420,10 @@ adminCommand: function(src, command, commandData, tar) {
 				sys.changeAnnouncement(eventAnn);
 			} catch (err) {
 				sys.changeAnnouncement(oldAnn);
-				sys.sendAll('+Bot: reloading old announcements');
+				sys.sendAll('±bot: reloading old announcements');
 			}
 		};
-		sendChanMessage(src, "±Bot: Sto prendendo l'annuncio da  " + updateURL);
+		sendChanMessage(src, "±bot: Sto prendendo l'annuncio da  " + updateURL);
 		sys.webCall(updateURL, changeAnn);
 
 		return;
@@ -4429,7 +4432,7 @@ adminCommand: function(src, command, commandData, tar) {
 	if (command == "refreshlist") {
 	   sys.makeServerPublic(false);
 	   sys.makeServerPublic(true);
-	   sendChanMessage(src, "+Bot: il Server è di nuovo in lista!");
+	   sendChanMessage(src, "±bot: il Server è di nuovo in lista!");
 	   return;
     }
 	
@@ -4487,14 +4490,14 @@ adminCommand: function(src, command, commandData, tar) {
                sys.saveVal("pbil_time", sys.time());
                
                //test
-               sys.sendAll("+PBILBot: Time (current): " + sys.time() ,staffchannel);
+               sys.sendAll("±PBILbot: Time (current): " + sys.time() ,staffchannel);
                var tempotest = parseInt(sys.time()) + 60 * 60 * 24;
-               sys.sendAll("+PBILBot: Time (next update): " + tempotest ,staffchannel);
+               sys.sendAll("±PBILbot: Time (next update): " + tempotest ,staffchannel);
                
                var url = "http://www.pokemonbattle.it/pbil/playerlist.php";
        var playerlist = sys.synchronousWebCall(url);
                
-               //sys.sendAll("+PBILBot: Playerlist: " + playerlist , staffchannel); // test
+               //sys.sendAll("±PBILbot: Playerlist: " + playerlist , staffchannel); // test
                        
                var pbilplayers = playerlist.split(":");
                
@@ -4518,14 +4521,14 @@ adminCommand: function(src, command, commandData, tar) {
                                        used_app = 1;
                                        dec_days = parseInt(sys.time()) - parseInt(sys.getVal("pbil_ladder:" + pbilplayers[index].toLowerCase() + ":time"));
                                        
-                                       sys.sendAll("+PBILBot: Differenza in secondi: " + dec_days, staffchannel);
+                                       sys.sendAll("±PBILbot: Differenza in secondi: " + dec_days, staffchannel);
                                        //sys.sendAll(sys.getVal("pbil_ladder:" + pbilplayers[index].toLowerCase() + ":time"), staffchannel);  // test
                                        //sys.sendAll(sys.time(), staffchannel);  // test
                                                                        
                                        if (dec_days>0){ // simulo il decadimento
                                            dec_days =  parseInt(parseInt(dec_days) / (60*60*48));
                                                if (dec_days<1) dec_days =0;
-                                               sys.sendAll("+PBILBot: Giorni decadimento: " + dec_days, staffchannel);  // test
+                                               sys.sendAll("±PBILbot: Giorni decadimento: " + dec_days, staffchannel);  // test
                                                decadimento = 1 - ((5 * parseInt(dec_days))/100);
                                                ldd_app = parseInt(ldd_app * decadimento);
                                                if (ldd_app < 1000 && dec_days > 0) {
@@ -4539,8 +4542,8 @@ adminCommand: function(src, command, commandData, tar) {
                                if (!ldd_app) ldd_app="undefined";
                            
                            url = url + pbilplayers[index] + ":" + ldd_app + ":";
-                               sys.sendAll("+PBILBot: Player " + index + ": " + pbilplayers[index], staffchannel);  // test
-                               sys.sendAll("+PBILBot: Ladder " + index + ": " + ldd_app, staffchannel);  // test
+                               sys.sendAll("±PBILbot: Player " + index + ": " + pbilplayers[index], staffchannel);  // test
+                               sys.sendAll("±PBILbot: Ladder " + index + ": " + ldd_app, staffchannel);  // test
                                //sys.sendAll("", staffchannel);
                        }  
                        
@@ -4550,7 +4553,7 @@ adminCommand: function(src, command, commandData, tar) {
                
                sys.webCall(url, " ; ");
                sys.sendMessage(sys.id("Tano"), url, staffchannel); //test messages
-               sys.sendAll("+PBILBot: Punteggi ladder sincronizzati " + sys.getVal("pbil_time"), staffchannel);
+               sys.sendAll("±PBILbot: Punteggi ladder sincronizzati " + sys.getVal("pbil_time"), staffchannel);
                //sys.sendHtmlMessage(src, "Url: " + url); //test
                return;
     }
@@ -4559,24 +4562,24 @@ adminCommand: function(src, command, commandData, tar) {
 	// comandi di gestione degli eventi degli announcement
 	if (command == "resetevents") {
 		sys.writeToFile('events.txt', "");
-		sys.sendMessage(src, "+EventsBot: Eventi azzerati.");
+		sys.sendMessage(src, "±eventbot: Eventi azzerati.");
 		return;
 	}
 	if (command == "addevent") {
 	  var a = commandData.split('%%');
 	  if (a.length == 4)  {	  
 		add_event(commandData + '%%' + sys.name(src));
-		sys.sendMessage(src, "+EventsBot: Evento aggiunto con successo.");
+		sys.sendMessage(src, "±eventbot: Evento aggiunto con successo.");
 	  }
-	  else sys.sendMessage(src, "+EventsBot: Numero di parametri non corretto. Usa '/commands admin' per conoscere la giusta sintassi.");
+	  else sys.sendMessage(src, "±eventbot: Numero di parametri non corretto. Usa '/commands admin' per conoscere la giusta sintassi.");
 	  return;
 	}
 	if (command == "delevent") {
 	  if(commandData !== undefined) {
 		delete_event(commandData);
-		sys.sendMessage(src, "+EventsBot: Evento eliminato con successo.");
+		sys.sendMessage(src, "±eventbot: Evento eliminato con successo.");
 	  }
-	  else sys.sendMessage(src, "+EventsBot: Devi specificare un evento!");
+	  else sys.sendMessage(src, "±eventbot: Devi specificare un evento!");
 	  return;
 	}
 	if (command == "eventnumber") {
@@ -4599,7 +4602,7 @@ adminCommand: function(src, command, commandData, tar) {
 		sys.sendMessage(src, "Cancella questo evento: /delevent " + commandData);
 		sys.sendMessage(src, "");
 	  }
-	  else sys.sendMessage(src, "+EventsBot: Devi specificare un evento!");
+	  else sys.sendMessage(src, "±eventbot: Devi specificare un evento!");
 	  return;
 	}
 	if (command == "eventlist") {
@@ -4624,7 +4627,7 @@ adminCommand: function(src, command, commandData, tar) {
 				sys.sendMessage(src, "");
 			}
 		}
-		else sys.sendMessage(src, "+EventsBot: La lista degli eventi è vuota.");
+		else sys.sendMessage(src, "±eventbot: La lista degli eventi è vuota.");
 		return;
 	}
 	//
@@ -5445,10 +5448,10 @@ beforeChatMessage: function(src, message, chan) {
     // CHANGE
 	
 	if (channel == 0 && sys.auth(src) == 0 &&  ( message.indexOf("ANDATE") != -1 || message.indexOf("TEAM ROCKET") != -1 || message.indexOf("VENITE") != -1)  ) {
-        sys.sendAll('+SpamBot: ' + sys.name(src) + ' ha provato a spammare' ,staffchannel);
-		sys.sendAll('+SpamBot: ' + sys.name(src) + ': ' + message ,staffchannel);
+        sys.sendAll('±spambot: ' + sys.name(src) + ' ha provato a spammare' ,staffchannel);
+		sys.sendAll('±spambot: ' + sys.name(src) + ': ' + message ,staffchannel);
         sys.stopEvent();
-        sys.sendAll("+SpamBot: Qui gli spammer non sono graditi, "  + sys.name(src) + ". Per ora mi limiterò al kick.",0);
+        sys.sendAll("±spambot: Qui gli spammer non sono graditi, "  + sys.name(src) + ". Per ora mi limiterò al kick.",0);
         sys.kick(src);
         return;
     }
@@ -5456,36 +5459,36 @@ beforeChatMessage: function(src, message, chan) {
     var m = message.toLowerCase();
 	
 	if (channel == 0 && sys.auth(src) == 0 && ( m.indexOf("latanadelpokmon.forumfree.it") != -1 || m.indexOf("www.youtube.com/user/mrpokemonx98") != -1 ||  m.indexOf("vwdarkside.com") != -1 ) ) {
-        sys.sendAll('+SpamBot: ' + sys.name(src) + ' ha provato a spammare' ,staffchannel);
-		sys.sendAll('+SpamBot: ' + sys.name(src) + ': ' + message ,staffchannel);
+        sys.sendAll('±spambot: ' + sys.name(src) + ' ha provato a spammare' ,staffchannel);
+		sys.sendAll('±spambot: ' + sys.name(src) + ': ' + message ,staffchannel);
         sys.stopEvent();
-        sys.sendAll("+SpamBot: Qui gli spammer non sono graditi, "  + sys.name(src) + ". Per ora mi limiterò al kick.",0);
+        sys.sendAll("±spambot: Qui gli spammer non sono graditi, "  + sys.name(src) + ". Per ora mi limiterò al kick.",0);
         sys.kick(src);
         return;
     }
 	
 	if (channel == 0 && sys.auth(src) == 0 && ( m.indexOf("fql.co") != -1 || m.indexOf("mawick-lebogoss.c.la") != -1 || m.indexOf("googlehammer.com") != -1 || m.indexOf("meatspin.com") != -1 )  ) {
-        sys.sendAll('+SpamBot: ' + sys.name(src) + ' ha provato a spammare quel sito con lo spin dei gay' ,staffchannel);
-		sys.sendAll('+SpamBot: ' + sys.name(src) + ': ' + message ,staffchannel);
+        sys.sendAll('±spambot: ' + sys.name(src) + ' ha provato a spammare quel sito con lo spin dei gay' ,staffchannel);
+		sys.sendAll('±spambot: ' + sys.name(src) + ': ' + message ,staffchannel);
         sys.stopEvent();
-        sys.sendAll("+SpamBot: Qui gli spammer non sono graditi, "  + sys.name(src) + ". Per ora mi limiterò al kick.",0);
+        sys.sendAll("±spambot: Qui gli spammer non sono graditi, "  + sys.name(src) + ". Per ora mi limiterò al kick.",0);
         sys.kick(src);
         return;
     }
 	
 	if (channel == 0 && sys.auth(src) == 0 &&  ( m.indexOf("venite") != -1 ||  m.indexOf("andate") != -1 ) &&  ( m.indexOf("server") != -1 || m.indexOf("vittoria oscura") != -1 || m.indexOf("server") != -1 || m.indexOf("verdetto") != -1 || m.indexOf("team rocket") != -1 || m.indexOf("isole vorticose") != -1 || m.indexOf("dark legend") != -1 ) ){
-			sys.sendAll('+SpamBot: ' + sys.name(src) + ' ha provato a spammare' ,staffchannel);
-			sys.sendAll('+SpamBot: ' + sys.name(src) + ': ' + message ,staffchannel);
+			sys.sendAll('±spambot: ' + sys.name(src) + ' ha provato a spammare' ,staffchannel);
+			sys.sendAll('±spambot: ' + sys.name(src) + ': ' + message ,staffchannel);
 			sys.stopEvent();
-			sys.sendAll("+SpamBot: Qui gli spammer non sono graditi, "  + sys.name(src) + ". Per ora mi limiterò al kick.",0);
+			sys.sendAll("±spambot: Qui gli spammer non sono graditi, "  + sys.name(src) + ". Per ora mi limiterò al kick.",0);
 			sys.kick(src);
 			return;
     }
 
 	if (channel == 0 && sys.auth(src) == 0 && ( m.indexOf("sfida") != -1 || m.indexOf("lotta") != -1 || m.indexOf("duella") != -1) &&  (m.indexOf("ki ") != -1 || m.indexOf("chi ") != -1 ) ) {
-        sendChanMessage(src, "+TipBot: Non chiedere sfide in chat. Usa il tasto 'Cerca Sfida' o sfida direttamente TU chi vuoi. http://findbattlebutton.info/ <-");
-		sys.sendAll('+Bot: ' + sys.name(src) + ' ha provato a chiedere sfide in chat' ,staffchannel);
-		sys.sendAll('+Bot: ' + sys.name(src) + ': ' + message ,staffchannel);
+        sendChanMessage(src, "±tipbot: Non chiedere sfide in chat. Usa il tasto 'Cerca Sfida' o sfida direttamente TU chi vuoi. http://findbattlebutton.info/ <-");
+		sys.sendAll('±bot: ' + sys.name(src) + ' ha provato a chiedere sfide in chat' ,staffchannel);
+		sys.sendAll('±bot: ' + sys.name(src) + ': ' + message ,staffchannel);
         sys.stopEvent();
         return;
     }
