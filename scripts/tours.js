@@ -534,7 +534,7 @@ function initTours() {
 		points: true
 	}
 	if (Config.Tours.tourbot === undefined) {
-		Config.Tours.tourbot = "\u00B1TourBot: ";
+		Config.Tours.tourbot = "\u00B1tourbot: ";
 	}
 	tourschan = sys.channelId("Main");
 	tourserrchan = sys.channelId("Indigo Plateau");
@@ -589,7 +589,7 @@ function initTours() {
 	catch (e) {
 		sys.sendAll("No tourmute data detected, leaving blank", tourschan);
 	}
-	sys.sendMessage(src, "+TourBot: La versione "+Config.Tours.version+" degli script da torneo è stata caricata con successo!", tourschan);
+	sys.sendMessage(src, "±tourbot: La versione "+Config.Tours.version+" degli script da torneo è stata caricata con successo!", tourschan);
 }
 
 /* Tournament Step Event

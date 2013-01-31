@@ -21,7 +21,7 @@ var Config = {
     hangbot: "hangbot",
     bfbot: "bfbot",
 	// CHANGE
-	// oltre a questi ci sono emoticonbot, eventbot, PBILbot, tipbot, tourbot (file esterno), rulebot, spambot
+	// oltre a questi ci sono emoticonbot, eventbot, PBILbot, tipbot, tourbot (file esterno), rulebot, spambot, scriptcheck
 	//
     // suspectvoting.js available, but not in use
     Plugins: ["tournaments.js", "tourstats.js", "tours.js", "newtourstats.js", "auto_smute.js"],
