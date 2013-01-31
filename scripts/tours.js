@@ -1088,14 +1088,14 @@ function tourCommand(src, command, commandData) {
 				if (commandData.indexOf("http://") === 0 || commandData.indexOf("https://") === 0) {
 					url = commandData;
 				}
-				sys.sendMessage(src, Config.Tours.tourbot+"Aggiornando i messaggi di vittoria da "+url, tourschan);
+				sys.sendMessage(src, Config.Tours.tourbot+"Aggiornamento dei messaggi di vittoria da "+url, tourschan);
 				sys.webCall(url, function(resp) {
 					if (resp !== "") {
 						sys.writeToFile('tourwinverbs.txt', resp);
 						getTourWinMessages()
 						sys.sendAll(Config.Tours.tourbot + 'Messaggi di vittoria aggiornati!', tourschan);
 					} else {
-						sys.sendMessage(src, Config.Tours.tourbot + "ha fallito l'aggiornamento!", tourschan);
+						sys.sendMessage(src, Config.Tours.tourbot + "Aggiornamento fallito!", tourschan);
 					}
 				});
 				return true;
