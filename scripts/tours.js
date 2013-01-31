@@ -534,6 +534,8 @@ function initTours() {
 		points: true
 	}
 	if (Config.Tours.tourbot === undefined) {
+	    // CHANGE
+		// nome di default del tourbot
 		Config.Tours.tourbot = "\u00B1tourbot: ";
 	}
 	tourschan = sys.channelId("Main");
