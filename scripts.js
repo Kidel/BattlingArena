@@ -3800,7 +3800,7 @@ modCommand: function(src, command, commandData, tar) {
             }
         }
         normalbot.sendAll("Target: " + target_name + ", IP: " + ip, staffchannel);
-        sys.sendHtmlAll('<b><font color=red>' + target_name + ' è stato/a bannato/a da ' + nonFlashing(sys.name(src)) + ' per ' + getTimeString(minutes) + ' minuti!</font></b>');
+        sys.sendHtmlAll('<b><font color=red>' + target_name + ' è stato/a bannato/a da ' + nonFlashing(sys.name(src)) + ' per ' + getTimeString(minutes) + '!</font></b>');
         sys.tempBan(target_name, parseInt(minutes/60, 10));
         this.kickAll(ip);
         var authname = sys.name(src);
