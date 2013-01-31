@@ -11,63 +11,64 @@ if (typeof tours !== "object") {
 
 var border = "»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»:";
 var htmlborder = "<font color=#3DAA68><b>"+border+"</b></font>"
-var tourcommands = ["join: joins a tournament",
-					"unjoin: unjoins a tournament during signups only",
-					"queue: lists upcoming tournaments",
-					"viewround: views current round",
-					"history: views recently played tiers",
-					"touradmins: lists all users that can start tournaments",
-					"leaderboard [tier]: shows tournament rankings, tier is optional",
-					"monthlyleaderboard [month] [year]: shows tour rankings for the current month, or the current month and year if specified",
-					"tourinfo [name]: gives information on a person's recent tour wins",
-					"activeta: lists active tournament admins",
-					"rules: lists the tournament rules",
-					"touralerts [on/off]: Turn on/off your tour alerts (Shows list of Tour Alerts if on/off isn't specified)",
-					"addtouralert [tier] : Adds a tour alert for the specified tier (note that this list is shared with #Tournaments)",
-					"removetouralert [tier] : Removes a tour alert for the specified tier"]
-var touradmincommands = ["*** Parameter Information ***",
-					"Parameters can be used by putting 'gen=x'; 'mode=singles/doubles/triples'; 'type=single/double'.",
-					"For example '/tour CC 1v1:gen=3 mode=doubles type=double' starts a gen 3 CC 1v1 double elimination tournament.",
-					"tour [tier]:[parameters]: starts a tier of that tournament.",
-					"tourmute [player]:[reason]:[time]: tourmutes a problematic player.",
-					"tourunmute [player]: untourmutes a player.",
-					"tourmutes: list tour mutes.",
-					"endtour [tour]: ends the tour of that tier",
-					"sub [newname]:[oldname]: subs newname for oldname",
-					"dq [player]: disqualifies a player",
-					"remove [tour/number]: removes a tournament from the queue. If a number is put in, it will remove the tour in the queue with the corresponding number. If a tier is put in, it will remove the tournament of that tier (starting from the back)",
-					"cancelbattle [name]: cancels that player's current battle",
-					"config: shows config settings",
-					"configset [var]:[value]: changes config settings",
-					"passta [name]: passes your tour admin to a new name",
-					"*** FOLLOWING COMMANDS ARE ADMIN+ COMMANDS ***",
-					"touradmin [name]: makes someone a tournament admin",
-					"tourdeadmin [name]: fires someone from being tournament admin",
-					// "forcestart: ends signups immediately and starts the first round",
-					"start: starts next tournament in the queue immediately (use sparingly)",
-					"push [player]: pushes a player into a tournament in signups (DON'T USE UNLESS ASKED)",
-					"tahistory [days]: views the activity of tour admins (days is optional, if excluded it will get the last 7 days if possible)",
-					"updatewinmessages: updates win messages from the web",
-					"stopautostart: if there are no tournaments running, this will stop new ones from being automatically started by the server until another one is started manually.",
-					"*** FOLLOWING COMMANDS ARE OWNER+ COMMANDS ***",
-					"clearrankings: clears the tour rankings (owner only)",
-					"evalvars: checks the current variable list for tours",
-					"fullmonthlyleaderboard [month] [year]: shows full tour rankings for the current month, or the current month and year if specified",
-					"fullleaderboard [tier]: gives the full leaderboard"]
+var tourcommands = ["/join: iscriviti al torneo",
+					"/unjoin: annulla la tua iscrizione al torneo",
+					"/queue: mostra la lista dei tornei programmati",
+					"/viewround: mostra il tabellone aggiornato",
+					"/history: mostra le tiers degli ultimi tornei",
+					"/touradmins: elenca chi può far iniziare tornei",
+					"/leaderboard [tier]: mostra la leaderbord, eventualmente specifica la tier",
+					"/monthlyleaderboard [mese] [anno]: mostra la leaderbord, eventualmente specifica mese e anno (in inglese)",
+					"/tourinfo [nick]: dà informazioni sui risultati di un giocatore",
+					"/activeta: elenca i tour admin",
+					"/rules: elenca le regole dei tornei",
+					"/touralerts [on/off]: attiva o disattiva le notifiche per i tornei",
+					"/addtouralert [tier] : aggiunge la notifica per la tier specificata",
+					"/removetouralert [tier] : rimuove la notifica per la tier specificata"]
+var touradmincommands = ["*** Parametri usabili ***",
+					"Parametri usabili: 'gen=x'; 'mode=singles/doubles/triples'; 'type=single/double'.",
+					"Esempio: '/tour CC 1v1:gen=3 mode=doubles type=double' fa partire un torneo RSE 1vs1 a doppia eliminazione.",
+					"/tour [tier]:[parametri]: fa partire il torneo specificato.",
+					"/tourmute [nick]:[motivo]:[minuti]: muta un cretino.",
+					"/tourunmute [nick]: smuta un ex-cretino.",
+					"/tourmutes: elenca i cretini che sono mutati.",
+					"/endtour [tour]: interrompe il torneo in quella tier.",
+					"/sub [nick in]:[nick out]: sostituisce in con out.",
+					"/dq [nick]: squalifica un giocatore.",
+					"/remove [tour/numero]: rimuove un torneo dalla coda. Se viene specificato un numero, rimuoverà il torneo a quel numero. Se viene specificata una tier, toglierà il torneo 
+
+in quella tier, partendo dall'ultimo.",
+					"/cancelbattle [nick]: permette il rematch tra due giocatori (basta usarlo su uno dei due; poi quel giocatore forfeitta e non viene calcolato).",
+					"/config: Config Settings",
+					"/configset [var]:[value]: changes config settings",
+					"/passta [nick]: passa l'amministrazione del torneo ad un altro utente.",
+					"*** COMANDI ADMIN+ ***",
+					"/touradmin [nick]: rende qualcuno un tour admin.",
+					"/tourdeadmin [nick]: toglie un tour admin e lo rende utente.",
+					// "/forcestart: chiude le iscrizioni e fa partire il primo round.",
+					"/start: fa iniziare il torneo successivo in coda.",
+					"/push [nick]: inserisce manualmente un giocatore nel torneo.",
+					"/tahistory [giorni]: mostra l'attività dei tour admins.",
+					"/updatewinmessages: aggiorna i messaggi di vittoria dal web",
+					"/stopautostart: se non ci sono tornei in corso, evita che ne vengano creati altri automatici fino al successivo torneo avviato manualmente.",
+					"*** COMANDI OWNER+ ***",
+					"/clearrankings: cancella la ladder dei tornei",
+					"/evalvars: checks the current variable list for tours",
+					"/fullmonthlyleaderboard [mese] [anno]: mostra la leaderbord, eventualmente specifica mese e anno (in inglese)",
+					"/fullleaderboard [tier]: mostra la leaderboard"]
 var tourrules = ["*** TOURNAMENT GUIDELINES ***",
-				"Breaking the following rules may result in a tour mute:",
-				"#1: Team revealing or scouting in non CC tiers will result in disqualification.",
-				"- Scouting is watching the battle of someone else in the tournament to gain information.",
-				"- Team revealing is revealing any information about other entrants' teams.",
-				"- Players are always permitted to watch the final match of any tournament.",
-				"#2: Have a team and be ready when you join, otherwise you can be disqualified",
-				"#3: Tierspamming, repeatedly asking for tournaments in the chat, is not allowed.",
-				"#4: Do not abuse the tournament commands.",
-				"#5: Do not leave or forfeit in a tournament you are in just so you can join another.",
-				"#6: Do not timestall (i.e. deliberately wait until timeout).",
-				"#7: Ask someone on the /activeta list if you need help",
-				"#8: There is a method of crashing all pre-1.0.60 PO clients that is going around.",
-				"- Please ensure you have updated to either the 1.0.60 client or the 2.0 alpha client in order to prevent crashes."]
+				"Se non vuoi essere mutato/a, non contravvenire a queste semplici regole:",
+				"#1: Spoilerare il team dell'avversario in un match non Challenge Cup comporta la squalifica.",
+				"- Spoilerare significa rivelare ad altri qualcosa che dovrebbe essere tenuta segreta, come per esempio il team che sta usando.",
+				"- Si può sempre assistere alle finali dei tornei.",
+				"#2: Se ti iscrivi al torneo, fai in modo di avere almeno un team pronto da usare, altrimenti ti squalifichiamo.",
+				"#3: Evita di chiedere continuamente in chat o in PM di creare un torneo; ogni 15 minuti il Server ne indice uno.",
+				"#4: Non abusare dei comandi.",
+				"#5: Non abbandonare un torneo per iscriverti ad un altro.",
+				"#6: Non aspettare il timeout; se stai perdendo e non puoi fare niente, usa il tasto Forfeit.",
+				"#7: Se ti serve aiuto chiedi ad uno dei tour admin attivi (/activeta per sapere chi sono)",
+				"#8: Le versioni di PO precedenti alla 1.0.60 hanno un bug che fa crashare il programma.",
+				"- Assicurati di aver aggiornato PO alla versione 1.0.60 o successiva."]
 // Debug Messages
 function sendDebugMessage(message, chan) {
 	if (chan === tourschan && Config.Tours.debug && sys.existChannel(sys.channel(tourserrchan))) {
@@ -218,7 +219,7 @@ function converttoseconds(string) {
 		}
 	}
 	catch (err) {
-		return "Not a number";
+		return "Non è un numero";
 	}
 	return totaltime;
 }
@@ -229,7 +230,7 @@ function time_handle(time) { //time in seconds
 	var hour = 60*60;
 	var minute = 60;
 	if (time <= 0) {
-		return "No time remaining."
+		return "FINE DEL TEMPO"
 	}
 	var timedays = parseInt(time/day);
 	var timehours = (parseInt(time/hour))%24;
@@ -238,10 +239,10 @@ function time_handle(time) { //time in seconds
 	var output = "";
 	if (timedays >= 1) {
 		if (timedays == 1) {
-			output = timedays + " day";
+			output = timedays + " giorno";
 		}
 		else {
-			output = timedays + " days";
+			output = timedays + " giorni";
 		}
 		if (timehours >=1 || timemins >=1 || timesecs >=1) {
 			output = output + ", ";
@@ -249,10 +250,10 @@ function time_handle(time) { //time in seconds
 	}
 	if (timehours >= 1) {
 		if (timehours == 1) {
-			output = output + timehours +  " hour";
+			output = output + timehours +  " ora";
 		}
 		else {
-			output = output + timehours +  " hours";
+			output = output + timehours +  " ore";
 		}
 		if (timemins >=1 || timesecs >=1) {
 			output = output + ", ";
@@ -260,10 +261,10 @@ function time_handle(time) { //time in seconds
 	}
 	if (timemins >= 1) {
 		if (timemins == 1) {
-			output = output + timemins +  " minute";
+			output = output + timemins +  " minuto";
 		}
 		else {
-			output = output + timemins +  " minutes";
+			output = output + timemins +  " minuti";
 		}
 		if (timesecs >=1) {
 			output = output + ", ";
@@ -271,10 +272,10 @@ function time_handle(time) { //time in seconds
 	}
 	if (timesecs >= 1) {
 		if (timesecs == 1) {
-			output = output + timesecs +  " second";
+			output = output + timesecs +  " secondo";
 		}
 		else {
-			output = output + timesecs +  " seconds";
+			output = output + timesecs +  " secondi";
 		}
 	}
 	return output;
@@ -396,7 +397,7 @@ function clauseCheck(tier, issuedClauses) {
 			continue;
 		}
 		else {
-			sys.sendAll(Config.Tours.tourbot+"Broken clausecheck...", tourserrchan)
+			sys.sendAll(Config.Tours.tourbot+"Controllo clauses fallito...", tourserrchan)
 			break;
 		}
 	}
@@ -415,7 +416,7 @@ function isSub(name) {
 		else return false;
 	}
 	catch (err) {
-		sys.sendAll("Error in determining whether "+name+" is a sub, "+err, tourserrchan)
+		sys.sendAll("Errore nel determinare se "+name+" è un sostituto, "+err, tourserrchan)
 		return false;
 	}
 }
@@ -568,8 +569,8 @@ function initTours() {
 	}
 	catch (e) {
 		// use a sample set of win messages
-		tourwinmessages = ["annihilated", "threw a table at", "blasted", "captured the flag from", "FALCON PAAAAWNCHED", "haxed", "outsmarted", "won against", "hung, drew and quartered"];
-		sys.sendAll("No win messages detected, using default win messages", tourschan)
+		tourwinmessages = ["ha battuto", "ha sconfitto", "ha ownato", "ha haxato", "ha sculato", "ha predictato ogni mossa e ha vinto contro", "ha piallato", "ha arato", "ha distrutto"];
+		sys.sendAll("Uso il messaggio di default, non ne ho trovati altri.", tourschan)
 	}
 	try {
 		var data = (sys.getFileContent("touradmins.txt")).split(":::")
@@ -590,7 +591,7 @@ function initTours() {
 	catch (e) {
 		sys.sendAll("No tourmute data detected, leaving blank", tourschan)
 	}
-	sys.sendMessage(src, "+TourBot: Version "+Config.Tours.version+" of the tournaments system was loaded successfully in this channel!", tourschan);
+	sys.sendMessage(src, "+TourBot: La versione "+Config.Tours.version+" degli scripts da torneo è stata caricata in questo canale!", tourschan);
 }
 
 /* Tournament Step Event
@@ -619,7 +620,7 @@ function tourStep() {
 	}
 	for (var x in tours.tour) {
 		if (tours.tour[x].time-parseInt(sys.time()) <= 10) {
-			sendDebugMessage("Time Remaining in the "+getFullTourName(x)+" tournament: "+time_handle(tours.tour[x].time-parseInt(sys.time()))+"; State: "+tours.tour[x].state,tourschan)
+			sendDebugMessage("Il tempo rimasto nel torneo "+getFullTourName(x)+" è: "+time_handle(tours.tour[x].time-parseInt(sys.time()))+"; State: "+tours.tour[x].state,tourschan)
 		}
 		if (tours.tour[x].state == "signups") {
 			if (tours.tour[x].time <= parseInt(sys.time())) {
@@ -721,8 +722,12 @@ function tourBattleStart(src, dest, clauses, rated, mode, bid) {
 		tours.tour[key].active[name2] = "Battle"// this avoids dq later since they made an attempt to start
 		if (tours.tour[key].state == "final") {
 			// CHANGE
-			//sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>The final battle of the "+getFullTourName(key)+" tournament between <b>"+html_escape(sys.name(src))+"</b> and <b>"+html_escape(sys.name(dest))+"</b> just started!</a>",tourschan)
-			sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>The final battle of the "+getFullTourName(key)+" tournament between <b>"+html_escape(sys.name(src))+"</b> and <b>"+html_escape(sys.name(dest))+"</b> just started!</a>",0)
+			//sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>LA FINALE DEL 
+
+TORNEO "+getFullTourName(key)+" TRA <b>"+html_escape(sys.name(src))+"</b> E <b>"+html_escape(sys.name(dest))+"</b> INIZIA!</a>",tourschan)
+			sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>LA FINALE DEL TORNEO 
+
+"+getFullTourName(key)+" TRA <b>"+html_escape(sys.name(src))+"</b> E <b>"+html_escape(sys.name(dest))+"</b> INIZIA!</a>",0)
 		}
 		return true;
 	}
@@ -755,7 +760,7 @@ function tourBattleEnd(winner, loser, result) {
 			return;
 		}
 		if (result == "tie") {
-			sys.sendAll(Config.Tours.tourbot+"The match between "+winname+" and "+losename+" ended in a tie, please rematch!", tourschan)
+			sys.sendAll(Config.Tours.tourbot+"La partita tra "+winname+" e "+losename+" è finita con un pareggio; che i due giocatori ripetano la partita!", tourschan)
 			return;
 		}
 		battleend(winner, loser, key)
@@ -826,12 +831,12 @@ function tourCommand(src, command, commandData) {
 				for (var x in tiers) {
 					sys.writeToFile("tourscores_"+tiers[x].replace(/ /g,"_")+".txt","")
 				}
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" cleared the tour rankings!",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha cancellato il ranking dei tornei!",tourschan)
 				return true;
 			}
 			if (command == "resettours") {
 				tours = {"queue": [], "globaltime": 0, "key": 0, "keys": [], "tour": {}, "history": [], "touradmins": [], "subscriptions": {}, "activetas": [], "activehistory": [], "tourmutes": {}};
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" reset the tour system!",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha resettato il sistema dei tornei!",tourschan)
 				return true;
 			}
 			/*if (command == "clearmonthrankings") { // not needed
@@ -839,7 +844,7 @@ function tourCommand(src, command, commandData) {
 				var themonths = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "decemeber"]
 				var monthlyfile = "tourmonthscore_"+themonths[now.getUTCMonth()]+"_"+now.getUTCFullYear()+".txt"
 				sys.writeToFile(monthlyfile, "")
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" cleared this month's tour rankings!",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha cancellato il ranking di questo mese!",tourschan)
 				return true;
 			}*/
 			if (command == "evalvars") {
@@ -866,7 +871,7 @@ function tourCommand(src, command, commandData) {
 							}
 						}
 						if (!found) {
-							throw ("Not a valid tier")
+							throw ("Tier non valida")
 						}
 						var rankings = sys.getFileContent("tourscores_"+tourtier.replace(/ /g,"_")+".txt").split("\n")
 					}
@@ -878,18 +883,18 @@ function tourCommand(src, command, commandData) {
 						list.push([rankingdata[1], rankingdata[0]]);
 					}
 					list.sort(function(a,b) { return b[0] - a[0] ; });
-					sys.sendMessage(src, "*** FULL TOURNAMENT RANKINGS "+(commandData != "" ? "("+commandData+") " : "")+"***",tourschan)
+					sys.sendMessage(src, "*** RANKING DEI TORNEI "+(commandData != "" ? "("+commandData+") " : "")+"***",tourschan)
 					for (var x=0; x<65536; x++) {
 						if (x >= list.length) break;
 						sys.sendMessage(src, "#"+(x+1)+": "+(list[x])[1]+" ~ "+(list[x])[0]+" point"+((list[x])[0] != 1 ? "s" : ""),tourschan)
 					}
 				}
 				catch (err) {
-					if (err == "Not a valid tier") {
-						sys.sendMessage(src, Config.Tours.tourbot+commandData+" is not a valid tier!",tourschan)
+					if (err == "Tier non valida") {
+						sys.sendMessage(src, Config.Tours.tourbot+commandData+" non è una tier o è scritta male!",tourschan)
 					}
 					else {
-						sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet!",tourschan)
+						sys.sendMessage(src, Config.Tours.tourbot+"N/D!",tourschan)
 					}
 				}
 				return true;
@@ -917,14 +922,14 @@ function tourCommand(src, command, commandData) {
 						list.push([rankingdata[1], rankingdata[0]]);
 					}
 					list.sort(function(a,b) { return b[0] - a[0] ; });
-					sys.sendMessage(src, "*** FULL MONTHLY TOURNAMENT RANKINGS "+(commandData != "" ? "("+commandData+") " : "")+"***",tourschan)
+					sys.sendMessage(src, "*** RANKING MENSILE COMPLETO (TORNEI) "+(commandData != "" ? "("+commandData+") " : "")+"***",tourschan)
 					for (var x=0; x<65536; x++) {
 						if (x >= list.length) break;
 						sys.sendMessage(src, "#"+(x+1)+": "+(list[x])[1]+" ~ "+(list[x])[0]+" point"+((list[x])[0] != 1 ? "s" : ""),tourschan)
 					}
 				}
 				catch (err) {
-					sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet for the month "+commandData+"!",tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"Non esistono dati per il mese di "+commandData+"!",tourschan)
 				}
 				return true;
 			}
@@ -934,24 +939,24 @@ function tourCommand(src, command, commandData) {
 			if (command == "touradmin") {
 				var tadmins = tours.touradmins
 				if (sys.dbIp(commandData) === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"This user doesn't exist!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Nick sconosciuto o scritto male!",tourschan)
 					return true;
 				}
 				if (!sys.dbRegistered(commandData)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"They aren't registered so you can't give them authority!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Non puoi dare auth ad un utente non registrato!",tourschan)
 					if (sys.id(commandData) !== undefined) {
-						sys.sendMessage(sys.id(commandData), Config.Tours.tourbot+"Please register ASAP, before getting tour authority.")
+						sys.sendMessage(sys.id(commandData), Config.Tours.tourbot+"Registrati per poter diventare auth.")
 					}
 					return true;
 				}
 				if (sys.dbAuth(commandData) >= 1) {
-					sys.sendMessage(src,Config.Tours.tourbot+"They can already start tours!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Può già avviare tornei!",tourschan)
 					return true;
 				}
 				if (tadmins !== undefined) {
 					for (var t in tadmins) {
 						if (tadmins[t].toLowerCase() == commandData.toLowerCase()) {
-							sys.sendMessage(src,Config.Tours.tourbot+"They are already a tour admin!",tourschan)
+							sys.sendMessage(src,Config.Tours.tourbot+"Già è tour admin!",tourschan)
 							return true;
 						}
 					}
@@ -959,13 +964,13 @@ function tourCommand(src, command, commandData) {
 				tadmins.push(commandData) 
 				tours.touradmins = tadmins
 				saveTourKeys()
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" promoted "+commandData.toLowerCase()+" to a tournament admin!",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha promosso "+commandData.toLowerCase()+" a tour admin!",tourschan)
 				return true;
 			}
 			if (command == "tourdeadmin") {
 				var tadmins = tours.touradmins
 				if (sys.dbIp(commandData) === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"This user doesn't exist!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Nick sconosciuto o scritto male!",tourschan)
 					return true;
 				}
 				var index = -1
@@ -978,18 +983,18 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (index == -1) {
-					sys.sendMessage(src,Config.Tours.tourbot+"They are not a tour admin!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Non è un tour admin!",tourschan)
 					return true;
 				}
 				tadmins.splice(index,1) 
 				tours.touradmins = tadmins
 				saveTourKeys()
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" fired "+commandData.toLowerCase()+" from running tournaments!",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha vietato a "+commandData.toLowerCase()+" di far partire tornei!",tourschan)
 				return true;
 			}
 			// active history command
 			if (command == "tahistory") {
-				sys.sendMessage(src, "*** TOUR ADMIN HISTORY ***",tourschan)
+				sys.sendMessage(src, "*** CRONOLOGIA DEI TOUR ADMIN ***",tourschan)
 				var length = 168;
 				if (commandData == "") {
 					length = tours.activehistory.length
@@ -1007,7 +1012,7 @@ function tourCommand(src, command, commandData) {
 			}
 			if (command == "stopautostart") {
 				tours.globaltime = 0
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" stopped tournaments from auto starting for now, this will be removed when another tour is started.",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha bloccato i tornei automatici, che riprenderanno quando verrà fatto iniziare un altro torneo.",tourschan)
 				return true;
 			}
 			/*if (command == "forcestart") {
@@ -1018,7 +1023,9 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (key === null) {
-					sys.sendMessage(src, Config.Tours.tourbot+"There are no tournaments currently in signups to force start! Use /tour [tier] instead, or /start to start the next tournament in the queue!", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"There are no tournaments currently in signups to force start! Use /tour [tier] instead, or /start to start the next tournament 
+
+in the queue!", tourschan)
 					return true;
 				}
 				if (tours.tour[x].players.length < 3) {
@@ -1039,13 +1046,13 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (key === null) {
-					sys.sendMessage(src,Config.Tours.tourbot+"You can't push anyone into a tournament now!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Non puoi inserire nessuno ora!",tourschan)
 					return true;
 				}
 				/* Is already in another tour */
 				for (var x in tours.tour) {
 					if (tours.tour[x].players.indexOf(target) != -1) {
-						sys.sendMessage(src,Config.Tours.tourbot+"You can't push them in another tour!",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Non puoi inserirlo in un altro torneo!",tourschan)
 						return true;
 					}
 				}
@@ -1078,7 +1085,9 @@ function tourCommand(src, command, commandData) {
 				if (tours.tour[key].players.length >= 256) {
 					tours.tour[key].time = parseInt(sys.time())
 				}
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(target)+" was added to the "+getFullTourName(key)+" tournament by "+sys.name(src)+" (player #"+tours.tour[key].players.length+"), "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? "" : "s")+" remaining!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(target)+" è stato/a aggiunto/a al torneo "+getFullTourName(key)+" da "+sys.name(src)+" (player 
+
+#"+tours.tour[key].players.length+"), "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? "o" : "i")+" rimanenti!", tourschan)
 				return true;
 			}
 			// enabled for now!
@@ -1087,14 +1096,14 @@ function tourCommand(src, command, commandData) {
 				if (commandData.indexOf("http://") === 0 || commandData.indexOf("https://") === 0) {
 					url = commandData;
 				}
-				sys.sendMessage(src, Config.Tours.tourbot+"Fetching win messages from "+url, tourschan);
+				sys.sendMessage(src, Config.Tours.tourbot+"Aggiornando i messaggi di vittoria da "+url, tourschan);
 				sys.webCall(url, function(resp) {
 					if (resp !== "") {
 						sys.writeToFile('tourwinverbs.txt', resp);
 						getTourWinMessages()
-						sys.sendAll(Config.Tours.tourbot + 'Updated win messages!', tourschan);
+						sys.sendAll(Config.Tours.tourbot + 'Messaggi di vittoria aggiornati!', tourschan);
 					} else {
-						sys.sendMessage(src, Config.Tours.tourbot + 'Failed to update!', tourschan);
+						sys.sendMessage(src, Config.Tours.tourbot + "ha fallito l'aggiornamento!", tourschan);
 					}
 				});
 				return true;
@@ -1102,7 +1111,7 @@ function tourCommand(src, command, commandData) {
 			if (command == "start") {
 				for (var x in tours.tour) {
 					if (tours.tour[x].state == "signups") {
-						sys.sendMessage(src, Config.Tours.tourbot+"A tournament is already in signups!")
+						sys.sendMessage(src, Config.Tours.tourbot+"Sono già aperte le iscrizioni!")
 						return true;
 					}
 				}
@@ -1112,11 +1121,11 @@ function tourCommand(src, command, commandData) {
 					var parameters = {"mode": data[2], "gen": data[3], "type": data[4]}
 					tours.queue.splice(0,1)
 					tourstart(tourtostart, sys.name(src), tours.key, parameters)
-					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" force started the "+tourtostart+" tournament!",tourschan)
+					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha forzato l'inizio del torneo "+tourtostart+"!",tourschan)
 					return true;
 				}
 				else {
-					sys.sendMessage(src, Config.Tours.tourbot+"There are no tournaments to force start! Use /tour [tier] instead!", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"Non ci sono tornei da far iniziare! Usa /tour [tier]!", tourschan)
 					return true;
 				}
 			}
@@ -1135,17 +1144,17 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (!found) {
-					sys.sendMessage(src, Config.Tours.tourbot+"The tier '"+commandData+"' doesn't exist! Make sure the tier is typed out correctly and that it exists.", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"La tier '"+commandData+"' non esiste o è scritta male.", tourschan)
 					return true;
 				}
 				if (tourtier.indexOf("Smogon") != -1 && !isTourSuperAdmin(src)) {
-					sys.sendMessage(src, Config.Tours.tourbot+"You are not permitted to run Smogon tier tournaments!", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"Non sei abilitato a far iniziare tornei Smogonari!", tourschan)
 					return true;
 				}
 				var lasttours = getListOfTours(7);
 				var lastindex = lasttours.indexOf(tourtier);
 				if (lastindex != -1 && !isTourSuperAdmin(src)) {
-					sys.sendMessage(src, Config.Tours.tourbot+"A "+tourtier+" tournament is in the queue, is running or was recently run, no repeating!", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"Un torneo "+tourtier+" è in coda, è in corso o è stato appena fatto; cambiamo un po'!", tourschan)
 					return true;
 				}
 				var isSignups = false;
@@ -1164,9 +1173,15 @@ function tourCommand(src, command, commandData) {
 						var parameterset = parameterinfo[0]
 						var parametervalue = parameterinfo[1]
 						if (cmp(parameterset, "mode")) {
-							var singlesonlytiers = ["DW 1v1", "DW 1v1 Ubers", "CC 1v1", "Wifi CC 1v1", "GBU Singles", "Adv Ubers", "Adv OU", "DP Ubers", "DP OU", "DW OU", "DW Ubers", "Wifi OU", "Wifi Ubers"];
-							if ((modeOfTier(tourtier) == "Doubles" || modeOfTier(tourtier) == "Triples" || singlesonlytiers.indexOf(tourtier) != -1) && !cmp(parametervalue, modeOfTier(tourtier))) {
-								sys.sendMessage(src, Config.Tours.tourbot+"The "+tourtier+" tier can only be played in " + modeOfTier(tourtier) + " mode!", tourschan);
+							var singlesonlytiers = ["DW 1v1", "DW 1v1 Ubers", "CC 1v1", "Wifi CC 1v1", "GBU Singles", "Adv Ubers", "Adv OU", "DP Ubers", "DP OU", "DW 
+
+OU", "DW Ubers", "Wifi OU", "Wifi Ubers"];
+							if ((modeOfTier(tourtier) == "Doubles" || modeOfTier(tourtier) == "Triples" || singlesonlytiers.indexOf(tourtier) != -1) && !cmp(parametervalue, 
+
+modeOfTier(tourtier))) {
+								sys.sendMessage(src, Config.Tours.tourbot+"La tier "+tourtier+" può essere giocata solo in modalità " + modeOfTier(tourtier) + "!", 
+
+tourschan);
 								return true;
 							}
 							if (cmp(parametervalue, "singles")) {
@@ -1186,7 +1201,7 @@ function tourCommand(src, command, commandData) {
 							}
 							else {
 								parameters.gen = "5-1" // BW2
-								sys.sendMessage(src, Config.Tours.tourbot+"Warning! The subgen '"+parametervalue+"' does not exist! Used BW2 instead!", tourschan);
+								sys.sendMessage(src, Config.Tours.tourbot+"ATTENZIONE! "+parametervalue+" non esiste! Usa BW2!", tourschan);
 							}
 						}
 						else if (cmp(parameterset, "type")) {
@@ -1198,7 +1213,7 @@ function tourCommand(src, command, commandData) {
 							}
 						}
 						else {
-							sys.sendMessage(src, Config.Tours.tourbot+"Warning! The parameter '"+parameterset+"' does not exist!", tourschan);
+							sys.sendMessage(src, Config.Tours.tourbot+"ATTENZIONE! Il parametro '"+parameterset+"' non esiste!", tourschan);
 						}
 					}
 				}
@@ -1206,12 +1221,12 @@ function tourCommand(src, command, commandData) {
 					parameters.gen = "5-1";
 				}
 				if (tours.queue.length >= Config.Tours.maxqueue && !isTourSuperAdmin(src)) {
-					sys.sendMessage(src, Config.Tours.tourbot+"There are already "+Config.Tours.maxqueue+" or more tournaments in the queue, so you can't add another one!", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"Ci sono già "+Config.Tours.maxqueue+" o più tornei in coda, non puoi aggiungerne un altro!", tourschan)
 					return true;
 				}
 				else if (tours.keys.length > 0 || tours.queue.length > 0 || isSignups) {
 					tours.queue.push(tourtier+":::"+sys.name(src)+":::"+parameters.mode+":::"+parameters.gen+":::"+parameters.type)
-					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" added a "+tourtier+" tournament into the queue! Type /queue to see what is coming up next.",tourschan)
+					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha aggiunto un torneo "+tourtier+" in coda! Usa /queue per vedere quale sarà il prossimo...",tourschan)
 				}
 				else {
 					tourstart(tourtier, sys.name(src), tours.key, parameters)
@@ -1232,13 +1247,13 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (index < 0 || index >= tours.queue.length) {
-					sys.sendMessage(src, Config.Tours.tourbot+"The tier '"+commandData+"' doesn't exist in the queue, so it can't be removed! Make sure the tier is typed out correctly.", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"La tier '"+commandData+"' non esiste nella coda (o è scritta male), può essere rimossa!", tourschan)
 					return true;
 				}
 				else {
 					var removedtour = (tours.queue[index].split(":::",1))[0]
 					tours.queue.splice(index, 1)
-					sys.sendAll(Config.Tours.tourbot+"The "+removedtour+" tour (position "+(index+1)+") was removed from the queue by "+sys.name(src)+".", tourschan)
+					sys.sendAll(Config.Tours.tourbot+"Il torneo "+removedtour+" numero (position "+(index+1)+") è stato rimosso dalla coda da "+sys.name(src)+".", tourschan)
 					return true;
 				}
 			}
@@ -1252,10 +1267,10 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (key === null) {
-					sys.sendMessage(src,Config.Tours.tourbot+"The "+commandData+" tournament is not in progress!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Il torneo "+commandData+" non è in corso!",tourschan)
 					return true;
 				}
-				sys.sendAll(Config.Tours.tourbot+"The "+getFullTourName(key)+" tournament was cancelled by "+sys.name(src)+"!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+"Il torneo "+getFullTourName(key)+" è stato annullato da "+sys.name(src)+", ci spiace!", tourschan)
 				delete tours.tour[key];
 				tours.keys.splice(tours.keys.indexOf(key), 1);
 				return true;
@@ -1264,31 +1279,31 @@ function tourCommand(src, command, commandData) {
 				var newname = commandData
 				var tadmins = tours.touradmins
 				if (sys.dbIp(newname) === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"This user doesn't exist!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Nick sconosciuto o scritto male!!",tourschan)
 					return true;
 				}
 				if (!sys.dbRegistered(newname)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"That account isn't registered so you can't give it authority!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Non puoi dare auth ad un nick non registrato!",tourschan)
 					return true;
 				}
 				if (sys.dbAuth(newname) >= 1) {
-					sys.sendMessage(src,Config.Tours.tourbot+"That account can already start tours!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Questo account può già iniziare tornei!",tourschan)
 					return true;
 				}
 				if (tadmins !== undefined) {
 					for (var t in tadmins) {
 						if (cmp(tadmins[t].toLowerCase(), newname)) {
-							sys.sendMessage(src,Config.Tours.tourbot+"The target is already a tour admin!",tourschan)
+							sys.sendMessage(src,Config.Tours.tourbot+"L'account è già un tour admin!",tourschan)
 							return true;
 						}
 					}
 				}
 				if (sys.id(newname) === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"The target is offline!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Il destinatario è offline!",tourschan)
 					return true;
 				}
 				if (sys.ip(sys.id(newname)) !== sys.ip(src)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"Both accounts must be on the same IP to switch!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Per potersi scambiare, i due accounts devono avere lo stesso IP!",tourschan)
 					return true;
 				}
 				var index = -1;
@@ -1299,15 +1314,15 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (index == -1) {
-					sys.sendMessage(src,Config.Tours.tourbot+"Failed to pass tour auth! Please post about this issue on forums!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"FAIL! Posta nel Forum di Supporto se non capisci il motivo...",tourschan)
 					return true;
 				}
 				tadmins.splice(t, 1, toCorrectCase(newname))
 				tours.touradmins = tadmins
 				saveTourKeys()
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" passed their tour auth to "+toCorrectCase(newname)+"!",tourschan)
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" passed their tour auth to "+toCorrectCase(newname)+"!",sys.channelId("Victory Road"))
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" passed their tour auth to "+toCorrectCase(newname)+"!",sys.channelId("Indigo Plateau"))
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha passato la sua auth a "+toCorrectCase(newname)+"!",tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha passato la sua auth a "+toCorrectCase(newname)+"!",sys.channelId("Victory Road"))
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha passato la sua auth a "+toCorrectCase(newname)+"!",sys.channelId("Indigo Plateau"))
 				return true;
 			}
 			if (command == "dq") {
@@ -1327,17 +1342,19 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (key === null) {
-					sys.sendMessage(src,Config.Tours.tourbot+"That player isn't in a tournament!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Questo giocatore non è iscritto al torneo!",tourschan)
 					return true;
 				}
 				if (tours.tour[key].state == "signups") {
 					var index = tours.tour[key].players.indexOf(commandData.toLowerCase())
 					tours.tour[key].players.splice(index, 1)
 					tours.tour[key].cpt -= 1
-					sys.sendAll(Config.Tours.tourbot+toCorrectCase(commandData)+" was taken out of the tournament signups by "+sys.name(src)+" from the "+getFullTourName(key)+" tournament!", tourschan);
+					sys.sendAll(Config.Tours.tourbot+toCorrectCase(commandData)+" è stato rimosso dagli iscritti da "+sys.name(src)+" dal torneo "+getFullTourName(key)+"!", 
+
+tourschan);
 				}
 				else {
-					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" disqualified "+toCorrectCase(commandData)+" from the "+getFullTourName(key)+" tournament!", tourschan)
+					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha squalificato "+toCorrectCase(commandData)+" dal torneo "+getFullTourName(key)+"!", tourschan)
 					disqualify(commandData.toLowerCase(), key, false)
 				}
 				addTourActivity(src)
@@ -1352,17 +1369,19 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (key === null) {
-					sys.sendMessage(src,Config.Tours.tourbot+"That player isn't in a tournament!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Questo giocatore non è iscritto al torneo!",tourschan)
 					return true;
 				}
 				var index = tours.tour[key].battlers.indexOf(commandData.toLowerCase())
 				if (index == -1) {
-					sys.sendMessage(src,Config.Tours.tourbot+"That player isn't battling for the tournament!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Questo giocatore non sta giocando per il torneo!",tourschan)
 					return true;
 				}
 				else {
 					var opponent = index%2 === 0 ? tours.tour[key].battlers[index+1] : tours.tour[key].battlers[index-1]
-					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" voided the results of the battle between "+toCorrectCase(commandData)+" and "+toCorrectCase(tours.tour[key].battlers[oppindex])+" in the "+getFullTourName(key)+" tournament, please rematch.", tourschan)
+					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" annullerà il risultato del match tra "+toCorrectCase(commandData)+" e 
+
+"+toCorrectCase(tours.tour[key].battlers[oppindex])+" nel torneo "+getFullTourName(key)+" così i due possono rigiocare.", tourschan)
 					tours.tour[key].battlers.splice(index,1)
 					tours.tour[key].battlers.splice(tours.tour[key].battlers.indexOf(opponent),1)
 				}
@@ -1381,19 +1400,21 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (sys.id(newname) === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"It's not a good idea to sub a player in who isn't on the server at the moment!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Non è una buona idea inserire un sostituto che non è presente nel Server...",tourschan)
 					return true;
 				}
 				if (key === null) {
-					sys.sendMessage(src,Config.Tours.tourbot+"No substitutes can be made!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Non possono essere inseriti sostituti!",tourschan)
 					return true;
 				}
 				if (tours.tour[key].players.indexOf(oldname) == -1) {
-					sys.sendMessage(src,Config.Tours.tourbot+"Your target doesn't exist in the tournament!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Nick sconosciuto o scritto male!",tourschan)
 					return true;
 				}
 				tours.tour[key].players.splice(tours.tour[key].players.indexOf(oldname),1,newname)
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" substituted "+toCorrectCase(newname)+" in place of "+toCorrectCase(oldname)+" in the "+getFullTourName(key)+" tournament.", tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha inserito "+toCorrectCase(newname)+" al posto di "+toCorrectCase(oldname)+" nel torneo "+getFullTourName(key)+".", 
+
+tourschan)
 				addTourActivity(src)
 				return true;
 			}
@@ -1408,37 +1429,37 @@ function tourCommand(src, command, commandData) {
 				var ip = sys.dbIp(tar)
 				if (sys.id(tar) !== undefined) {
 					if (isTourAdmin(sys.id(tar)) && sys.maxAuth(ip) >= sys.auth(src)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Can't mute higher auth!",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Non puoi mutarlo/a!",tourschan)
 						return true;
 					}
 				}
 				else {
 					if ((tours.touradmins.indexOf(tar.toLowerCase()) > -1 || sys.maxAuth(ip) >= 1) && sys.maxAuth(ip) >= sys.auth(src)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Can't mute higher auth!",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Non puoi mutarlo/a!",tourschan)
 						return true;
 					}
 				}
 				if (ip === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"This person doesn't exist!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Nick sconosciuto o scritto male!",tourschan)
 					return true;
 				}
 				if (tours.tourmutes.hasOwnProperty(ip)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"They are already tourmuted!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Sei old! Già mutato/a!",tourschan)
 					return true;
 				}
 				if (reason === undefined) {
 					reason = "";
 				}
 				if (reason === "" && !isTourOwner(src)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"You must provide a reason!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Spiega il motivo!",tourschan)
 					return true;
 				}
 				if (time <= 0) {
-					sys.sendMessage(src,Config.Tours.tourbot+"Can't tourmute someone for less than 1 second!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Non puoi mutare per meno di 1 secondo!",tourschan)
 					return true;
 				}
 				if (usingBadWords(reason)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"'"+reason+"' is not a valid reason!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"'"+reason+"' non è una ragione valida!",tourschan)
 					return true;
 				}
 				var maxtime = 0;
@@ -1464,7 +1485,9 @@ function tourCommand(src, command, commandData) {
 				tours.tourmutes[ip] = {'expiry': parseInt(sys.time()) + time, 'reason': reason, 'auth': sys.name(src), 'name': tar.toLowerCase()}
 				for (var x in channels) {
 					if (sys.existChannel(sys.channel(channels[x]))) {
-						sys.sendAll(Config.Tours.tourbot+tar+" was tourmuted by "+sys.name(src)+" for "+time_handle(time)+"! "+(reason !== "" ? "[Reason: "+reason+"]" : ""), channels[x])
+						sys.sendAll(Config.Tours.tourbot+tar+" è stato/a mutato/a"+sys.name(src)+" per "+time_handle(time)+"! "+(reason !== "" ? "[Motivo: "+reason+"]" : ""), 
+
+channels[x])
 					}
 				}
 				saveTourMutes()
@@ -1473,19 +1496,19 @@ function tourCommand(src, command, commandData) {
 			if (command == "tourunmute") {
 				var ip = sys.dbIp(commandData) 
 				if (ip === undefined) {
-					sys.sendMessage(src,Config.Tours.tourbot+"This person doesn't exist!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Nick sconosciuto o scritto male!",tourschan)
 					return true;
 				}
 				if (!tours.tourmutes.hasOwnProperty(ip)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"They aren't tourmuted!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Non è mutato!",tourschan)
 					return true;
 				}
 				if (ip === sys.ip(src) && !isTourOwner(src)) {
-					sys.sendMessage(src,Config.Tours.tourbot+"You can't unmute yourself!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Non puoi mutarti da solo!",tourschan)
 					return true;
 				}
 				delete tours.tourmutes[ip];
-				sys.sendAll(Config.Tours.tourbot+commandData+" was untourmuted by "+sys.name(src)+"!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+commandData+" è stato/a smutato/a da "+sys.name(src)+"!", tourschan)
 				saveTourMutes()
 				return true;
 			}
@@ -1493,7 +1516,9 @@ function tourCommand(src, command, commandData) {
 				sys.sendMessage(src,"*** TOURS MUTELIST ***",tourschan)
 				for (var t in tours.tourmutes) {
 					if (tours.tourmutes[t].expiry > parseInt(sys.time())) {
-						sys.sendMessage(src, tours.tourmutes[t].name + ": Set by "+tours.tourmutes[t].auth+"; expires in "+time_handle(tours.tourmutes[t].expiry-parseInt(sys.time()))+"; reason: "+tours.tourmutes[t].reason, tourschan)
+						sys.sendMessage(src, tours.tourmutes[t].name + ": Set by "+tours.tourmutes[t].auth+"; expires in 
+
+"+time_handle(tours.tourmutes[t].expiry-parseInt(sys.time()))+"; reason: "+tours.tourmutes[t].reason, tourschan)
 					}
 				}
 				return true;
@@ -1548,7 +1573,9 @@ function tourCommand(src, command, commandData) {
 				}
 				if (option == 'maxqueue' || option == "maximum queue length") {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value between 1 and 255 that determines the maximum queue length. Admins and owners can bypass this restriction.",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"Un valore tra 1 e 255 che determina la lunghezza della coda. Admin e Owner non sono affetti da questa 
+
+restrizione.",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.maxqueue,tourschan);
 						return true;
 					}
@@ -1593,7 +1620,9 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'tourdq' || option == 'tour auto dq length') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before inactive users are disqualified.",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before inactive users are 
+
+disqualified.",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.tourdq,tourschan);
 						return true;
 					}
@@ -1608,7 +1637,9 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'touractivity' || option == 'tour activity check') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 60 and 300 that determines how long it is from a user's last message before a user is considered inactive.",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 60 and 300 that determines how long it is from a user's last message before a user 
+
+is considered inactive.",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.activity,tourschan);
 						return true;
 					}
@@ -1638,7 +1669,9 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'breaktime' || option == 'tour break time') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before another tournament is started if one gets cancelled.",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before another tournament is started if 
+
+one gets cancelled.",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.breaktime,tourschan);
 						return true;
 					}
@@ -1653,7 +1686,9 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'absbreaktime' || option == 'absolute tour break time') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 300 and 1800 that influences how long it is between tournaments starting. The actual time will depend on other factors.",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 300 and 1800 that influences how long it is between tournaments starting. The 
+
+actual time will depend on other factors.",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.absbreaktime,tourschan);
 						return true;
 					}
@@ -1668,7 +1703,9 @@ function tourCommand(src, command, commandData) {
 				}
 				else if (option == 'remindertime' || option == 'tour reminder time') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) that determines how long it is before a battle reminder is sent to players from the start of the round",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) that determines how long it is before a battle reminder is sent to players from the start of the 
+
+round",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.reminder,tourschan);
 						return true;
 					}
@@ -1687,7 +1724,9 @@ function tourCommand(src, command, commandData) {
 						return true;
 					}
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"When the percentage of players drops below this value, a new tournament will start if possible. Overides maximum number of simultaneous tours.",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"When the percentage of players drops below this value, a new tournament will start if possible. Overides 
+
+maximum number of simultaneous tours.",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.minpercent+"%",tourschan);
 						return true;
 					}
@@ -1763,11 +1802,13 @@ function tourCommand(src, command, commandData) {
 		// Normal User Commands
 		if (command == "join") {
 			if (!sys.dbRegistered(sys.name(src))) {
-				sys.sendMessage(src, Config.Tours.tourbot+"You need to register to play in #"+sys.channel(tourschan)+"! Click on the 'Register' button below and follow the instructions!", tourschan);
+				sys.sendMessage(src, Config.Tours.tourbot+"Devi registrare il tuo nick per giocare nel canale #"+sys.channel(tourschan)+"! Clicca sul bottone Register sotto la chat!", 
+
+tourschan);
 				return true;
 			}
 			if (isTourMuted(src)) {
-				sys.sendMessage(src, Config.Tours.tourbot+"You are tourmuted so you are prohibited from playing!", tourschan);
+				sys.sendMessage(src, Config.Tours.tourbot+"Ti sei comportato male quindi non puoi giocare!", tourschan);
 				return true;
 			}
 			var key = null
@@ -1778,11 +1819,11 @@ function tourCommand(src, command, commandData) {
 				}
 			}
 			if (key === null) {
-				sys.sendMessage(src,Config.Tours.tourbot+"No tournament has signups available at the moment!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"Non ci sono tornei con iscrizione aperte al momento!",tourschan)
 				return true;
 			}
 			if (!sys.hasTier(src, tours.tour[key].tourtype)) {
-				sys.sendMessage(src,Config.Tours.tourbot+"You need to have a "+tours.tour[key].tourtype+" team to join!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"Ti serve un team "+tours.tour[key].tourtype+" per partecipare al torneo; caricalo dal Team Builder!",tourschan)
 				return true;
 			}
 			var isInCorrectGen = false;
@@ -1802,7 +1843,7 @@ function tourCommand(src, command, commandData) {
 				}
 			}
 			if (!isInCorrectGen) {
-				sys.sendMessage(src,Config.Tours.tourbot+"Your generation must be set to "+getSubgen(tours.tour[key].parameters.gen, true)+". Change it in the teambuilder.",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"Devi impostare la generazione su "+getSubgen(tours.tour[key].parameters.gen, true)+". Cambiala dal Team Builder.",tourschan)
 				return true;
 			}
 			/* Is already in another tour */
@@ -1821,10 +1862,10 @@ function tourCommand(src, command, commandData) {
 				}
 				if (isStillInTour) {
 					if (tours.tour[x].state == "subround" || tours.tour[x].state == "signups") {
-						sys.sendMessage(src,Config.Tours.tourbot+"You can't join twice!",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Non puoi iscriverti due volte!",tourschan)
 					}
 					else {
-						sys.sendMessage(src,Config.Tours.tourbot+"You can't join two tournaments at once with the same name!",tourschan)
+						sys.sendMessage(src,Config.Tours.tourbot+"Non puoi iscriverti a più tornei con lo stesso nickname!",tourschan)
 					}
 					return true;
 				}
@@ -1833,7 +1874,7 @@ function tourCommand(src, command, commandData) {
 			for (var a=0; a<tours.tour[key].players.length; a++) {
 				var joinedip = sys.dbIp(tours.tour[key].players[a])
 				if (sys.ip(src) == joinedip && ((sys.maxAuth(sys.ip(src)) < 2 && Config.Tours.debug === true) || (sys.auth(src) < 3 && Config.Tours.debug === false))) {
-					sys.sendMessage(src,Config.Tours.tourbot+"You already joined the tournament under the name '"+tours.tour[key].players[a]+"'!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Stai già partecipando con il nickname '"+tours.tour[key].players[a]+"'!",tourschan)
 					return true;
 				}
 			}
@@ -1851,19 +1892,27 @@ function tourCommand(src, command, commandData) {
 						}
 						else if (tours.tour[key].maxcpt == 17) {
 							tours.tour[key].time += Math.floor(Config.Tours.toursignup/3)
-							sys.sendAll(Config.Tours.tourbot+"Over 16 players have joined the "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! You still have "+time_handle(tours.tour[key].time - parseInt(sys.time()))+" to join!",0)
+							sys.sendAll(Config.Tours.tourbot+"Più di 16 partecipano al torneo "+getFullTourName(key)+" nel canale #"+sys.channel(tourschan)+"! Hai ancora 
+
+"+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriverti!",0)
 						}
 						else if (tours.tour[key].maxcpt == 33) {
 							tours.tour[key].time += Math.floor(Config.Tours.toursignup/2)
-							sys.sendAll(Config.Tours.tourbot+"Over 32 players have joined the "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! You still have "+time_handle(tours.tour[key].time - parseInt(sys.time()))+" to join!",0)
+							sys.sendAll(Config.Tours.tourbot+"Più di 32 partecipano al torneo "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! Hai ancora 
+
+"+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriverti!",0)
 						}
 						else if (tours.tour[key].maxcpt == 65) {
 							tours.tour[key].time += Math.floor(Config.Tours.toursignup/1.5)
-							sys.sendAll(Config.Tours.tourbot+"Over 64 players have joined the "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! You still have "+time_handle(tours.tour[key].time - parseInt(sys.time()))+" to join!",0)
+							sys.sendAll(Config.Tours.tourbot+"Più di 64 partecipano al torneo "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! Hai ancora 
+
+"+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriverti!",0)
 						}
 						else if (tours.tour[key].maxcpt == 129) {
 							tours.tour[key].time += Math.floor(Config.Tours.toursignup)
-							sys.sendAll(Config.Tours.tourbot+"Over 128 players have joined the "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! You still have "+time_handle(tours.tour[key].time - parseInt(sys.time()))+" to join!",0)
+							sys.sendAll(Config.Tours.tourbot+"Più di 128 partecipano al torneo "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! Hai 
+
+ancora "+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriverti!",0)
 						}
 					}
 				}
@@ -1871,7 +1920,11 @@ function tourCommand(src, command, commandData) {
 				if (tours.tour[key].players.length >= 256) {
 					tours.tour[key].time = parseInt(sys.time())
 				}
-                sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><b>"+html_escape(sys.name(src))+"</b> is player #"+tours.tour[key].players.length+" to join the "+html_escape(getFullTourName(key))+" tournament! "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? "" : "s")+" remaining!", tourschan)
+                sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><b>"+html_escape(sys.name(src))+"</b> E' il giocatore 
+
+#"+tours.tour[key].players.length+" ad essere iscritto al torneo "+html_escape(getFullTourName(key))+"! "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? 
+
+"ultimo secondo rimanente" : "secondi rimanenti")+"!", tourschan)
 				return true;
 			}
 			/* subbing */
@@ -1889,20 +1942,24 @@ function tourCommand(src, command, commandData) {
 			
 			for (var s=0;s<tours.tour[key].seeds.length;s++) {
 				if (tours.tour[key].seeds[s] == sys.name(src).toLowerCase()) {
-					sys.sendMessage(src,Config.Tours.tourbot+"You can't sub in to the "+getFullTourName(key)+" tournament!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Non puoi fare sostituzioni nel torneo "+getFullTourName(key)+"!",tourschan)
 					return true;
 				}
 			}
 			
 			if (oldname === null) {
-				sys.sendMessage(src,Config.Tours.tourbot+"There are no subs remaining in the "+getFullTourName(key)+" tournament!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"Non ci sono più posti da sostituire nel torneo "+getFullTourName(key)+"!",tourschan)
 				return true;
 			}
 			var index = tours.tour[key].players.indexOf(oldname)
 			var newname = sys.name(src).toLowerCase()
 			tours.tour[key].players.splice(index,1,newname)
 			tours.tour[key].cpt += 1
-			sys.sendAll(Config.Tours.tourbot+"Late entrant "+sys.name(src)+" will play against "+(index%2 == 0 ? toCorrectCase(tours.tour[key].players[index+1]) : toCorrectCase(tours.tour[key].players[index-1]))+" in the "+getFullTourName(key)+" tournament. "+(tours.tour[key].players.length - tours.tour[key].cpt)+" sub"+(tours.tour[key].players.length - tours.tour[key].cpt == 1 ? "" : "s") + " remaining.", tourschan)
+			sys.sendAll(Config.Tours.tourbot+"IL NUOVO PARTECIPANTE "+sys.name(src)+" giocherà contro "+(index%2 == 0 ? toCorrectCase(tours.tour[key].players[index+1]) : 
+
+toCorrectCase(tours.tour[key].players[index-1]))+" nel torneo "+getFullTourName(key)+". "+(tours.tour[key].players.length - tours.tour[key].cpt)+" post"+(tours.tour[key].players.length - tours.tour[key].cpt == 1 ? "o 
+
+rimanente" : "i rimanenti") + ".", tourschan)
 			return true;
 		}
 		if (command == "unjoin") {
@@ -1914,22 +1971,22 @@ function tourCommand(src, command, commandData) {
 				}
 			}
 			if (key === null) {
-				sys.sendMessage(src,Config.Tours.tourbot+"You can't unjoin now!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"Non puoi abbandonare ora!",tourschan)
 				return true;
 			}
 			var index = tours.tour[key].players.indexOf(sys.name(src).toLowerCase())
 			if (index == -1) {
-				sys.sendMessage(src,Config.Tours.tourbot+"You aren't in the "+getFullTourName(key)+" tournament!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"Non sei nel torneo "+getFullTourName(key)+"!",tourschan)
 				return true;
 			}
 			tours.tour[key].players.splice(index, 1)
 			tours.tour[key].cpt -= 1
-			sys.sendAll(Config.Tours.tourbot+sys.name(src)+" unjoined the "+getFullTourName(key)+" tournament!", tourschan)
+			sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha abbandonato il torneo "+getFullTourName(key)+"!", tourschan)
 			return true;
 		}
 		if (command == "queue" || command == "viewqueue") {
 			var queue = tours.queue
-			sys.sendMessage(src, "*** Upcoming Tours ***", tourschan)
+			sys.sendMessage(src, "*** TORNEI IN CODA ***", tourschan)
 			var nextstart = time_handle(tours.globaltime - parseInt(sys.time()))
 			for (var x in tours.tour) {
 				if (tours.tour[x].state == "signups") {
@@ -1944,11 +2001,15 @@ function tourCommand(src, command, commandData) {
 			for (var e in queue) {
 				var queuedata = queue[e].split(":::",5)
 				if (firsttour && nextstart != "Pending") {
-					sys.sendMessage(src,"1) "+queuedata[0]+": Set by "+queuedata[1]+"; Parameters: "+queuedata[2]+" Mode"+(queuedata[3] != "default" ? "; Gen: "+getSubgen(queuedata[3],true) : "")+(queuedata[4] == "double" ? "; Double Elimination" : "")+"; Starts in "+time_handle(tours.globaltime-parseInt(sys.time())),tourschan)
+					sys.sendMessage(src,"1) "+queuedata[0]+": Set by "+queuedata[1]+"; Parameters: "+queuedata[2]+" Mode"+(queuedata[3] != "default" ? "; Gen: 
+
+"+getSubgen(queuedata[3],true) : "")+(queuedata[4] == "double" ? "; Double Elimination" : "")+"; Starts in "+time_handle(tours.globaltime-parseInt(sys.time())),tourschan)
 					firsttour = false
 				}
 				else {
-					sys.sendMessage(src,(parseInt(e)+1)+") "+queuedata[0]+": Set by "+queuedata[1]+"; Parameters: "+queuedata[2]+" Mode"+(queuedata[3] != "default" ? "; Gen: "+getSubgen(queuedata[3],true) : "")+(queuedata[4] == "double" ? "; Double Elimination" : ""), tourschan)
+					sys.sendMessage(src,(parseInt(e)+1)+") "+queuedata[0]+": Set by "+queuedata[1]+"; Parameters: "+queuedata[2]+" Mode"+(queuedata[3] != "default" ? "; Gen: 
+
+"+getSubgen(queuedata[3],true) : "")+(queuedata[4] == "double" ? "; Double Elimination" : ""), tourschan)
 				}
 			}
 			return true;
@@ -1965,25 +2026,33 @@ function tourCommand(src, command, commandData) {
 				var winners = tours.tour[y].winners
 				if (tours.tour[y].round === 0) continue;
 				postedrounds = true;
-				var roundtable = "<div style='margin-left: 50px'><b>Round "+tours.tour[y].round+" of the "+tours.tour[y].tourtype+" Tournament</b><table><br/>"
+				var roundtable = "<div style='margin-left: 50px'><b>Il Round "+tours.tour[y].round+" del Torneo "+tours.tour[y].tourtype+"</b><table><br/>"
 				for (var x=0; x<tours.tour[y].players.length; x+=2) {
 					if (winners.indexOf(tours.tour[y].players[x]) != -1 && tours.tour[y].players[x] != "~Bye~") {
-						roundtable = roundtable + "<tr><td align='right'><font color=green><b>"+html_escape(toCorrectCase(tours.tour[y].players[x])) +"</b></font></td><td align='center'> won against </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
+						roundtable = roundtable + "<tr><td align='right'><font color=green><b>"+html_escape(toCorrectCase(tours.tour[y].players[x])) +"</b></font></td><td 
+
+align='center'> ha vinto contro </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
 					}
 					else if (winners.indexOf(tours.tour[y].players[x+1]) != -1 && tours.tour[y].players[x+1] != "~Bye~") {
-						roundtable = roundtable + "<tr><td align='right'><font color=green><b>"+html_escape(toCorrectCase(tours.tour[y].players[x+1])) +"</b></font></td><td align='center'> won against </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x]))+"</td>"
+						roundtable = roundtable + "<tr><td align='right'><font color=green><b>"+html_escape(toCorrectCase(tours.tour[y].players[x+1])) +"</b></font></td><td 
+
+align='center'> ha vinto contro </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x]))+"</td>"
 					}
 					else if (battlers.indexOf(tours.tour[y].players[x]) != -1) {
-						roundtable = roundtable + "<tr><td align='right'>"+html_escape(toCorrectCase(tours.tour[y].players[x])) +"</td><td align='center'> <a href='po:watchPlayer/"+sys.id(tours.tour[y].players[x])+"'>is battling</a> </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
+						roundtable = roundtable + "<tr><td align='right'>"+html_escape(toCorrectCase(tours.tour[y].players[x])) +"</td><td align='center'> sta <a 
+
+href='po:watchPlayer/"+sys.id(tours.tour[y].players[x])+"'>giocando</a> contro </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
 					}
 					else {
-						roundtable = roundtable + "<tr><td align='right'>"+html_escape(toCorrectCase(tours.tour[y].players[x])) +"</td><td align='center'> VS </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
+						roundtable = roundtable + "<tr><td align='right'>"+html_escape(toCorrectCase(tours.tour[y].players[x])) +"</td><td align='center'> VS </td><td>"+ 
+
+html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
 					}
 				}
 				rounddata.push(roundtable+"</table></div>")
 			}
 			if (!postedrounds) {
-				sys.sendMessage(src,Config.Tours.tourbot+"No tournament is running at the moment!",tourschan)
+				sys.sendMessage(src,Config.Tours.tourbot+"Nessun torneo in corso al momento!",tourschan)
 				return true;
 			}
 			else {
@@ -1994,7 +2063,7 @@ function tourCommand(src, command, commandData) {
 		}
 		if (command == "touradmins") {
 			sys.sendMessage(src, "",tourschan)
-			sys.sendMessage(src, "*** TOURNAMENT ADMINS ***",tourschan)
+			sys.sendMessage(src, "*** TOUR ADMINS ***",tourschan)
 			var tal = tours.touradmins
 			var authlist = sys.dbAuths()
 			for (var l in tal) {
@@ -2005,7 +2074,7 @@ function tourCommand(src, command, commandData) {
 					sys.sendMessage(src, tal[l],tourschan)
 				}
 			}
-			// displays onine auth in "Tours" channel as well
+			// displays online auth in "Tours" channel as well
 			for (var m in authlist) {
 				if (sys.id(authlist[m]) !== undefined && tal.indexOf(authlist[m]) == -1 && sys.isInChannel(sys.id(authlist[m]), tourschan)) {
 					sys.sendMessage(src, toCorrectCase(authlist[m]) + " (Online):",tourschan)
@@ -2017,7 +2086,7 @@ function tourCommand(src, command, commandData) {
 		if (command == "tourinfo") {
 			try {
 				if (commandData == "") {
-					sys.sendMessage(src,Config.Tours.tourbot+"Please specify a person!",tourschan)
+					sys.sendMessage(src,Config.Tours.tourbot+"Nick sconosciuto o scritto male!",tourschan)
 					return true;
 				}
 				else {
@@ -2032,12 +2101,12 @@ function tourCommand(src, command, commandData) {
 						}
 					}
 					var tourdata = sys.getFileContent("tourdetails.txt")
-					sys.sendMessage(src, "*** TOURNAMENT DETAILS FOR "+commandData+" (Score: "+score+")***",tourschan)
+					sys.sendMessage(src, "*** DETTAGLI PER "+commandData+" (Punti: "+score+")***",tourschan)
 					var tourinfopieces = tourdata.split("\n")
 					for (var x in tourinfopieces) {
 						var datatoread = tourinfopieces[x].split(":::",4)
 						if (cmp(datatoread[0],commandData)) {
-							sys.sendMessage(src, datatoread[2]+": Won with "+datatoread[1]+" entrants on "+datatoread[3],tourschan)
+							sys.sendMessage(src, datatoread[2]+": Ha vinto "+datatoread[1]+" subentrato a "+datatoread[3],tourschan)
 						}
 					}
 				}
@@ -2050,7 +2119,7 @@ function tourCommand(src, command, commandData) {
 		}
 		if (command == "activeta") {
 			sys.sendMessage(src, "",tourschan)
-			sys.sendMessage(src, "*** ACTIVE TOURNAMENT ADMINS ***",tourschan)
+			sys.sendMessage(src, "*** TOUR ADMINS ***",tourschan)
 			var tal = tours.touradmins
 			var authlist = sys.dbAuths()
 			for (var l in tal) {
@@ -2060,7 +2129,9 @@ function tourCommand(src, command, commandData) {
 			}
 			// displays online active auth in "Tours" channel as well
 			for (var m in authlist) {
-				if (sys.id(authlist[m]) !== undefined && tal.indexOf(authlist[m]) == -1 && sys.isInChannel(sys.id(authlist[m]), tourschan)  && SESSION.users(sys.id(authlist[m])).lastline.time + Config.Tours.activity > parseInt(sys.time())) {
+				if (sys.id(authlist[m]) !== undefined && tal.indexOf(authlist[m]) == -1 && sys.isInChannel(sys.id(authlist[m]), tourschan)  && SESSION.users(sys.id(authlist[m])).lastline.time + 
+
+Config.Tours.activity > parseInt(sys.time())) {
 					sys.sendMessage(src, toCorrectCase(authlist[m]), tourschan)
 				}
 			}
@@ -2068,7 +2139,7 @@ function tourCommand(src, command, commandData) {
 			return true;
 		}
 		if (command == "history") {
-			sys.sendMessage(src, "*** RECENTLY PLAYED TIERS ***",tourschan)
+			sys.sendMessage(src, "*** TIERS GIOCATE RECENTEMENTE ***",tourschan)
 			for (var x in tours.history) {
 				sys.sendMessage(src, tours.history[x],tourschan)
 			}
@@ -2083,8 +2154,8 @@ function tourCommand(src, command, commandData) {
 			if (isTourAdmin(src)) {
 				sys.sendMessage(src, border,tourschan);
 				for (var u in touradmincommands) {
-					if (touradmincommands[u] == "*** FOLLOWING COMMANDS ARE ADMIN+ COMMANDS ***" && !isTourSuperAdmin(src)) break;
-					if (touradmincommands[u] == "*** FOLLOWING COMMANDS ARE OWNER+ COMMANDS ***" && !isTourOwner(src)) break;
+					if (touradmincommands[u] == "*** COMANDI ADMIN+ ***" && !isTourSuperAdmin(src)) break;
+					if (touradmincommands[u] == "*** COMANDI OWNER+ ***" && !isTourOwner(src)) break;
 					sys.sendMessage(src, touradmincommands[u],tourschan);
 				}
 			}
@@ -2115,7 +2186,7 @@ function tourCommand(src, command, commandData) {
 						}
 					}
 					if (!found) {
-						throw ("Not a valid tier")
+						throw ("Tier non valida")
 					}
 					var rankings = sys.getFileContent("tourscores_"+tourtier.replace(/ /g,"_")+".txt").split("\n")
 				}
@@ -2127,18 +2198,18 @@ function tourCommand(src, command, commandData) {
 					list.push([rankingdata[1], rankingdata[0]]);
 				}
 				list.sort(function(a,b) { return b[0] - a[0] ; });
-				sys.sendMessage(src, "*** TOURNAMENT RANKINGS "+(commandData != "" ? "("+commandData+") " : "")+"***",tourschan)
+				sys.sendMessage(src, "*** TOUR RANKING "+(commandData != "" ? "("+commandData+") " : "")+"***",tourschan)
 				for (var x=0; x<20; x++) {
 					if (x >= list.length) break;
 					sys.sendMessage(src, "#"+(x+1)+": "+(list[x])[1]+" ~ "+(list[x])[0]+" point"+((list[x])[0] != 1 ? "s" : ""),tourschan)
 				}
 			}
 			catch (err) {
-				if (err == "Not a valid tier") {
-					sys.sendMessage(src, Config.Tours.tourbot+commandData+" is not a valid tier!",tourschan)
+				if (err == "Tier non valida") {
+					sys.sendMessage(src, Config.Tours.tourbot+commandData+" è una tier non valida!",tourschan)
 				}
 				else {
-					sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet!",tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"Dati non disponibili!",tourschan)
 				}
 			}
 			return true;
@@ -2166,20 +2237,20 @@ function tourCommand(src, command, commandData) {
 					list.push([rankingdata[1], rankingdata[0]]);
 				}
 				list.sort(function(a,b) { return b[0] - a[0] ; });
-				sys.sendMessage(src, "*** MONTHLY TOURNAMENT RANKINGS "+(commandData != "" ? "("+commandData+") " : "")+"***",tourschan)
+				sys.sendMessage(src, "*** TOUR RANKING MENSILE "+(commandData != "" ? "("+commandData+") " : "")+"***",tourschan)
 				for (var x=0; x<20; x++) {
 					if (x >= list.length) break;
 					sys.sendMessage(src, "#"+(x+1)+": "+(list[x])[1]+" ~ "+(list[x])[0]+" point"+((list[x])[0] != 1 ? "s" : ""),tourschan)
 				}
 			}
 			catch (err) {
-				sys.sendMessage(src, Config.Tours.tourbot+"No data exists yet for the month "+commandData+"!",tourschan)
+				sys.sendMessage(src, Config.Tours.tourbot+"Non ci sono ancora dati per il mese di "+commandData+"!",tourschan)
 			}
 			return true;
 		}
 	}
 	catch (err) {
-		sys.sendAll("Error in Tournament Command '"+command+"': "+err, tourserrchan)
+		sys.sendAll("Errore nel comando '"+command+"': "+err, tourserrchan)
 	}
 	return false;
 }
@@ -2187,7 +2258,7 @@ function tourCommand(src, command, commandData) {
 // Auto DQs inactive players
 function removeinactive(key) {
 	try {
-		sendDebugMessage("Removing Inactive Players", tourschan)
+		sendDebugMessage("Rimozione giocatori inattivi", tourschan)
 		var activelist = tours.tour[key].active;
 		var playercycle = tours.tour[key].players.length
 		var currentround = tours.tour[key].round
@@ -2197,33 +2268,33 @@ function removeinactive(key) {
 			var dq1 = true;
 			var dq2 = true;
 			if (tours.tour[key].winners.indexOf(player1) != -1) {
-				sendDebugMessage(player1+" won against "+player2+"; continuing", tourschan)
+				sendDebugMessage(player1+" ha battuto "+player2+"; il torneo continua!", tourschan)
 				continue;
 			}
 			if (tours.tour[key].winners.indexOf(player2) != -1) {
-				sendDebugMessage(player2+" won against "+player1+"; continuing", tourschan)
+				sendDebugMessage(player2+" ha battuto "+player1+"; il torneo continua!", tourschan)
 				continue;
 			}
 			if (tours.tour[key].battlers.indexOf(player1) != -1 || tours.tour[key].battlers.indexOf(player2) != -1) {
-				sendDebugMessage(player1+" is battling against "+player2+"; continuing", tourschan)
+				sendDebugMessage(player1+" sta giocando con "+player2+"; il torneo continua!", tourschan)
 				continue;
 			}
 			if (player1 == "~DQ~" || player2 == "~DQ~" || player1 == "~Bye~" || player2 == "~Bye~") {
-				sendDebugMessage("We don't need to check", tourschan)
+				sendDebugMessage("Controllo superfluo...", tourschan)
 				continue;
 			}
 			if (activelist.hasOwnProperty(player1)) {
 				if (activelist[player1] == "Battle" || (typeof activelist[player1] == "number" && activelist[player1]+Config.Tours.activity >= parseInt(sys.time()))) {
-					sendDebugMessage(player1+" is active; continuing", tourschan)
+					sendDebugMessage(player1+" è attivo; il torneo continua!", tourschan)
 					dq1 = false
 				}
 			}
 			else {
-				sendDebugMessage(player1+" is not active; disqualifying", tourschan)
+				sendDebugMessage(player1+" non è attivo e viene squalificato.", tourschan)
 			}
 			if (activelist.hasOwnProperty(player2)) {
 				if (activelist[player2] == "Battle" || (typeof activelist[player2] == "number" && activelist[player2]+Config.Tours.activity >= parseInt(sys.time()))) {
-					sendDebugMessage(player2+" is active; continuing", tourschan)
+					sendDebugMessage(player2+" è attivo; il torneo continua!", tourschan)
 					dq2 = false
 				}
 			}
@@ -2231,19 +2302,21 @@ function removeinactive(key) {
 				sendDebugMessage(player2+" is not active; disqualifying", tourschan)
 			}
 			if (dq1 && dq2) {
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" and "+toCorrectCase(player2)+" are both disqualified for inactivity in the "+getFullTourName(key)+" tournament!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" e "+toCorrectCase(player2)+" vengono squalificati per inattività al torneo "+getFullTourName(key)+"!", tourschan)
 				dqboth(player1, player2, key)
 			}
 			else if (dq2) {
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player2)+" was disqualified from the "+getFullTourName(key)+" tournament for inactivity!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player2)+" è stato/a squalificato/a per inattività dal torneo "+getFullTourName(key)+"!", tourschan)
 				disqualify(player2,key,false)
 			}
 			else if (dq1) {
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" was disqualified from the "+getFullTourName(key)+" tournament for inactivity!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" è stato/a squalificato/a per inattività dal torneo "+getFullTourName(key)+"!", tourschan)
 				disqualify(player1,key,false)
 			}
 			else if ((tours.tour[key].time-parseInt(sys.time()))%60 === 0){
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" and "+toCorrectCase(player2)+" are both active, please battle in the "+getFullTourName(key)+" tournament ASAP!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" e "+toCorrectCase(player2)+" siete entrambi attivi; siete pregati di giocare per il torneo "+getFullTourName(key)+"!", 
+
+tourschan)
 			}
 			// if the round advances due to DQ, don't keep checking :x
 			if (tours.tour[key].round !== currentround) {
@@ -2252,7 +2325,7 @@ function removeinactive(key) {
 		}
 	}
 	catch (err) {
-		sys.sendAll("Error in process 'removeinactive': "+err, tourserrchan)
+		sys.sendAll("Errore nel processo 'removeinactive': "+err, tourserrchan)
 	}
 }
 
@@ -2272,21 +2345,29 @@ function sendReminder(key) {
 				continue;
 			}
 			if ((isSub(player) || isSub(opponent)) && sys.id(player) !== undefined) {
-				sys.sendMessage(sys.id(player), Config.Tours.tourbot+"Your sub will be disqualified in "+time_handle(tours.tour[key].time-parseInt(sys.time())), tourschan)
+				sys.sendMessage(sys.id(player), Config.Tours.tourbot+"Il tuo sostituto sarà squalificato tra "+time_handle(tours.tour[key].time-parseInt(sys.time())), tourschan)
 			}
 			else if (sys.id(player) !== undefined) {
 				if (sys.isInChannel(sys.id(player), tourschan)) {
-					sys.sendHtmlMessage(sys.id(player), "<ping/><font color=red><timestamp/> "+html_escape(toCorrectCase(player))+", you must battle <b>"+(z%2 === 0 ? html_escape(toCorrectCase(tours.tour[key].players[z+1])) : html_escape(toCorrectCase(tours.tour[key].players[z-1])))+"</b> in the <b>"+html_escape(getFullTourName(key))+"</b> tournament, otherwise you may be disqualified for inactivity! You should talk to your opponent in #"+sys.channel(tourschan)+" to avoid disqualification.</font>", tourschan)
+					sys.sendHtmlMessage(sys.id(player), "<ping/><font color=red><timestamp/> "+html_escape(toCorrectCase(player))+", devi giocare con <b>"+(z%2 === 0 ? 
+
+html_escape(toCorrectCase(tours.tour[key].players[z+1])) : html_escape(toCorrectCase(tours.tour[key].players[z-1])))+"</b> nel torneo <b>"+html_escape(getFullTourName(key))+"</b>, rischi la squalifica per 
+
+inattività! Contatta l'avversario nel canale #"+sys.channel(tourschan)+" per evitarla.</font>", tourschan)
 				}
 				else {
-					sys.sendHtmlMessage(sys.id(player), "<ping/><font color=red><timestamp/> "+html_escape(toCorrectCase(player))+", you must battle <b>"+(z%2 === 0 ? html_escape(toCorrectCase(tours.tour[key].players[z+1])) : html_escape(toCorrectCase(tours.tour[key].players[z-1])))+"</b> in the <b>"+html_escape(getFullTourName(key))+"</b> tournament, otherwise you may be disqualified for inactivity! You should talk to your opponent in #"+sys.channel(tourschan)+" to avoid disqualification.</font>")
-					sys.sendMessage(sys.id(player), Config.Tours.tourbot+"Please rejoin the #"+Config.Tours.channel+" channel to ensure you do not miss out on information you need!", tourschan)
+					sys.sendHtmlMessage(sys.id(player), "<ping/><font color=red><timestamp/> "+html_escape(toCorrectCase(player))+", devi giocare con <b>"+(z%2 === 0 ? 
+
+html_escape(toCorrectCase(tours.tour[key].players[z+1])) : html_escape(toCorrectCase(tours.tour[key].players[z-1])))+"</b> nel torneo <b>"+html_escape(getFullTourName(key))+"</b> rischi la squalifica per inattività! 
+
+Contatta l'avversario nel canale #"+sys.channel(tourschan)+" per evitarla.</font>")
+					sys.sendMessage(sys.id(player), Config.Tours.tourbot+"Rientra nel canale #"+Config.Tours.channel+" per avere tutte le informazioni che servono!", tourschan)
 				}
 			}
 		}
 	}
 	catch (err) {
-		sys.sendAll("Error in process 'sendReminder': "+err, tourserrchan)
+		sys.sendAll("Errore nel processo 'sendReminder': "+err, tourserrchan)
 	}
 }
 
@@ -2317,7 +2398,7 @@ function disqualify(player, key, silent) {
 				tours.tour[key].winners.push(opponent)
 				tours.tour[key].losers.push(player)
 				if (!silent) {
-					sys.sendAll(Config.Tours.tourbot+toCorrectCase(opponent)+" advances to the next round of the "+getFullTourName(key)+" by default!", tourschan)
+					sys.sendAll(Config.Tours.tourbot+toCorrectCase(opponent)+" avanza al turno successivo del torneo "+getFullTourName(key)+" a tavolino, che culo!", tourschan)
 				}
 			}
 			else {
@@ -2329,7 +2410,9 @@ function disqualify(player, key, silent) {
 			tours.tour[key].winners.splice(winnerindex,1,opponent)
 			tours.tour[key].losers.splice(tours.tour[key].losers.indexOf(opponent),1,player)
 			if (!silent) {
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(opponent)+" advances to the next round of the "+getFullTourName(key)+" because "+toCorrectCase(player)+" was disqualified!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(opponent)+" avanza al turno successivo del torneo "+getFullTourName(key)+" a causa della squalifica di  
+
+"+toCorrectCase(player)+", che culo!", tourschan)
 			}
 		}
 		var battlesleft = parseInt(tours.tour[key].players.length/2)-tours.tour[key].winners.length
@@ -2339,7 +2422,7 @@ function disqualify(player, key, silent) {
 		}
 	}
 	catch (err) {
-		sys.sendAll("Error in process 'disqualify': "+err, tourserrchan)
+		sys.sendAll("Errore nel processo 'disqualify': "+err, tourserrchan)
 	}
 }
 
@@ -2388,11 +2471,11 @@ function removesubs(key) {
 		}
 		tours.tour[key].state = "round"
 		if (advanced.length > 0) {
-			sys.sendAll(Config.Tours.tourbot+advanced.join(", ")+(advanced.length == 1 ? " advances" : " advance")+" to the next round! Subs are now gone.", tourschan)
+			sys.sendAll(Config.Tours.tourbot+advanced.join(", ")+(advanced.length == 1 ? " avanza" : " avanzano")+" al prossimo turno!", tourschan)
 		}
 	}
 	catch (err) {
-		sys.sendAll("Error in process 'removesubs' for player "+tours.tour[key].players[x]+": "+err, tourserrchan)
+		sys.sendAll("Errore nel processo 'removesubs' per il giocatore "+tours.tour[key].players[x]+": "+err, tourserrchan)
 	}
 }
 
@@ -2425,11 +2508,11 @@ function removebyes(key) {
 			}
 		}
 		if (advanced.length > 0) {
-			sys.sendAll(Config.Tours.tourbot+advanced.join(", ")+(advanced.length == 1 ? " advances" : " advance")+" to the next round due to a bye!", tourschan)
+			sys.sendAll(Config.Tours.tourbot+advanced.join(", ")+(advanced.length == 1 ? " avanza" : " avanzano")+" al prossimo turno grazie al ~Bye~!", tourschan)
 		}
 	}
 	catch (err) {
-		sys.sendAll("Error in process 'removebyes': "+err, tourserrchan)
+		sys.sendAll("Errore nel processo 'removebyes': "+err, tourserrchan)
 	}
 }
 	
@@ -2446,21 +2529,39 @@ function battleend(winner, loser, key) {
 		var battlesleft = parseInt(tours.tour[key].players.length/2)-tours.tour[key].winners.length
 		if (tours.tour[key].parameters.type == "double") {
 			if (tourwinmessages === undefined || tourwinmessages.length == 0) {
-				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font color=blue>"+html_escape(sys.name(winner))+"</font> won their match against <font color=red>"+html_escape(sys.name(loser))+ "</font> in the "+getFullTourName(key)+" tournament! "+battlesleft+" battle"+(battlesleft == 1 ? "" : "s") + " remaining.", key)
+				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font 
+
+color=blue>"+html_escape(sys.name(winner))+"</font> ha vinto contro <font color=red>"+html_escape(sys.name(loser))+ "</font> nel torneo "+getFullTourName(key)+"! "+battlesleft+" lott"+(battlesleft == 1 ? "a 
+
+rimanente" : "e rimanenti")+ ".", key)
 			}
 			else {
-				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font color=blue>"+html_escape(sys.name(winner))+"</font> "+html_escape(tourwinmessages[sys.rand(0, tourwinmessages.length)])+" <font color=red>"+html_escape(sys.name(loser))+ "</font> in the "+getFullTourName(key)+" tournament! "+battlesleft+" battle"+(battlesleft == 1 ? "" : "s") + " remaining.", key)
+				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font 
+
+color=blue>"+html_escape(sys.name(winner))+"</font> "+html_escape(tourwinmessages[sys.rand(0, tourwinmessages.length)])+" <font color=red>"+html_escape(sys.name(loser))+ "</font> nel torneo 
+
+"+getFullTourName(key)+"! "+battlesleft+" lott"+(battlesleft == 1 ? "a rimanente" : "e rimanenti") + ".", key)
 			}
 			if (tours.tour[key].losebracket.indexOf(losename) != -1) {
-				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <b>"+html_escape(sys.name(loser))+"</b> has lost twice and is now out of the "+getFullTourName(key)+" tournament!", key)
+				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> 
+
+<b>"+html_escape(sys.name(loser))+"</b> ha perso due volte ed è quindi fuori dal torneo "+getFullTourName(key)+"!", key)
 			}
 		}
 		else {
 			if (tourwinmessages === undefined || tourwinmessages.length == 0) {
-				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font color=blue>"+html_escape(sys.name(winner))+"</font> won their match against <font color=red>"+html_escape(sys.name(loser))+ "</font> in the "+getFullTourName(key)+" tournament and advances to the next round! "+battlesleft+" battle"+(battlesleft == 1 ? "" : "s") + " remaining.", key)
+				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font 
+
+color=blue>"+html_escape(sys.name(winner))+"</font> ha vinto contro <font color=red>"+html_escape(sys.name(loser))+ "</font> nel torneo "+getFullTourName(key)+" e avanza quindi al prossimo turno! 
+
+"+battlesleft+" lott"+(battlesleft == 1 ? "a rimanente" : "e rimanenti") + ".", key)
 			}
 			else {
-				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font color=blue>"+html_escape(sys.name(winner))+"</font> "+html_escape(tourwinmessages[sys.rand(0, tourwinmessages.length)])+" <font color=red>"+html_escape(sys.name(loser))+ "</font> in the "+getFullTourName(key)+" tournament and advances to the next round! "+battlesleft+" battle"+(battlesleft == 1 ? "" : "s") + " remaining.", key)
+				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font 
+
+color=blue>"+html_escape(sys.name(winner))+"</font> "+html_escape(tourwinmessages[sys.rand(0, tourwinmessages.length)])+" <font color=red>"+html_escape(sys.name(loser))+ "</font> nel torneo 
+
+"+getFullTourName(key)+" e avanza al prossimo turno! "+battlesleft+" lott"+(battlesleft == 1 ? "a rimanente" : "e rimanenti") + ".", key)
 			}
 		}
 		if (battlesleft <= 0) {
@@ -2468,7 +2569,7 @@ function battleend(winner, loser, key) {
 		}
 	}
 	catch (err) {
-		sys.sendAll("Error in evaluating end of battle results: "+err, tourserrchan)
+		sys.sendAll("Error nel valutare i risultati degli incontri: "+err, tourserrchan)
 	}
 }
 
@@ -2596,7 +2697,7 @@ function advanceround(key) {
 				newlist = newwinbracket.concat(newlosebracket)
 			}
 			else {
-				sys.sendAll("Error in advancing round of tour '"+getFullTourName(key)+"' id "+key+": Broken roundcheck in double elim...", tourserrchan)
+				sys.sendAll("Errore nei rounds del torneo '"+getFullTourName(key)+"' id "+key+": Broken roundcheck in double elim...", tourserrchan)
 			}
 		}
 		else {
@@ -2629,7 +2730,7 @@ function advanceround(key) {
 		tourprintbracket(key)
 	}
 	catch (err) {
-		sys.sendAll("Error in advancing round of tour '"+getFullTourName(key)+"' id "+key+": "+err, tourserrchan)
+		sys.sendAll("Errore nei rounds del torneo '"+getFullTourName(key)+"' id "+key+": "+err, tourserrchan)
 	}
 }
 
@@ -2658,14 +2759,22 @@ function tourstart(tier, starter, key, parameters) {
 		for (var x in channels) {
 			sys.sendAll("", channels[x])
 			sys.sendAll(border, channels[x])
-			sys.sendHtmlAll("<timestamp/> A <b><a href='http://wiki.pokemon-online.eu/view/"+tier.replace(/ /g,"_")+"'>"+tier+"</a></b> tournament has opened for signups! (Started by <b>"+html_escape(starter)+"</b>)", channels[x])
+			sys.sendHtmlAll("<timestamp/> Un torneo <b><a href='http://wiki.pokemon-online.eu/view/"+tier.replace(/ /g,"_")+"'>"+tier+"</a></b> è stato avviato da <b>"+html_escape(starter)+"</b>", 
+
+channels[x])
 			sys.sendAll("CLAUSES: "+getTourClauses(tier),channels[x])
-			sys.sendAll("PARAMETERS: "+parameters.mode+" Mode"+(parameters.gen != "default" ? "; Gen: "+getSubgen(parameters.gen,true) : "")+(parameters.type == "double" ? "; Double Elimination" : ""), channels[x])
+			sys.sendAll("PARAMETERS: "+parameters.mode+" Mode"+(parameters.gen != "default" ? "; Gen: "+getSubgen(parameters.gen,true) : "")+(parameters.type == "double" ? "; Double 
+
+Elimination" : ""), channels[x])
 			if (channels[x] == tourschan) {
-				sys.sendHtmlAll("<timestamp/> Type <b>/join</b> or click <a href='po:join/join'>HERE</a> to enter the tournament, you have "+time_handle(Config.Tours.toursignup)+" to join!", channels[x])
+				sys.sendHtmlAll("<timestamp/> Scrivi <b>/join</b> o clicca <a href='po:join/join'>QUI</a> per partecipare al torneo, hai "+time_handle(Config.Tours.toursignup)+" per iscriverti!", 
+
+channels[x])
 			}
 			else {
-				sys.sendAll(Config.Tours.tourbot+"Go to the #"+sys.channel(tourschan)+" channel and type /join to enter the tournament, you have "+time_handle(Config.Tours.toursignup)+" to join!", channels[x])
+				sys.sendAll(Config.Tours.tourbot+"Vai nel canale #"+sys.channel(tourschan)+" e digita /join per partecipare al torneo, hai "+time_handle(Config.Tours.toursignup)+" per iscriverti!", 
+
+channels[x])
 			}
 			sys.sendAll(border, channels[x])
 			sys.sendAll("", channels[x])
@@ -2683,7 +2792,7 @@ function tourstart(tier, starter, key, parameters) {
 			var poUser = SESSION.users(id);
 			if (sys.loggedIn(id) && poUser && poUser.tiers && poUser.tiers.indexOf(tier) != -1 && isInTour(sys.name(id)) === false) {
 				if (sys.isInChannel(id, tourschan)) {
-					sys.sendHtmlMessage(playerson[x], "<font color=red>You are currently alerted when a "+tier+" tournament is started!</font><ping/>",tourschan);
+					sys.sendHtmlMessage(playerson[x], "<font color=red>Un torneo "+tier+" è iniziato! </font><ping/>",tourschan);
 					continue;
 				}
 			}
@@ -2699,7 +2808,9 @@ function tourinitiate(key) {
 	try {
 		var size = tourmakebracket(key)
 		if (size < 3) {
-			sys.sendAll(Config.Tours.tourbot+"The "+getFullTourName(key)+" tournament was cancelled by the server! You need at least 3 players! (A new tournament will start in "+time_handle(Config.Tours.tourbreak)+").", tourschan)
+			sys.sendAll(Config.Tours.tourbot+"Il torneo "+getFullTourName(key)+" è stato annullato per mancanza di partecipanti; invita qualcun altro a giocare, il prossimo torneo inizia tra 
+
+"+time_handle(Config.Tours.tourbreak)+".", tourschan)
 			delete tours.tour[key];
 			tours.keys.splice(tours.keys.indexOf(key), 1)
 			tours.globaltime = parseInt(sys.time())+Config.Tours.tourbreak; // for next tournament
@@ -2709,7 +2820,7 @@ function tourinitiate(key) {
 		tourprintbracket(key)
 	}
 	catch (err) {
-		sys.sendAll("Error in initiating a tournament, id "+key+": "+err, tourserrchan)
+		sys.sendAll("Errore nell'inizializzare il torneo, id "+key+": "+err, tourserrchan)
 	}
 }
 
@@ -2749,7 +2860,7 @@ function tourmakebracket(key) {
 		return bracketsize;
 	}
 	catch (err) {
-		sys.sendAll("Error in making a bracket, id "+key+": "+err, tourserrchan)
+		sys.sendAll("Errore nella creazione della bracket, id "+key+": "+err, tourserrchan)
 	}
 }
 
@@ -2805,7 +2916,9 @@ function toursortbracket(size, key) {
 			var ishigher = false;
 			var playerranking1 = getExtraTierPoints(tours.tour[key].players[t], tours.tour[key].tourtype)
 			var playerranking2 = getExtraPoints(tours.tour[key].players[t])
-			var playerranking3 = sys.ranking(tours.tour[key].players[t], tours.tour[key].tourtype) !== undefined ? sys.ranking(tours.tour[key].players[t], tours.tour[key].tourtype) : sys.totalPlayersByTier(tours.tour[key].tourtype)+1
+			var playerranking3 = sys.ranking(tours.tour[key].players[t], tours.tour[key].tourtype) !== undefined ? sys.ranking(tours.tour[key].players[t], tours.tour[key].tourtype) : 
+
+sys.totalPlayersByTier(tours.tour[key].tourtype)+1
 			if (isSub(tours.tour[key].players[t])) {
 				ladderlist.push(tours.tour[key].players[t])
 				continue;
@@ -2829,7 +2942,9 @@ function toursortbracket(size, key) {
 				else if (playerranking1 === otherranking1 && playerranking2 > otherranking2) {
 					ishigher = true;
 				}
-				else if (playerranking1 === otherranking1 && playerranking2 === otherranking2 && ((playerranking3 < otherranking3) || (playerranking3 === otherranking3 && sys.rand(0,2) == 1))) {
+				else if (playerranking1 === otherranking1 && playerranking2 === otherranking2 && ((playerranking3 < otherranking3) || (playerranking3 === otherranking3 && sys.rand(0,2) == 
+
+1))) {
 					ishigher = true;
 				}
 				if (ishigher) {
@@ -2887,16 +3002,16 @@ function tourprintbracket(key) {
 				for (var x in channels) {
 					sys.sendAll("", channels[x])
 					sys.sendAll(border, channels[x])
-					sys.sendHtmlAll("<timestamp/> The winner of the "+getFullTourName(key)+" tournament is: <b>"+html_escape(winner)+"</b>!", channels[x])
+					sys.sendHtmlAll("<timestamp/> Il torneo "+getFullTourName(key)+" è stato vinto da <b>"+html_escape(winner)+"</b>!", channels[x])
 					sys.sendAll("", channels[x])
-					sys.sendAll(Config.Tours.tourbot+"Please congratulate "+winner+" on their success!", channels[x])
+					sys.sendAll(Config.Tours.tourbot+"Congratulazioni a "+winner+" per il successo!", channels[x])
 					sys.sendAll(border, channels[x])
 					sys.sendAll("", channels[x])
 				}
 				awardTourPoints(winner.toLowerCase(), tours.tour[key].cpt, tours.tour[key].tourtype, tours.tour[key].parameters.type == "double" ? true : false)
 			}
-			else sys.sendAll(Config.Tours.tourbot+"The "+getFullTourName(key)+" ended by default!", tourschan)
-			tours.history.unshift(getFullTourName(key)+": Won by "+winner+" with "+tours.tour[key].cpt+" players")
+			else sys.sendAll(Config.Tours.tourbot+"Il "+getFullTourName(key)+" è finito!", tourschan)
+			tours.history.unshift(getFullTourName(key)+": Vinto da "+winner+", con "+tours.tour[key].cpt+" partecipanti.")
 			if (tours.history.length > 25) {
 				tours.history.pop()
 			}
@@ -2910,7 +3025,7 @@ function tourprintbracket(key) {
 		else if (tours.tour[key].players.length == 2) { // finals
 			/* Here in case it's ~Bye~ vs ~Bye~ */
 			if (tours.tour[key].players[0] == "~Bye~" && tours.tour[key].players[1] == "~Bye~") {
-				sys.sendAll(Config.Tours.tourbot+"The "+getFullTourName(key)+" ended by default!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+"Il "+getFullTourName(key)+" è stato interrotto!", tourschan)
 				delete tours.tour[key];
 				tours.keys.splice(tours.keys.indexOf(key), 1);
 				if (tours.keys.length === 0) {
@@ -2922,7 +3037,9 @@ function tourprintbracket(key) {
 			var channels = [tourschan]
 			var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[0])+1)+")</td><td align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[0]))+"</td>"
 			var player2data = "<td>"+html_escape(toCorrectCase(tours.tour[key].players[1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[1])+1)+")</td>"
-			var roundinfo = "<b>"+(tours.tour[key].parameters.type == "double" && tours.tour[key].round%2 == 1 ? "Sudden Death" : "Final")+" Match of the "+getFullTourName(key)+" Tournament in <a href='po:join/"+html_escape(sys.channel(tourschan))+"'>#"+html_escape(sys.channel(tourschan))+"</a></th></tr></b><br/>"
+			var roundinfo = "<b>"+(tours.tour[key].parameters.type == "double" && tours.tour[key].round%2 == 1 ? "Spareggio" : "Finale")+" del torneo "+getFullTourName(key)+" nel canale <a 
+
+href='po:join/"+html_escape(sys.channel(tourschan))+"'>#"+html_escape(sys.channel(tourschan))+"</a></th></tr></b><br/>"
 			var roundposting = "<div style='margin-left: 50px'>"+roundinfo+"<table><tr>"+player1data+"<td align='center'> VS </td>"+player2data+"</tr>"
 			for (var c in channels) {
 				if (channels[c] === tourschan) {
@@ -2954,32 +3071,46 @@ function tourprintbracket(key) {
 				tours.tour[key].time = parseInt(sys.time())+Config.Tours.tourdq
 			}
 			if (tours.tour[key].round == 1) {
-				var submessage = "<div style='margin-left: 50px'><br/>Type <b>/join</b> or click <a href='po:join/join'>HERE</a> to join late, good while subs last!</div>"
-				var roundposting = "<div style='margin-left: 50px'><b>Round "+tours.tour[key].round+" of the "+getFullTourName(key)+" Tournament</b><br/><table>";
+				var submessage = "<div style='margin-left: 50px'><br/>Scrivi <b>/join</b> o clicca <a href='po:join/join'>QUI</a> per iscriverti dopo le iscrizioni!</div>"
+				var roundposting = "<div style='margin-left: 50px'><b>Round "+tours.tour[key].round+" del torneo "+getFullTourName(key)+"</b><br/><table>";
 				for (var x=0; x<tours.tour[key].players.length; x+=2) {
-					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>"
-					var player2data = "<td>"+html_escape(toCorrectCase(tours.tour[key].players[x+1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x+1])+1)+")</td>"
+					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td 
+
+align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>"
+					var player2data = 
+
+"<td>"+html_escape(toCorrectCase(tours.tour[key].players[x+1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x+1])+1)+")</td>"
 					roundposting = roundposting+"<tr>"+player1data+"<td align='center'> VS </td>"+player2data+"</tr>"
 				}
 				sendFlashingBracket("<br/>"+htmlborder+roundposting+"</table></div>"+(subsExist ? submessage : "")+htmlborder+"<br/>",key)
 			}
 			else if (tours.tour[key].parameters.type == "double") {
-				var roundposting = "<div style='margin-left: 50px'><b>Round "+tours.tour[key].round+" of the "+getFullTourName(key)+" Tournament</b><br/><table><tr><th colspan=5><font color=blue>Winners Bracket</font></th></tr>"
+				var roundposting = "<div style='margin-left: 50px'><b>Round "+tours.tour[key].round+" del torneo "+getFullTourName(key)+"</b><br/><table><tr><th colspan=5><font 
+
+color=blue>Winners' Bracket</font></th></tr>"
 				for (var x=0; x<tours.tour[key].players.length; x+=2) {
 					if (tours.tour[key].parameters.type == "double" && x == tours.tour[key].players.length/2) {
-						roundposting = roundposting + "<tr><td></td></tr><tr><th colspan=5><font color=red>Losers Bracket</font></th></tr>"
+						roundposting = roundposting + "<tr><td></td></tr><tr><th colspan=5><font color=red>Losers' Bracket</font></th></tr>"
 					}
-					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>"
-					var player2data = "<td>"+html_escape(toCorrectCase(tours.tour[key].players[x+1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x+1])+1)+")</td>"
+					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td 
+
+align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>"
+					var player2data = 
+
+"<td>"+html_escape(toCorrectCase(tours.tour[key].players[x+1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x+1])+1)+")</td>"
 					roundposting = roundposting+"<tr>"+player1data+"<td align='center'> VS </td>"+player2data+"</tr>"
 				}
 				sendHtmlAuthPlayers("<br/>"+htmlborder+roundposting+"</table></div>"+htmlborder+"<br/>", key)
 			}
 			else {
-				var roundposting = "<div style='margin-left: 50px'><b>Round "+tours.tour[key].round+" of the "+getFullTourName(key)+" Tournament</b><br/><table>";
+				var roundposting = "<div style='margin-left: 50px'><b>Round "+tours.tour[key].round+" del torneo "+getFullTourName(key)+"</b><br/><table>";
 				for (var x=0; x<tours.tour[key].players.length; x+=2) {
-					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>"
-					var player2data = "<td>"+html_escape(toCorrectCase(tours.tour[key].players[x+1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x+1])+1)+")</td>"
+					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td 
+
+align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>"
+					var player2data = 
+
+"<td>"+html_escape(toCorrectCase(tours.tour[key].players[x+1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x+1])+1)+")</td>"
 					roundposting = roundposting+"<tr>"+player1data+"<td align='center'> VS </td>"+player2data+"</tr>"
 				}
 				sendHtmlAuthPlayers("<br/>"+htmlborder+roundposting+"</table></div>"+htmlborder+"<br/>", key)
@@ -3033,51 +3164,51 @@ function isValidTourBattle(src,dest,clauses,mode,team,destTier,key,challenge) { 
 			}
 		}
 		if (!srcisintour) {
-			return "You are not in the tournament."
+			return "Non sei nel torneo."
 		}
 		else if (!destisintour) {
-			return "That player is not in the tournament."
+			return "Questo giocatore non sta partecipando."
 		}
 		else if (tours.tour[key].round < 1) {
-			return "The tournament hasn't started yet."
+			return "Il torneo non è ancora iniziato."
 		}
 		else if (srcbtt != -1 && challenge) {
-			return "You have already started your battle."
+			return "Hai già iniziato a lottare!"
 		}
 		else if (destbtt != -1 && challenge) {
-			return "That player has started their battle."
+			return "Questo giocatore ha già iniziato a lottare!"
 		}
 		else if (srcwin != -1) {
-			return "You have already won."
+			return "Hai già giocato e vinto."
 		}
 		else if (destwin != -1) {
-			return "That player has already won."
+			return "Questo giocatore ha già giocato e vinto."
 		}
 		else if ((srcindex%2 === 1 && srcindex-destindex != 1) || (srcindex%2 === 0 && destindex-srcindex != 1)) {
-			return "That player is not your opponent."
+			return "Non è il tuo avversario! Cerca il tuo avversario con il comando /viewround"
 		}
 		else if (mode != 1 && tours.tour[key].parameters.mode == "Doubles") {
-			return "This match must be played in Doubles mode."
+			return "Devi giocare in modalità Doubles."
 		}
 		else if (mode != 2 && tours.tour[key].parameters.mode == "Triples") {
-			return "This match must be played in Triples mode."
+			return "Devi giocare in modalità Triples."
 		}
 		else if (mode !== 0 && tours.tour[key].parameters.mode == "Singles") {
-			return "This match must be played in Singles mode."
+			return "Devi giocare in modalità Singles."
 		}
 		else if (!isInCorrectGen && tours.tour[key].parameters.gen != "default") {
-			return "This match must be played in "+getSubgen(tours.tour[key].parameters.gen, true)+". Change it in the teambuilder."
+			return "Questo match va giocato in "+getSubgen(tours.tour[key].parameters.gen, true)+". Change it in the teambuilder."
 		}
 		else if (checklist.missing.length > 0 && checklist.extra.length > 0) {
-			invalidmsg = "You must add the following clauses to your challenge: "+checklist.missing.join(", ")+"; and you must not have the following clauses: "+checklist.extra.join(", ")
+			invalidmsg = "Devi attivare le seguenti Clauses: "+checklist.missing.join(", ")+" e rimuovere queste: "+checklist.extra.join(", ")
 			return invalidmsg;
 		}
 		else if (checklist.missing.length > 0) {
-			invalidmsg = "You must add the following clauses to your challenge: "+checklist.missing.join(", ")
+			invalidmsg = "Devi attivare le seguenti Clauses: "+checklist.missing.join(", ")
 			return invalidmsg;
 		}
 		else if (checklist.extra.length > 0) {
-			invalidmsg = "You must remove the following clauses from your challenge: "+checklist.extra.join(", ")
+			invalidmsg = "Devi disattivare le seguenti Clauses: "+checklist.extra.join(", ")
 			return invalidmsg;
 		}
 		else if (tours.tour[key].state == "final" && clauses%8 >= 4) {
@@ -3085,16 +3216,16 @@ function isValidTourBattle(src,dest,clauses,mode,team,destTier,key,challenge) { 
 			return "Disallow Spects is prohibited in finals matches."
 		}
 		else if (sys.tier(src, team) != tours.tour[key].tourtype) {
-			return "You need to challenge using a "+tours.tour[key].tourtype+" team."
+			return "Devi sfidare il tuo avversario con un team "+tours.tour[key].tourtype+"!"
 		}
 		else if (sys.tier(src, team) != destTier) {
-			return "You need to challenge your opponent in the "+tours.tour[key].tourtype+" tier with a valid team."
+			return "Devi sfidare il tuo avversario nella tier "+tours.tour[key].tourtype+" con un team valido."
 		}
 		else return "Valid";
 	}
 	catch (err) {
 		sys.sendAll("Error in battle check, id "+key+": "+err, tourserrchan)
-		return "Error in clausecheck, please report and wait for an update.";
+		return "Errore nel controllo Clauses.";
 	}
 }
 
@@ -3487,27 +3618,27 @@ function calcPercentage() { // calc percentage of players in tournaments playing
 
 function sendWelcomeMessage(src, chan) {
 	sys.sendMessage(src,border,chan)
-	sys.sendMessage(src,"*** Welcome to #"+Config.Tours.channel+" Version "+Config.Tours.version+"! ***",chan)
+	sys.sendMessage(src,"*** Benvenuto/a nel canale #"+Config.Tours.channel+" Versione "+Config.Tours.version+"! ***",chan)
 	sys.sendMessage(src,"",chan)
-	sys.sendMessage(src,"*** Current Tournaments ***",chan)
+	sys.sendMessage(src,"*** TORNEI ***",chan)
 	for (var x in tours.tour) {
 		if (tours.tour[x].state == "signups") {
-			sys.sendMessage(src, getFullTourName(x)+": Currently in signups, "+time_handle(tours.tour[x].time-parseInt(sys.time()))+" remaining. Type /join to join.", chan)
+			sys.sendMessage(src, getFullTourName(x)+": Iscrizioni aperte, "+time_handle(tours.tour[x].time-parseInt(sys.time()))+" rimanente. Scrivi /join per iscriverti.", chan)
 		}
 		else if (tours.tour[x].state == "subround" && tours.tour[x].players.length - tours.tour[x].cpt !== 0) {
-			sys.sendMessage(src, getFullTourName(x)+": Substitute spots are open, type /join to join late.", chan)
+			sys.sendMessage(src, getFullTourName(x)+": Puoi iscriverti come sostituto, usa /join.", chan)
 		}
 		else if (tours.tour[x].state == "final") {
-			sys.sendMessage(src, getFullTourName(x)+": Final Round", chan)
+			sys.sendMessage(src, getFullTourName(x)+": FINALE", chan)
 		}
 		else {
 			sys.sendMessage(src, getFullTourName(x)+": Round "+tours.tour[x].round, chan)
 		}
 	}
 	if (!sys.dbRegistered(sys.name(src))) {
-		sys.sendMessage(src, Config.Tours.tourbot+"You need to register before playing in #"+sys.channel(chan)+"! Click on the 'Register' button below and follow the instructions!", chan);
+		sys.sendMessage(src, Config.Tours.tourbot+"Devi registrare il tuo nickname nel canale #"+sys.channel(chan)+"! Clicca su Registrati sotto la chat!", chan);
 	}
-	sys.sendMessage(src,"*** Use /help to view the commands; and use /rules to view the tournament rules! ***",chan)
+	sys.sendMessage(src,"*** Usa /help per i comandi e /rules per le regole! ***",chan)
 	sys.sendMessage(src,border,chan)
 }
 
@@ -3613,7 +3744,9 @@ module.exports = {
 	},
 	beforeChatMessage : function(src, message, channel) {
 		if (isTourMuted(src) && !isTourAdmin(src) && channel === tourschan) {
-			sys.sendMessage(src,Config.Tours.tourbot+"You are tourmuted by "+tours.tourmutes[sys.ip(src)].auth+". This expires in "+time_handle(tours.tourmutes[sys.ip(src)].expiry-parseInt(sys.time()))+". [Reason: "+tours.tourmutes[sys.ip(src)].reason+"]",tourschan)
+			sys.sendMessage(src,Config.Tours.tourbot+"Sei stato mutato da "+tours.tourmutes[sys.ip(src)].auth+". Scade tra  
+
+"+time_handle(tours.tourmutes[sys.ip(src)].expiry-parseInt(sys.time()))+". [Motivo: "+tours.tourmutes[sys.ip(src)].reason+"]",tourschan)
 			return true;
 		}
 		else return false;
