@@ -1333,9 +1333,7 @@ function tourCommand(src, command, commandData) {
 					var index = tours.tour[key].players.indexOf(commandData.toLowerCase())
 					tours.tour[key].players.splice(index, 1)
 					tours.tour[key].cpt -= 1
-					sys.sendAll(Config.Tours.tourbot+toCorrectCase(commandData)+" è stato rimosso dagli iscritti da "+sys.name(src)+" dal torneo "+getFullTourName(key)+"!", 
-
-tourschan);
+					sys.sendAll(Config.Tours.tourbot+toCorrectCase(commandData)+" è stato rimosso dagli iscritti da "+sys.name(src)+" dal torneo "+getFullTourName(key)+"!", tourschan);
 				}
 				else {
 					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha squalificato "+toCorrectCase(commandData)+" dal torneo "+getFullTourName(key)+"!", tourschan)
