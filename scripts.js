@@ -86,7 +86,7 @@ var updateModule = function updateModule(module_name, callback) {
        delete require.cache[fname];
 	   normalbot.sendAll('Cancellazione cache', staffchannel);
        var module = require(fname);
-	   normalbot.sendAll('Sto caricando nuovamente gli scripts/'+fname, staffchannel);
+	   normalbot.sendAll('Sto caricando nuovamente il file scripts/'+fname, staffchannel);
        return module;
    } else {
        sys.webCall(url, function updateModule_callback(resp) {
@@ -96,7 +96,7 @@ var updateModule = function updateModule(module_name, callback) {
            delete require.cache[fname];
 		   normalbot.sendAll('Cancellazione cache', staffchannel);
            var module = require(fname);
-		   normalbot.sendAll('Sto caricando nuovamente gli scripts/'+fname, staffchannel);
+		   normalbot.sendAll('Sto caricando nuovamente il file scripts/'+fname, staffchannel);
            callback(module);
        });
    }
@@ -112,7 +112,7 @@ var deps = ['crc32.js', 'utilities.js', 'bot.js', 'memoryhash.js', 'tierchecks.j
 var missing = 0;
 for (var i = 0; i < deps.length; ++i) {
     if (!sys.getFileContent("scripts/"+deps[i])) {
-        if (missing++ === 0) sys.sendAll('Il server sta aggiornando gli Scripts, potrebbe metterci un po'...');
+        if (missing++ === 0) sys.sendAll("Il server sta aggiornando o plugin, potrebbe metterci un po'...");
         var module = updateModule(deps[i]);
         module.source = deps[i];
     }
@@ -966,7 +966,7 @@ POChannel.prototype.changeParameter = function(src, parameter, value) {
             return sys.name(src)+" ha reso pubblico questo canale.";
         }
         else {
-            return sys.name(src)+" ha reso questo canale accessibile solo alle auth di livello minimo "+level+".";
+            return sys.name(src)+" ha reso questo canale accessibile solo alle auth con livello minimo pari a "+level+".";
         }
     }
 };
@@ -1269,17 +1269,17 @@ hangbot = new Bot(Config.hangbot);
 bfbot = new Bot(Config.bfbot);
 
 var commands = {
-    user:
+    user: // CHANGE
     [
-        "/darules [x]: Mostra le regole (se metti un numero al posto della x ne mostra una specifica).",
+        "/darules [x]: Mostra le regole (se metti un numero al posto di [x] ne mostra una specifica).",
 		"/regolamento [x]: come sopra.",
         "/ranking: Mostra la tua posizione nel ranking attuale.",
         "/myalts: Mostra i tuoi aliases.",
         "/me [messaggio]: Manda un messaggio con *** prima del tuo nome; non abusarne.",
-        "/selfkick: Kicka gli accounts con il tuo stesso IP.",
+        "/selfkick: Kicka gli account con il tuo stesso IP.",
         //"/importable: Export to text via chat.",
-        "/dwreleased [Pokemon]: Per sapere se è stata rilasciata una trait DW di un Pokémon.",
-        "/wiki [Pokémon]: Mostra la pagina Wiki di PO di quel Pokémon",
+        "/dwreleased [Pokemon]: Per sapere se è stata rilasciata una trait DW di un Pokémon. Usare senza le parentesi.",
+        "/wiki [Pokémon]: Mostra la pagina Wiki di quel Pokémon",
         "/register: Registra il canale e imposta te come owner.",
         "/resetpass: Cancella la tua password (ricordati di registrarti nuovamente).",
         "/auth [owners/admins/mods]: Mostra le auth di quel livello, o tutte se non viene specificato.",
@@ -1296,7 +1296,7 @@ var commands = {
     [
         "/register: Per registrare il canale su cui sei connesso.",
         "/topic [topic]: Imposta l'argomento del canale. Funziona solo se sei il primo a entrare o se hai auth. Mostra.",
-        "/lt [nick]: Lovetap <3",
+        "/lt [nick]: Lovetap <3 (kick dal canale)",
         "/member [nick]: Rende l'utente un membro del canale.",
         "/demember [nick]: Rimuove lo status di membro ad un utente.",
         "/csilence [minuti]: Muta chiunque non abbia auth nel canale, per un tempo definito.",
@@ -1384,12 +1384,12 @@ var commands = {
 		"/font [messaggio]: Scrive in grande.",
 		"*** Tour Config Setup ***",
 		"/setuptourconfig: Resetta i valori dei tornei alle impostazioni di default.",
-		"/tourconfig key:value: Sets a new value for the desired key in the tour config file.",
+		"/tourconfig key:value: imposta un nuovo valore per la key desiderata nel file di configurazione dei tornei.",
 		"*** Per aggiornare la configurazione usa ' /updateplugin tours.js ' ***",
 		"*** Event Commands ***",
 		"/resetevents: Cancella la lista degli eventi.",
 		"/eventlist: Mostra gli eventi e alcuni comandi comodi.",
-		"/addevent NOMEEVENTO%%DATA%%TIER%%LINK: Aggiunge un evento alla lista (max 4).",
+		"/addevent NOMEEVENTO%%DATA%%TIER%%LINK: Aggiunge un evento alla lista (solo i primi 4 appariranno in announcement).",
 		"/delevent [x]: Cancella l'evento selezionato.",
 		"*** Per aggiornare la tabella usa ' /updateann ' ***"
     ],
@@ -1397,9 +1397,9 @@ var commands = {
     [
         "/changeRating [nick] -- [tier] -- [rating]: Cambia il rating di un ladder cheater.",
         "/stopBattles: Vieta l'inizio di nuove battles, per favorire il ripristino del server.",
-        "/imp [nick]: Per fare frociate con i nicks altrui",
+        "/imp [nick]: Per fare frociate con i nick altrui",
         "/impOff: Per tornare etero.",
-        "/contributor[off] [nick]:[motivo]: Aggiunge o toglie un contributore alla lista dello Staff.",
+        "/contributor[off] [nick]:[motivo]: Aggiunge o toglie (con off) un contributore alla lista dello Staff.",
         "/clearpass [nick]: Cancella la password dell'utente.",
         "/autosmute [nick]: Aggiunge un utente alla lista di chi viene auto-secret-mutato.",
         "/removeautosmute [nick]: Rimuove un utente dalla lista di chi viene auto-secret-smutato.",
@@ -1923,7 +1923,7 @@ beforeChannelJoin : function(src, channel) {
         return;
     }
     if (sys.auth(src) < 3 && poChannel.canJoin(src) == "banned") {
-        channelbot.sendMessage(src, "Sei bannato da questo canale, aspetta che ti sbannino.");
+        channelbot.sendMessage(src, "Sei bannato da questo canale! Aspetta che ti sbannino.");
         sys.stopEvent();
         return;
     }
@@ -1947,17 +1947,17 @@ beforeChannelJoin : function(src, channel) {
         if (channel == channels[x] && poUser[bans[x]].active) {
             if (poUser.expired(bans[x])) {
                 poUser.un(bans[x]);
-                normalbot.sendMessage(src, "Your ban from " + type[x] + " expired.");
+                normalbot.sendMessage(src, "Il tuo ban da " + type[x] + " è terminato.");
             } else {
                 var info = poUser[bans[x]];
-                sys.sendMessage(src, "+Guard: You are banned from " + type[x] + (info.by ? " by " + info.by : '')+". " + (info.expires > 0 ? "Ban expires in " + getTimeString(info.expires - parseInt(sys.time(), 10)) + ". " : '') + (info.reason ? "[Reason: " + info.reason + "]" : ''));
+                sys.sendMessage(src, "+Guard: Sei stato bannato da " + type[x] + (info.by ? " da " + info.by : '')+". " + (info.expires > 0 ? "Il ban scadrà in " + getTimeString(info.expires - parseInt(sys.time(), 10)) + ". " : '') + (info.reason ? "[Ragione: " + info.reason + "]" : ''));
                 sys.stopEvent();
                 return;
             }
         }
     }
     if (channel == watchchannel && sys.auth(src) < 1) {
-        sys.sendMessage(src, "+Guard: Sorry, the access to that place is restricted!");
+        sys.sendMessage(src, "+Guard: Siamo spiacenti, l'accesso a quel luogo è limitato!");
         sys.stopEvent();
         return;
     }
@@ -2011,7 +2011,8 @@ beforePlayerKick:function(src, dest){
 
 afterNewMessage : function (message) {
     if (message == "Script Check: OK") {
-        sendChanAll("±ScriptCheck: Scripts were updated!", sys.channelId("Indigo Plateau"));
+        sendChanAll("±ScriptCheck: Script aggiornati!", sys.channelId("Indigo Plateau"));
+		sendChanAll("±ScriptCheck: Script aggiornati!", 0);
         if (typeof(scriptChecks)=='undefined')
             scriptChecks = 0;
         scriptChecks += 1;
@@ -2972,7 +2973,7 @@ userCommand: function(src, command, commandData, tar) {
     if (command == "myalts") {
         var ip = sys.ip(src);
         var alts = sys.aliases(ip);
-        bot.sendChanMessage(src, "I tuoi aliases sono: " + alts);
+        bot.sendChanMessage(src, "I tuoi alias sono: " + alts);
         return;
     }
     if (command == "seen") {
@@ -2991,7 +2992,7 @@ userCommand: function(src, command, commandData, tar) {
         }
         var parts = lastLogin.split("-");
         var d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10)-1, parseInt(parts[2], 10));
-        querybot.sendChanMessage(src, commandData + " ha loginnato l'ultima volta "+ d.toDateString());
+        querybot.sendChanMessage(src, commandData + " ha loggato l'ultima volta "+ d.toDateString());
         return;
     }
     if (command == "dwreleased") {
@@ -3001,7 +3002,7 @@ userCommand: function(src, command, commandData, tar) {
         }
         var pokename = sys.pokemon(poke);
         if (dwCheck(poke) === false){
-            normalbot.sendChanMessage(src, pokename + ": non ha una abilità DreamWorld!");
+            normalbot.sendChanMessage(src, pokename + ": non ha un'abilità DreamWorld!");
             return;
         }
         if (poke in dwpokemons) {
@@ -3011,7 +3012,7 @@ userCommand: function(src, command, commandData, tar) {
                 normalbot.sendChanMessage(src, pokename + ": E' stato rilasciato solo di genere maschile; non può avere egg-moves o mosse delle generazioni precedenti!");
             }
         } else {
-            normalbot.sendChanMessage(src, pokename + ": Non è ancora stato rilasciato, usalo nella tier DreamWorld!");
+            normalbot.sendChanMessage(src, pokename + ": Non è ancora stato rilasciato!");
         }
         return;
     }
@@ -3508,13 +3509,13 @@ modCommand: function(src, command, commandData, tar) {
     if (command == "unmute") {
         if (tar === undefined) {
             if (mutes.get(commandData)) {
-                normalbot.sendAll("IP address " + commandData + " è stato smutato da " + nonFlashing(sys.name(src)) + "!", staffchannel);
+                normalbot.sendAll("IP address " + commandData + " è stato unmutato da " + nonFlashing(sys.name(src)) + "!", staffchannel);
                 mutes.remove(commandData);
                 return;
             }
             var ip = sys.dbIp(commandData);
             if(ip !== undefined && mutes.get(ip)) {
-                normalbot.sendAll("" + commandData + " è stato smutato da " + nonFlashing(sys.name(src)) + "!");
+                normalbot.sendAll("" + commandData + " è stato unmutato da " + nonFlashing(sys.name(src)) + "!");
                 mutes.remove(ip);
                 return;
             }
@@ -3530,7 +3531,7 @@ modCommand: function(src, command, commandData, tar) {
            return;
         }
         SESSION.users(tar).un("mute");
-        normalbot.sendAll("" + commandData + " è stato smutato da " + nonFlashing(sys.name(src)) + "!");
+        normalbot.sendAll("" + commandData + " è stato unmutato da " + nonFlashing(sys.name(src)) + "!");
         return;
     }
     if (command == "battlehistory") {
@@ -3931,10 +3932,10 @@ modCommand: function(src, command, commandData, tar) {
 				}
 				if (user.floodcount > 7) {
 					if (SESSION.users(src).smuted) {
-						sys.sendMessage(src, "±Blaziken: " + sys.name(src) + " è stato kickato per flood.");
-						sys.sendAll("±Blaziken: " + sys.name(src) + " è stato kickato per flood e secret-mutato.", staffchannel);
+						sys.sendMessage(src, "±Kickbot: " + sys.name(src) + " è stato kickato per flood.");
+						sys.sendAll("±Kickbot: " + sys.name(src) + " è stato kickato per flood e secret-mutato.", staffchannel);
 					} else {
-						sendChanAll("±Blaziken: " + sys.name(src) + " è stato kickato per flood.");
+						sendChanAll("±Kickbot: " + sys.name(src) + " è stato kickato per flood.");
 					}
 					sys.kick(src);
 					return;
@@ -4358,32 +4359,32 @@ adminCommand: function(src, command, commandData, tar) {
 		var updateURL = "http://www.pokemonbattle.it/battlingarena/scripts.php"; 
         var channel_local = channel;
         var changeScript = function(resp) {
-            if (resp === "") { normalbot.sendAll('Update fallito, non c'è risposta!', staffchannel); return; }
+            if (resp === "") { normalbot.sendAll("Update fallito, non c'è risposta!", staffchannel); return; }
             try {
                 sys.changeScript(resp);
                 sys.writeToFile('scripts.js', resp);
             } catch (err) {
                 sys.changeScript(sys.getFileContent('scripts.js'));
-                normalbot.sendAll('Update fallito, sono stati caricati i vecchi scripts!', staffchannel);
+                normalbot.sendAll("Update fallito, sono stati caricati i vecchi script!", staffchannel);
                 sys.sendMessage(src, "ERRORE: " + err + (err.lineNumber ? " alla riga: " + err.lineNumber : ""), channel_local);
                 print(err);
             }
         };
-        normalbot.sendChanMessage(src, "±Farfetch'td: Sto prendendo gli scripts da " + updateURL);
+        normalbot.sendChanMessage(src, "Sto prendendo gli script da " + updateURL);
         sys.webCall(updateURL, changeScript);
         return;
     }
 	
    
 	if (command == "updateann") {
-		sendChanMessage(src, "±Farfetch'td: Sto aggiornando l'annuncio...");
+		sendChanMessage(src, "±Bot: Sto aggiornando l'annuncio...");
 		//var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/announcement.html";
 		//redirect a quello di github. a PO non piace https -_-
 		var updateURL = "http://www.pokemonbattle.it/battlingarena/announcement.php"; 
 		var oldAnn = sys.getAnnouncement();
 
 		/*
-		sendChanMessage(src, "±Farfetch'td: Sto prendendo l'annuncio da " + updateURL);
+		sendChanMessage(src, "±Bot: Sto prendendo l'annuncio da " + updateURL);
 		sys.webCall(updateURL, "try { sys.changeAnnouncement(resp); } catch (err) { sys.sendAll('+Bot: reloading old announcements'); sys.changeAnnouncement(oldAnn); sys.sendAll('+Bot: Updating failed, loaded old announcement!'); }");
 		*/
 
@@ -4419,7 +4420,7 @@ adminCommand: function(src, command, commandData, tar) {
 				sys.sendAll('+Bot: reloading old announcements');
 			}
 		};
-		sendChanMessage(src, "±Farfetch'td: Sto prendendo l'annuncio da  " + updateURL);
+		sendChanMessage(src, "±Bot: Sto prendendo l'annuncio da  " + updateURL);
 		sys.webCall(updateURL, changeAnn);
 
 		return;
@@ -4433,11 +4434,11 @@ adminCommand: function(src, command, commandData, tar) {
     }
 	
     if (command == "updatetiers" || command == "updatetierssoft") {
-        normalbot.sendChanMessage(src, "±Farfetch'td: Sto aggiornando le tiers...");
+        normalbot.sendChanMessage(src, "Sto aggiornando le tier...");
         //var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/tiers.xml";
 		//redirect a quello di github. a PO non piace https -_-
 	    var updateURL = "http://www.pokemonbattle.it/battlingarena/tiers.php"; 
-        normalbot.sendChanMessage(src, "±Farfetch'td: Sto prendendo le tiers da " + updateURL);
+        normalbot.sendChanMessage(src, "Sto prendendo le tiers da " + updateURL);
         var updateTiers = function(resp) {
             if (resp === "") return;
             try {
@@ -4463,18 +4464,18 @@ adminCommand: function(src, command, commandData, tar) {
                 POglobal.plugins[i] = module;
                 module.source = source;
                 module.init();
-                normalbot.sendChanMessage(src, "Module " + source + " updated!");
+                normalbot.sendChanMessage(src, "Modulo " + source + " aggiornato!");
             };
         };
         for (var i = 0; i < POglobal.plugins.length; ++i) {
             if (commandData == POglobal.plugins[i].source) {
                 var source = POglobal.plugins[i].source;
                 updateModule(source, MakeUpdateFunc(i, source));
-                normalbot.sendChanMessage(src, "Downloading module " + source + "!");
+                normalbot.sendChanMessage(src, "Sto scaricando il modulo " + source + "!");
                 return;
             }
         }
-        normalbot.sendChanMessage(src, "Module not found, can not update.");
+        normalbot.sendChanMessage(src, "Modulo non trovato!");
         return;
     }
 	//
@@ -4806,7 +4807,7 @@ ownerCommand: function(src, command, commandData, tar) {
             }
         }
         if (names.length > 0) {
-            sendChanAll("±Jirachi: "+names.join(", ") + " è stato range-bannato da " + sys.name(src));
+            sendChanAll("±RangeBot: "+names.join(", ") + " è stato range-bannato da " + sys.name(src));
         }
         return;
     }
@@ -4911,7 +4912,7 @@ ownerCommand: function(src, command, commandData, tar) {
         }
         var name = commandData.toLowerCase();
         if (autosmute.indexOf(name) !== -1) {
-            normalbot.sendChanMessage(src, "This person is already on the autosmute list");
+            normalbot.sendChanMessage(src, "Quest'utente è già in autosmute list");
             return;
         }
         autosmute.push(name);
@@ -4919,14 +4920,14 @@ ownerCommand: function(src, command, commandData, tar) {
             SESSION.users(sys.id(name)).activate("smute", "Script", 0, "Evader", true);
         }
         sys.writeToFile('secretsmute.txt', autosmute.join(":::"));
-        normalbot.sendAll(commandData + " was added to the autosmute list", staffchannel);
+        normalbot.sendAll(commandData + " è stato aggiunto in autosmute list", staffchannel);
         return;
     }
     if (command == "removeautosmute") {
         var name = commandData.toLowerCase();
         autosmute = autosmute.filter(function(list_name) {
             if (list_name == name) {
-                normalbot.sendAll(commandData + " was removed from the autosmute list", staffchannel);
+                normalbot.sendAll(commandData + " è stato rimosso dalla autosmute list", staffchannel);
                 return true;
             }
         });
@@ -5044,7 +5045,7 @@ ownerCommand: function(src, command, commandData, tar) {
         if (battlesStopped)  {
             sendChanAll("", -1);
             sendChanAll("*** ********************************************************************** ***", -1);
-            battlebot.sendAll("STOP ALLE BATTLES: il Server necessita un riavvio, torniamo subito!");
+            battlebot.sendAll("STOP ALLE LOTTE: il Server necessita un riavvio, torniamo subito!");
             sendChanAll("*** ********************************************************************** ***", -1);
             sendChanAll("", -1);
         } else {
@@ -5315,7 +5316,7 @@ beforeNewPM: function(src){
     if (user.pmcount > pmlimit){
         sys.stopEvent();
         if (user.pmwarned === false) {
-            normalbot.sendAll('L'utente ' + sys.name(src) + ' potrebbe spammare via PM', sys.channelId('Indigo Plateau'));
+            normalbot.sendAll("L'utente " + sys.name(src) + ' potrebbe spammare via PM', sys.channelId('Indigo Plateau'));
             user.pmwarned = true;
         }
         return;
@@ -5374,7 +5375,7 @@ beforeChatMessage: function(src, message, chan) {
         if (poUser.talk === undefined || poUser.talk + message.length * MillisPerChar < now) {
             poUser.talk = now;
         } else {
-            bot.sendMessage(src, "Wait a moment before talking again.", channel);
+            bot.sendMessage(src, "Aspetta un momento prima di parlare ancora.", channel);
             sys.stopEvent();
             return;
         }
@@ -5426,11 +5427,11 @@ beforeChatMessage: function(src, message, chan) {
 
     if (SESSION.users(src).expired("mute")) {
         SESSION.users(src).un("mute");
-        normalbot.sendChanMessage(src, "your mute has expired.");
+        normalbot.sendChanMessage(src, "Il tuo mute è scaduto.");
     }
     if (sys.auth(src) < 3 && SESSION.users(src).mute.active && message != "!join" && message != "/rules" && message != "/darules" && message != "/regolamento" && message != "/join" && message != "!rules") {
         var muteinfo = SESSION.users(src).mute;
-        normalbot.sendChanMessage(src, "You are muted" + (muteinfo.by ? " by " + muteinfo.by : '')+". " + (muteinfo.expires > 0 ? "Il mute scade tra " + getTimeString(muteinfo.expires - parseInt(sys.time(), 10)) + ". " : '') + (muteinfo.reason ? "[Motivo: " + muteinfo.reason + "]" : ''));
+        normalbot.sendChanMessage(src, "Sei sotto mute " + (muteinfo.by ? " da " + muteinfo.by : '')+". " + (muteinfo.expires > 0 ? "Il mute scade tra " + getTimeString(muteinfo.expires - parseInt(sys.time(), 10)) + ". " : '') + (muteinfo.reason ? "[Motivo: " + muteinfo.reason + "]" : ''));
         sys.stopEvent();
         return;
     }
@@ -5489,7 +5490,7 @@ beforeChatMessage: function(src, message, chan) {
         return;
     }
 
-    if (m.indexOf("nimp.org") != -1 ||m.indexOf("sborra") != -1 ||m.indexOf("sborro") != -1 ||m.indexOf("pompin") != -1 ||m.indexOf("pugnett") != -1 ||m.indexOf("cazzo") != -1 ||m.indexOf("pene") != -1 ||m.indexOf("drogendealer") != -1 ||m.indexOf('u0E49') != -1 ||m.indexOf("nigger") != -1 || m.indexOf('u202E') != -1 || m.indexOf("penis") != -1 ||  m.indexOf("vagina")  != -1 || m.indexOf("fuckface") != -1 || m == "hurr" || /\bdurr/i.test(m) || m.indexOf("hurrdurr") != -1 || m.indexOf("herp") != -1 || /\bderp/i.test(m)) {
+    if (m.indexOf("nimp.org") != -1 ||m.indexOf("sborra") != -1 ||m.indexOf("sborro") != -1 ||m.indexOf("pompin") != -1 ||m.indexOf("pugnett") != -1 ||m.indexOf("cazzo") != -1 ||m.indexOf("pene") != -1 ||m.indexOf("drogendealer") != -1 ||m.indexOf('u0E49') != -1 ||m.indexOf("nigger") != -1 || m.indexOf(" negro ") != -1 || m.indexOf(" negri ") != -1 || m.indexOf('u202E') != -1 || m.indexOf("penis") != -1 ||  m.indexOf("vagina")  != -1 || m.indexOf("fuckface") != -1 || m == "hurr" || /\bdurr/i.test(m) || m.indexOf("hurrdurr") != -1 || m.indexOf("herp") != -1 || /\bderp/i.test(m)) {
         sys.sendMessage(src, sys.name(src)+": " + message, channel);
         sys.stopEvent();
         return;
