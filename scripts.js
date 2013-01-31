@@ -2014,8 +2014,8 @@ beforePlayerKick:function(src, dest){
 
 afterNewMessage : function (message) {
     if (message == "Script Check: OK") {
-        sendChanAll("±ScriptCheck: Script aggiornati!", sys.channelId("Indigo Plateau"));
-		sendChanAll("±ScriptCheck: Script aggiornati!", 0);
+        sendChanAll("±scriptcheck: Script aggiornati!", sys.channelId("Indigo Plateau"));
+		sendChanAll("±scriptcheck: Script aggiornati!", 0);
         if (typeof(scriptChecks)=='undefined')
             scriptChecks = 0;
         scriptChecks += 1;
