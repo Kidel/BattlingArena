@@ -35,9 +35,7 @@ var touradmincommands = ["*** Parametri usabili ***",
 					"/endtour [tour]: interrompe il torneo in quella tier.",
 					"/sub [nick in]:[nick out]: sostituisce in con out.",
 					"/dq [nick]: squalifica un giocatore.",
-					"/remove [tour/numero]: rimuove un torneo dalla coda. Se viene specificato un numero, rimuoverà il torneo a quel numero. Se viene specificata una tier, toglierà il torneo 
-
-in quella tier, partendo dall'ultimo.",
+					"/remove [tour/numero]: rimuove un torneo dalla coda. Se viene specificato un numero, rimuoverà il torneo a quel numero. Se viene specificata una tier, toglierà il torneo in quella tier, partendo dall'ultimo.",
 					"/cancelbattle [nick]: permette il rematch tra due giocatori (basta usarlo su uno dei due; poi quel giocatore forfeitta e non viene calcolato).",
 					"/config: Config Settings",
 					"/configset [var]:[value]: changes config settings",
@@ -570,7 +568,7 @@ function initTours() {
 	catch (e) {
 		// use a sample set of win messages
 		tourwinmessages = ["ha battuto", "ha sconfitto", "ha ownato", "ha haxato", "ha sculato", "ha predictato ogni mossa e ha vinto contro", "ha piallato", "ha arato", "ha distrutto"];
-		sys.sendAll("Uso il messaggio di default, non ne ho trovati altri.", tourschan)
+		sys.sendAll("Uso i messaggi di default, non ne ho trovati altri.", tourschan)
 	}
 	try {
 		var data = (sys.getFileContent("touradmins.txt")).split(":::")
@@ -591,7 +589,7 @@ function initTours() {
 	catch (e) {
 		sys.sendAll("No tourmute data detected, leaving blank", tourschan)
 	}
-	sys.sendMessage(src, "+TourBot: La versione "+Config.Tours.version+" degli scripts da torneo è stata caricata in questo canale!", tourschan);
+	sys.sendMessage(src, "+TourBot: La versione "+Config.Tours.version+" degli script da torneo è stata caricata con successo!", tourschan);
 }
 
 /* Tournament Step Event
@@ -722,12 +720,8 @@ function tourBattleStart(src, dest, clauses, rated, mode, bid) {
 		tours.tour[key].active[name2] = "Battle"// this avoids dq later since they made an attempt to start
 		if (tours.tour[key].state == "final") {
 			// CHANGE
-			//sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>LA FINALE DEL 
-
-TORNEO "+getFullTourName(key)+" TRA <b>"+html_escape(sys.name(src))+"</b> E <b>"+html_escape(sys.name(dest))+"</b> INIZIA!</a>",tourschan)
-			sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>LA FINALE DEL TORNEO 
-
-"+getFullTourName(key)+" TRA <b>"+html_escape(sys.name(src))+"</b> E <b>"+html_escape(sys.name(dest))+"</b> INIZIA!</a>",0)
+			//sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>LA FINALE DEL TORNEO "+getFullTourName(key)+" TRA <b>"+html_escape(sys.name(src))+"</b> E <b>"+html_escape(sys.name(dest))+"</b> INIZIA!</a>",tourschan)
+			sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>LA FINALE DEL TORNEO "+getFullTourName(key)+" TRA <b>"+html_escape(sys.name(src))+"</b> E <b>"+html_escape(sys.name(dest))+"</b> INIZIA!</a>",0)
 		}
 		return true;
 	}
@@ -956,7 +950,7 @@ function tourCommand(src, command, commandData) {
 				if (tadmins !== undefined) {
 					for (var t in tadmins) {
 						if (tadmins[t].toLowerCase() == commandData.toLowerCase()) {
-							sys.sendMessage(src,Config.Tours.tourbot+"Già è tour admin!",tourschan)
+							sys.sendMessage(src,Config.Tours.tourbot+"E' già tour admin!",tourschan)
 							return true;
 						}
 					}
@@ -1023,9 +1017,7 @@ function tourCommand(src, command, commandData) {
 					}
 				}
 				if (key === null) {
-					sys.sendMessage(src, Config.Tours.tourbot+"There are no tournaments currently in signups to force start! Use /tour [tier] instead, or /start to start the next tournament 
-
-in the queue!", tourschan)
+					sys.sendMessage(src, Config.Tours.tourbot+"There are no tournaments currently in signups to force start! Use /tour [tier] instead, or /start to start the next tournament in the queue!", tourschan)
 					return true;
 				}
 				if (tours.tour[x].players.length < 3) {
@@ -1085,9 +1077,7 @@ in the queue!", tourschan)
 				if (tours.tour[key].players.length >= 256) {
 					tours.tour[key].time = parseInt(sys.time())
 				}
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(target)+" è stato/a aggiunto/a al torneo "+getFullTourName(key)+" da "+sys.name(src)+" (player 
-
-#"+tours.tour[key].players.length+"), "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? "o" : "i")+" rimanenti!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(target)+" è stato/a aggiunto/a al torneo "+getFullTourName(key)+" da "+sys.name(src)+" (player #"+tours.tour[key].players.length+"), "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? "o" : "i")+" rimanenti!", tourschan)
 				return true;
 			}
 			// enabled for now!
@@ -1173,15 +1163,9 @@ in the queue!", tourschan)
 						var parameterset = parameterinfo[0]
 						var parametervalue = parameterinfo[1]
 						if (cmp(parameterset, "mode")) {
-							var singlesonlytiers = ["DW 1v1", "DW 1v1 Ubers", "CC 1v1", "Wifi CC 1v1", "GBU Singles", "Adv Ubers", "Adv OU", "DP Ubers", "DP OU", "DW 
-
-OU", "DW Ubers", "Wifi OU", "Wifi Ubers"];
-							if ((modeOfTier(tourtier) == "Doubles" || modeOfTier(tourtier) == "Triples" || singlesonlytiers.indexOf(tourtier) != -1) && !cmp(parametervalue, 
-
-modeOfTier(tourtier))) {
-								sys.sendMessage(src, Config.Tours.tourbot+"La tier "+tourtier+" può essere giocata solo in modalità " + modeOfTier(tourtier) + "!", 
-
-tourschan);
+							var singlesonlytiers = ["CC 1v1", "CC 1v1 Ubers", "BW2 OU", "PB BW2 OU", "BW2 UU", "RSE Ubers", "RSE OU", "DPP Ubers", "DPP OU", "RBY OU", "GSC OU", "DPP Ubers", "BW2 Ubers"];
+							if ((modeOfTier(tourtier) == "Doubles" || modeOfTier(tourtier) == "Triples" || singlesonlytiers.indexOf(tourtier) != -1) && !cmp(parametervalue, modeOfTier(tourtier))) {
+								sys.sendMessage(src, Config.Tours.tourbot+"La tier "+tourtier+" può essere giocata solo in modalità " + modeOfTier(tourtier) + "!", tourschan);
 								return true;
 							}
 							if (cmp(parametervalue, "singles")) {
@@ -1379,9 +1363,7 @@ tourschan);
 				}
 				else {
 					var opponent = index%2 === 0 ? tours.tour[key].battlers[index+1] : tours.tour[key].battlers[index-1]
-					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" annullerà il risultato del match tra "+toCorrectCase(commandData)+" e 
-
-"+toCorrectCase(tours.tour[key].battlers[oppindex])+" nel torneo "+getFullTourName(key)+" così i due possono rigiocare.", tourschan)
+					sys.sendAll(Config.Tours.tourbot+sys.name(src)+" annullerà il risultato del match tra "+toCorrectCase(commandData)+" e "+toCorrectCase(tours.tour[key].battlers[oppindex])+" nel torneo "+getFullTourName(key)+" così i due possono rigiocare.", tourschan)
 					tours.tour[key].battlers.splice(index,1)
 					tours.tour[key].battlers.splice(tours.tour[key].battlers.indexOf(opponent),1)
 				}
@@ -1412,9 +1394,7 @@ tourschan);
 					return true;
 				}
 				tours.tour[key].players.splice(tours.tour[key].players.indexOf(oldname),1,newname)
-				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha inserito "+toCorrectCase(newname)+" al posto di "+toCorrectCase(oldname)+" nel torneo "+getFullTourName(key)+".", 
-
-tourschan)
+				sys.sendAll(Config.Tours.tourbot+sys.name(src)+" ha inserito "+toCorrectCase(newname)+" al posto di "+toCorrectCase(oldname)+" nel torneo "+getFullTourName(key)+".",tourschan)
 				addTourActivity(src)
 				return true;
 			}
@@ -1485,9 +1465,7 @@ tourschan)
 				tours.tourmutes[ip] = {'expiry': parseInt(sys.time()) + time, 'reason': reason, 'auth': sys.name(src), 'name': tar.toLowerCase()}
 				for (var x in channels) {
 					if (sys.existChannel(sys.channel(channels[x]))) {
-						sys.sendAll(Config.Tours.tourbot+tar+" è stato/a mutato/a"+sys.name(src)+" per "+time_handle(time)+"! "+(reason !== "" ? "[Motivo: "+reason+"]" : ""), 
-
-channels[x])
+						sys.sendAll(Config.Tours.tourbot+tar+" è stato/a mutato/a da "+sys.name(src)+" per "+time_handle(time)+"! "+(reason !== "" ? "[Motivo: "+reason+"]" : ""), channels[x])
 					}
 				}
 				saveTourMutes()
@@ -1516,9 +1494,7 @@ channels[x])
 				sys.sendMessage(src,"*** TOURS MUTELIST ***",tourschan)
 				for (var t in tours.tourmutes) {
 					if (tours.tourmutes[t].expiry > parseInt(sys.time())) {
-						sys.sendMessage(src, tours.tourmutes[t].name + ": Set by "+tours.tourmutes[t].auth+"; expires in 
-
-"+time_handle(tours.tourmutes[t].expiry-parseInt(sys.time()))+"; reason: "+tours.tourmutes[t].reason, tourschan)
+						sys.sendMessage(src, tours.tourmutes[t].name + ": Set by "+tours.tourmutes[t].auth+"; expires in "+time_handle(tours.tourmutes[t].expiry-parseInt(sys.time()))+"; reason: "+tours.tourmutes[t].reason, tourschan)
 					}
 				}
 				return true;
@@ -1573,9 +1549,7 @@ channels[x])
 				}
 				if (option == 'maxqueue' || option == "maximum queue length") {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"Un valore tra 1 e 255 che determina la lunghezza della coda. Admin e Owner non sono affetti da questa 
-
-restrizione.",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"Un valore tra 1 e 255 che determina la lunghezza della coda. Admin e Owner non sono affetti da questa restrizione.",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.maxqueue,tourschan);
 						return true;
 					}
@@ -1620,9 +1594,7 @@ restrizione.",tourschan);
 				}
 				else if (option == 'tourdq' || option == 'tour auto dq length') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before inactive users are 
-
-disqualified.",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before inactive users are disqualified.",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.tourdq,tourschan);
 						return true;
 					}
@@ -1637,9 +1609,7 @@ disqualified.",tourschan);
 				}
 				else if (option == 'touractivity' || option == 'tour activity check') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 60 and 300 that determines how long it is from a user's last message before a user 
-
-is considered inactive.",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 60 and 300 that determines how long it is from a user's last message before a user is considered inactive.",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.activity,tourschan);
 						return true;
 					}
@@ -1669,9 +1639,7 @@ is considered inactive.",tourschan);
 				}
 				else if (option == 'breaktime' || option == 'tour break time') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before another tournament is started if 
-
-one gets cancelled.",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 30 and 300 that determines how long it is before another tournament is started if one gets cancelled.",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.breaktime,tourschan);
 						return true;
 					}
@@ -1686,9 +1654,7 @@ one gets cancelled.",tourschan);
 				}
 				else if (option == 'absbreaktime' || option == 'absolute tour break time') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 300 and 1800 that influences how long it is between tournaments starting. The 
-
-actual time will depend on other factors.",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) between 300 and 1800 that influences how long it is between tournaments starting. The actual time will depend on other factors.",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.absbreaktime,tourschan);
 						return true;
 					}
@@ -1703,9 +1669,7 @@ actual time will depend on other factors.",tourschan);
 				}
 				else if (option == 'remindertime' || option == 'tour reminder time') {
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) that determines how long it is before a battle reminder is sent to players from the start of the 
-
-round",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"A value (in seconds) that determines how long it is before a battle reminder is sent to players from the start of the round",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.reminder,tourschan);
 						return true;
 					}
@@ -1724,9 +1688,7 @@ round",tourschan);
 						return true;
 					}
 					if (isNaN(value)) {
-						sys.sendMessage(src,Config.Tours.tourbot+"When the percentage of players drops below this value, a new tournament will start if possible. Overides 
-
-maximum number of simultaneous tours.",tourschan);
+						sys.sendMessage(src,Config.Tours.tourbot+"When the percentage of players drops below this value, a new tournament will start if possible. Overides maximum number of simultaneous tours.",tourschan);
 						sys.sendMessage(src,Config.Tours.tourbot+"Current Value: "+Config.Tours.minpercent+"%",tourschan);
 						return true;
 					}
@@ -1802,9 +1764,7 @@ maximum number of simultaneous tours.",tourschan);
 		// Normal User Commands
 		if (command == "join") {
 			if (!sys.dbRegistered(sys.name(src))) {
-				sys.sendMessage(src, Config.Tours.tourbot+"Devi registrare il tuo nick per giocare nel canale #"+sys.channel(tourschan)+"! Clicca sul bottone Register sotto la chat!", 
-
-tourschan);
+				sys.sendMessage(src, Config.Tours.tourbot+"Devi registrare il tuo nick per partecipare ai tornei! Clicca sul bottone Register sotto la chat!", tourschan);
 				return true;
 			}
 			if (isTourMuted(src)) {
@@ -1892,27 +1852,19 @@ tourschan);
 						}
 						else if (tours.tour[key].maxcpt == 17) {
 							tours.tour[key].time += Math.floor(Config.Tours.toursignup/3)
-							sys.sendAll(Config.Tours.tourbot+"Più di 16 partecipano al torneo "+getFullTourName(key)+" nel canale #"+sys.channel(tourschan)+"! Hai ancora 
-
-"+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriverti!",0)
+							sys.sendAll(Config.Tours.tourbot+"Più di 16 partecipano al torneo "+getFullTourName(key)+" nel canale #"+sys.channel(tourschan)+"! Hai ancora "+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriverti!",0)
 						}
 						else if (tours.tour[key].maxcpt == 33) {
 							tours.tour[key].time += Math.floor(Config.Tours.toursignup/2)
-							sys.sendAll(Config.Tours.tourbot+"Più di 32 partecipano al torneo "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! Hai ancora 
-
-"+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriverti!",0)
+							sys.sendAll(Config.Tours.tourbot+"Più di 32 partecipano al torneo "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! Hai ancora "+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriverti!",0)
 						}
 						else if (tours.tour[key].maxcpt == 65) {
 							tours.tour[key].time += Math.floor(Config.Tours.toursignup/1.5)
-							sys.sendAll(Config.Tours.tourbot+"Più di 64 partecipano al torneo "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! Hai ancora 
-
-"+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriverti!",0)
+							sys.sendAll(Config.Tours.tourbot+"Più di 64 partecipano al torneo "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! Hai ancora "+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriverti!",0)
 						}
 						else if (tours.tour[key].maxcpt == 129) {
 							tours.tour[key].time += Math.floor(Config.Tours.toursignup)
-							sys.sendAll(Config.Tours.tourbot+"Più di 128 partecipano al torneo "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! Hai 
-
-ancora "+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriverti!",0)
+							sys.sendAll(Config.Tours.tourbot+"Più di 128 partecipano al torneo "+getFullTourName(key)+" tournament in #"+sys.channel(tourschan)+"! Hai ancora "+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriverti!",0)
 						}
 					}
 				}
@@ -1920,11 +1872,7 @@ ancora "+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriver
 				if (tours.tour[key].players.length >= 256) {
 					tours.tour[key].time = parseInt(sys.time())
 				}
-                sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><b>"+html_escape(sys.name(src))+"</b> E' il giocatore 
-
-#"+tours.tour[key].players.length+" ad essere iscritto al torneo "+html_escape(getFullTourName(key))+"! "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? 
-
-"ultimo secondo rimanente" : "secondi rimanenti")+"!", tourschan)
+                sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><b>"+html_escape(sys.name(src))+"</b> E' il giocatore #"+tours.tour[key].players.length+" ad essere iscritto al torneo "+html_escape(getFullTourName(key))+"! "+(tours.tour[key].time - parseInt(sys.time()))+" second"+(tours.tour[key].time - parseInt(sys.time()) == 1 ? "ultimo secondo rimanente" : "secondi rimanenti")+"!", tourschan)
 				return true;
 			}
 			/* subbing */
@@ -1955,11 +1903,7 @@ ancora "+time_handle(tours.tour[key].time - parseInt(sys.time()))+" per iscriver
 			var newname = sys.name(src).toLowerCase()
 			tours.tour[key].players.splice(index,1,newname)
 			tours.tour[key].cpt += 1
-			sys.sendAll(Config.Tours.tourbot+"IL NUOVO PARTECIPANTE "+sys.name(src)+" giocherà contro "+(index%2 == 0 ? toCorrectCase(tours.tour[key].players[index+1]) : 
-
-toCorrectCase(tours.tour[key].players[index-1]))+" nel torneo "+getFullTourName(key)+". "+(tours.tour[key].players.length - tours.tour[key].cpt)+" post"+(tours.tour[key].players.length - tours.tour[key].cpt == 1 ? "o 
-
-rimanente" : "i rimanenti") + ".", tourschan)
+			sys.sendAll(Config.Tours.tourbot+"IL NUOVO PARTECIPANTE "+sys.name(src)+" giocherà contro "+(index%2 == 0 ? toCorrectCase(tours.tour[key].players[index+1]) : toCorrectCase(tours.tour[key].players[index-1]))+" nel torneo "+getFullTourName(key)+". "+(tours.tour[key].players.length - tours.tour[key].cpt)+" post"+(tours.tour[key].players.length - tours.tour[key].cpt == 1 ? "o rimanente" : "i rimanenti") + ".", tourschan)
 			return true;
 		}
 		if (command == "unjoin") {
@@ -2001,15 +1945,11 @@ rimanente" : "i rimanenti") + ".", tourschan)
 			for (var e in queue) {
 				var queuedata = queue[e].split(":::",5)
 				if (firsttour && nextstart != "Pending") {
-					sys.sendMessage(src,"1) "+queuedata[0]+": Set by "+queuedata[1]+"; Parameters: "+queuedata[2]+" Mode"+(queuedata[3] != "default" ? "; Gen: 
-
-"+getSubgen(queuedata[3],true) : "")+(queuedata[4] == "double" ? "; Double Elimination" : "")+"; Starts in "+time_handle(tours.globaltime-parseInt(sys.time())),tourschan)
+					sys.sendMessage(src,"1) "+queuedata[0]+": Set by "+queuedata[1]+"; Parameters: "+queuedata[2]+" Mode"+(queuedata[3] != "default" ? "; Gen: "+getSubgen(queuedata[3],true) : "")+(queuedata[4] == "double" ? "; Double Elimination" : "")+"; Starts in "+time_handle(tours.globaltime-parseInt(sys.time())),tourschan)
 					firsttour = false
 				}
 				else {
-					sys.sendMessage(src,(parseInt(e)+1)+") "+queuedata[0]+": Set by "+queuedata[1]+"; Parameters: "+queuedata[2]+" Mode"+(queuedata[3] != "default" ? "; Gen: 
-
-"+getSubgen(queuedata[3],true) : "")+(queuedata[4] == "double" ? "; Double Elimination" : ""), tourschan)
+					sys.sendMessage(src,(parseInt(e)+1)+") "+queuedata[0]+": Set by "+queuedata[1]+"; Parameters: "+queuedata[2]+" Mode"+(queuedata[3] != "default" ? "; Gen: "+getSubgen(queuedata[3],true) : "")+(queuedata[4] == "double" ? "; Double Elimination" : ""), tourschan)
 				}
 			}
 			return true;
@@ -2029,24 +1969,16 @@ rimanente" : "i rimanenti") + ".", tourschan)
 				var roundtable = "<div style='margin-left: 50px'><b>Il Round "+tours.tour[y].round+" del Torneo "+tours.tour[y].tourtype+"</b><table><br/>"
 				for (var x=0; x<tours.tour[y].players.length; x+=2) {
 					if (winners.indexOf(tours.tour[y].players[x]) != -1 && tours.tour[y].players[x] != "~Bye~") {
-						roundtable = roundtable + "<tr><td align='right'><font color=green><b>"+html_escape(toCorrectCase(tours.tour[y].players[x])) +"</b></font></td><td 
-
-align='center'> ha vinto contro </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
+						roundtable = roundtable + "<tr><td align='right'><font color=green><b>"+html_escape(toCorrectCase(tours.tour[y].players[x])) +"</b></font></td><td align='center'> ha vinto contro </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
 					}
 					else if (winners.indexOf(tours.tour[y].players[x+1]) != -1 && tours.tour[y].players[x+1] != "~Bye~") {
-						roundtable = roundtable + "<tr><td align='right'><font color=green><b>"+html_escape(toCorrectCase(tours.tour[y].players[x+1])) +"</b></font></td><td 
-
-align='center'> ha vinto contro </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x]))+"</td>"
+						roundtable = roundtable + "<tr><td align='right'><font color=green><b>"+html_escape(toCorrectCase(tours.tour[y].players[x+1])) +"</b></font></td><td align='center'> ha vinto contro </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x]))+"</td>"
 					}
 					else if (battlers.indexOf(tours.tour[y].players[x]) != -1) {
-						roundtable = roundtable + "<tr><td align='right'>"+html_escape(toCorrectCase(tours.tour[y].players[x])) +"</td><td align='center'> sta <a 
-
-href='po:watchPlayer/"+sys.id(tours.tour[y].players[x])+"'>giocando</a> contro </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
+						roundtable = roundtable + "<tr><td align='right'>"+html_escape(toCorrectCase(tours.tour[y].players[x])) +"</td><td align='center'> sta <a href='po:watchPlayer/"+sys.id(tours.tour[y].players[x])+"'>giocando</a> contro </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
 					}
 					else {
-						roundtable = roundtable + "<tr><td align='right'>"+html_escape(toCorrectCase(tours.tour[y].players[x])) +"</td><td align='center'> VS </td><td>"+ 
-
-html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
+						roundtable = roundtable + "<tr><td align='right'>"+html_escape(toCorrectCase(tours.tour[y].players[x])) +"</td><td align='center'> VS </td><td>"+ html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
 					}
 				}
 				rounddata.push(roundtable+"</table></div>")
@@ -2129,9 +2061,7 @@ html_escape(toCorrectCase(tours.tour[y].players[x+1]))+"</td>"
 			}
 			// displays online active auth in "Tours" channel as well
 			for (var m in authlist) {
-				if (sys.id(authlist[m]) !== undefined && tal.indexOf(authlist[m]) == -1 && sys.isInChannel(sys.id(authlist[m]), tourschan)  && SESSION.users(sys.id(authlist[m])).lastline.time + 
-
-Config.Tours.activity > parseInt(sys.time())) {
+				if (sys.id(authlist[m]) !== undefined && tal.indexOf(authlist[m]) == -1 && sys.isInChannel(sys.id(authlist[m]), tourschan)  && SESSION.users(sys.id(authlist[m])).lastline.time + Config.Tours.activity > parseInt(sys.time())) {
 					sys.sendMessage(src, toCorrectCase(authlist[m]), tourschan)
 				}
 			}
@@ -2314,9 +2244,7 @@ function removeinactive(key) {
 				disqualify(player1,key,false)
 			}
 			else if ((tours.tour[key].time-parseInt(sys.time()))%60 === 0){
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" e "+toCorrectCase(player2)+" siete entrambi attivi; siete pregati di giocare per il torneo "+getFullTourName(key)+"!", 
-
-tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(player1)+" e "+toCorrectCase(player2)+" siete entrambi attivi; siete pregati di giocare per il torneo "+getFullTourName(key)+"!", tourschan)
 			}
 			// if the round advances due to DQ, don't keep checking :x
 			if (tours.tour[key].round !== currentround) {
@@ -2349,18 +2277,10 @@ function sendReminder(key) {
 			}
 			else if (sys.id(player) !== undefined) {
 				if (sys.isInChannel(sys.id(player), tourschan)) {
-					sys.sendHtmlMessage(sys.id(player), "<ping/><font color=red><timestamp/> "+html_escape(toCorrectCase(player))+", devi giocare con <b>"+(z%2 === 0 ? 
-
-html_escape(toCorrectCase(tours.tour[key].players[z+1])) : html_escape(toCorrectCase(tours.tour[key].players[z-1])))+"</b> nel torneo <b>"+html_escape(getFullTourName(key))+"</b>, rischi la squalifica per 
-
-inattività! Contatta l'avversario nel canale #"+sys.channel(tourschan)+" per evitarla.</font>", tourschan)
+					sys.sendHtmlMessage(sys.id(player), "<ping/><font color=red><timestamp/> "+html_escape(toCorrectCase(player))+", devi giocare con <b>"+(z%2 === 0 ? html_escape(toCorrectCase(tours.tour[key].players[z+1])) : html_escape(toCorrectCase(tours.tour[key].players[z-1])))+"</b> nel torneo <b>"+html_escape(getFullTourName(key))+"</b>, rischi la squalifica per inattività! Contatta l'avversario nel canale #"+sys.channel(tourschan)+" per evitarla.</font>", tourschan)
 				}
 				else {
-					sys.sendHtmlMessage(sys.id(player), "<ping/><font color=red><timestamp/> "+html_escape(toCorrectCase(player))+", devi giocare con <b>"+(z%2 === 0 ? 
-
-html_escape(toCorrectCase(tours.tour[key].players[z+1])) : html_escape(toCorrectCase(tours.tour[key].players[z-1])))+"</b> nel torneo <b>"+html_escape(getFullTourName(key))+"</b> rischi la squalifica per inattività! 
-
-Contatta l'avversario nel canale #"+sys.channel(tourschan)+" per evitarla.</font>")
+					sys.sendHtmlMessage(sys.id(player), "<ping/><font color=red><timestamp/> "+html_escape(toCorrectCase(player))+", devi giocare con <b>"+(z%2 === 0 ? html_escape(toCorrectCase(tours.tour[key].players[z+1])) : html_escape(toCorrectCase(tours.tour[key].players[z-1])))+"</b> nel torneo <b>"+html_escape(getFullTourName(key))+"</b> rischi la squalifica per inattività! Contatta l'avversario nel canale #"+sys.channel(tourschan)+" per evitarla.</font>")
 					sys.sendMessage(sys.id(player), Config.Tours.tourbot+"Rientra nel canale #"+Config.Tours.channel+" per avere tutte le informazioni che servono!", tourschan)
 				}
 			}
@@ -2410,9 +2330,7 @@ function disqualify(player, key, silent) {
 			tours.tour[key].winners.splice(winnerindex,1,opponent)
 			tours.tour[key].losers.splice(tours.tour[key].losers.indexOf(opponent),1,player)
 			if (!silent) {
-				sys.sendAll(Config.Tours.tourbot+toCorrectCase(opponent)+" avanza al turno successivo del torneo "+getFullTourName(key)+" a causa della squalifica di  
-
-"+toCorrectCase(player)+", che culo!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+toCorrectCase(opponent)+" avanza al turno successivo del torneo "+getFullTourName(key)+" a causa della squalifica di "+toCorrectCase(player)+", che culo!", tourschan)
 			}
 		}
 		var battlesleft = parseInt(tours.tour[key].players.length/2)-tours.tour[key].winners.length
@@ -2529,39 +2447,21 @@ function battleend(winner, loser, key) {
 		var battlesleft = parseInt(tours.tour[key].players.length/2)-tours.tour[key].winners.length
 		if (tours.tour[key].parameters.type == "double") {
 			if (tourwinmessages === undefined || tourwinmessages.length == 0) {
-				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font 
-
-color=blue>"+html_escape(sys.name(winner))+"</font> ha vinto contro <font color=red>"+html_escape(sys.name(loser))+ "</font> nel torneo "+getFullTourName(key)+"! "+battlesleft+" lott"+(battlesleft == 1 ? "a 
-
-rimanente" : "e rimanenti")+ ".", key)
+				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font color=blue>"+html_escape(sys.name(winner))+"</font> ha vinto contro <font color=red>"+html_escape(sys.name(loser))+ "</font> nel torneo "+getFullTourName(key)+"! "+battlesleft+" lott"+(battlesleft == 1 ? "a rimanente" : "e rimanenti")+ ".", key)
 			}
 			else {
-				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font 
-
-color=blue>"+html_escape(sys.name(winner))+"</font> "+html_escape(tourwinmessages[sys.rand(0, tourwinmessages.length)])+" <font color=red>"+html_escape(sys.name(loser))+ "</font> nel torneo 
-
-"+getFullTourName(key)+"! "+battlesleft+" lott"+(battlesleft == 1 ? "a rimanente" : "e rimanenti") + ".", key)
+				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font color=blue>"+html_escape(sys.name(winner))+"</font> "+html_escape(tourwinmessages[sys.rand(0, tourwinmessages.length)])+" <font color=red>"+html_escape(sys.name(loser))+ "</font> nel torneo "+getFullTourName(key)+"! "+battlesleft+" lott"+(battlesleft == 1 ? "a rimanente" : "e rimanenti") + ".", key)
 			}
 			if (tours.tour[key].losebracket.indexOf(losename) != -1) {
-				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> 
-
-<b>"+html_escape(sys.name(loser))+"</b> ha perso due volte ed è quindi fuori dal torneo "+getFullTourName(key)+"!", key)
+				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <b>"+html_escape(sys.name(loser))+"</b> ha perso due volte ed è quindi fuori dal torneo "+getFullTourName(key)+"!", key)
 			}
 		}
 		else {
 			if (tourwinmessages === undefined || tourwinmessages.length == 0) {
-				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font 
-
-color=blue>"+html_escape(sys.name(winner))+"</font> ha vinto contro <font color=red>"+html_escape(sys.name(loser))+ "</font> nel torneo "+getFullTourName(key)+" e avanza quindi al prossimo turno! 
-
-"+battlesleft+" lott"+(battlesleft == 1 ? "a rimanente" : "e rimanenti") + ".", key)
+				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font color=blue>"+html_escape(sys.name(winner))+"</font> ha vinto contro <font color=red>"+html_escape(sys.name(loser))+ "</font> nel torneo "+getFullTourName(key)+" e avanza quindi al prossimo turno! "+battlesleft+" lott"+(battlesleft == 1 ? "a rimanente" : "e rimanenti") + ".", key)
 			}
 			else {
-				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font 
-
-color=blue>"+html_escape(sys.name(winner))+"</font> "+html_escape(tourwinmessages[sys.rand(0, tourwinmessages.length)])+" <font color=red>"+html_escape(sys.name(loser))+ "</font> nel torneo 
-
-"+getFullTourName(key)+" e avanza al prossimo turno! "+battlesleft+" lott"+(battlesleft == 1 ? "a rimanente" : "e rimanenti") + ".", key)
+				sendHtmlAuthPlayers("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font><font color=blue>"+html_escape(sys.name(winner))+"</font> "+html_escape(tourwinmessages[sys.rand(0, tourwinmessages.length)])+" <font color=red>"+html_escape(sys.name(loser))+ "</font> nel torneo "+getFullTourName(key)+" e avanza al prossimo turno! "+battlesleft+" lott"+(battlesleft == 1 ? "a rimanente" : "e rimanenti") + ".", key)
 			}
 		}
 		if (battlesleft <= 0) {
@@ -2759,22 +2659,14 @@ function tourstart(tier, starter, key, parameters) {
 		for (var x in channels) {
 			sys.sendAll("", channels[x])
 			sys.sendAll(border, channels[x])
-			sys.sendHtmlAll("<timestamp/> Un torneo <b><a href='http://wiki.pokemon-online.eu/view/"+tier.replace(/ /g,"_")+"'>"+tier+"</a></b> è stato avviato da <b>"+html_escape(starter)+"</b>", 
-
-channels[x])
+			sys.sendHtmlAll("<timestamp/> Un torneo <b><a href='http://wiki.pokemon-online.eu/view/"+tier.replace(/ /g,"_")+"'>"+tier+"</a></b> è stato avviato da <b>"+html_escape(starter)+"</b>", channels[x])
 			sys.sendAll("CLAUSES: "+getTourClauses(tier),channels[x])
-			sys.sendAll("PARAMETERS: "+parameters.mode+" Mode"+(parameters.gen != "default" ? "; Gen: "+getSubgen(parameters.gen,true) : "")+(parameters.type == "double" ? "; Double 
-
-Elimination" : ""), channels[x])
+			sys.sendAll("PARAMETERS: "+parameters.mode+" Mode"+(parameters.gen != "default" ? "; Gen: "+getSubgen(parameters.gen,true) : "")+(parameters.type == "double" ? "; Double Elimination" : ""), channels[x])
 			if (channels[x] == tourschan) {
-				sys.sendHtmlAll("<timestamp/> Scrivi <b>/join</b> o clicca <a href='po:join/join'>QUI</a> per partecipare al torneo, hai "+time_handle(Config.Tours.toursignup)+" per iscriverti!", 
-
-channels[x])
+				sys.sendHtmlAll("<timestamp/> Scrivi <b>/join</b> o clicca <a href='po:join/join'>QUI</a> per partecipare al torneo, hai "+time_handle(Config.Tours.toursignup)+" per iscriverti!", channels[x])
 			}
 			else {
-				sys.sendAll(Config.Tours.tourbot+"Vai nel canale #"+sys.channel(tourschan)+" e digita /join per partecipare al torneo, hai "+time_handle(Config.Tours.toursignup)+" per iscriverti!", 
-
-channels[x])
+				sys.sendAll(Config.Tours.tourbot+"Vai nel canale #"+sys.channel(tourschan)+" e digita /join per partecipare al torneo, hai "+time_handle(Config.Tours.toursignup)+" per iscriverti!", channels[x])
 			}
 			sys.sendAll(border, channels[x])
 			sys.sendAll("", channels[x])
@@ -2808,9 +2700,7 @@ function tourinitiate(key) {
 	try {
 		var size = tourmakebracket(key)
 		if (size < 3) {
-			sys.sendAll(Config.Tours.tourbot+"Il torneo "+getFullTourName(key)+" è stato annullato per mancanza di partecipanti; invita qualcun altro a giocare, il prossimo torneo inizia tra 
-
-"+time_handle(Config.Tours.tourbreak)+".", tourschan)
+			sys.sendAll(Config.Tours.tourbot+"Il torneo "+getFullTourName(key)+" è stato annullato per mancanza di partecipanti; invita qualcun altro a giocare, il prossimo torneo inizia tra "+time_handle(Config.Tours.tourbreak)+".", tourschan)
 			delete tours.tour[key];
 			tours.keys.splice(tours.keys.indexOf(key), 1)
 			tours.globaltime = parseInt(sys.time())+Config.Tours.tourbreak; // for next tournament
@@ -2916,9 +2806,7 @@ function toursortbracket(size, key) {
 			var ishigher = false;
 			var playerranking1 = getExtraTierPoints(tours.tour[key].players[t], tours.tour[key].tourtype)
 			var playerranking2 = getExtraPoints(tours.tour[key].players[t])
-			var playerranking3 = sys.ranking(tours.tour[key].players[t], tours.tour[key].tourtype) !== undefined ? sys.ranking(tours.tour[key].players[t], tours.tour[key].tourtype) : 
-
-sys.totalPlayersByTier(tours.tour[key].tourtype)+1
+			var playerranking3 = sys.ranking(tours.tour[key].players[t], tours.tour[key].tourtype) !== undefined ? sys.ranking(tours.tour[key].players[t], tours.tour[key].tourtype) : sys.totalPlayersByTier(tours.tour[key].tourtype)+1
 			if (isSub(tours.tour[key].players[t])) {
 				ladderlist.push(tours.tour[key].players[t])
 				continue;
@@ -2942,9 +2830,7 @@ sys.totalPlayersByTier(tours.tour[key].tourtype)+1
 				else if (playerranking1 === otherranking1 && playerranking2 > otherranking2) {
 					ishigher = true;
 				}
-				else if (playerranking1 === otherranking1 && playerranking2 === otherranking2 && ((playerranking3 < otherranking3) || (playerranking3 === otherranking3 && sys.rand(0,2) == 
-
-1))) {
+				else if (playerranking1 === otherranking1 && playerranking2 === otherranking2 && ((playerranking3 < otherranking3) || (playerranking3 === otherranking3 && sys.rand(0,2) == 1))) {
 					ishigher = true;
 				}
 				if (ishigher) {
@@ -3025,7 +2911,7 @@ function tourprintbracket(key) {
 		else if (tours.tour[key].players.length == 2) { // finals
 			/* Here in case it's ~Bye~ vs ~Bye~ */
 			if (tours.tour[key].players[0] == "~Bye~" && tours.tour[key].players[1] == "~Bye~") {
-				sys.sendAll(Config.Tours.tourbot+"Il "+getFullTourName(key)+" è stato interrotto!", tourschan)
+				sys.sendAll(Config.Tours.tourbot+"Il "+getFullTourName(key)+" è stato interrotto!", tourschan);
 				delete tours.tour[key];
 				tours.keys.splice(tours.keys.indexOf(key), 1);
 				if (tours.keys.length === 0) {
@@ -3033,25 +2919,23 @@ function tourprintbracket(key) {
 				}
 				return;
 			}
-			tours.tour[key].state = "final"
-			var channels = [tourschan]
-			var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[0])+1)+")</td><td align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[0]))+"</td>"
-			var player2data = "<td>"+html_escape(toCorrectCase(tours.tour[key].players[1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[1])+1)+")</td>"
-			var roundinfo = "<b>"+(tours.tour[key].parameters.type == "double" && tours.tour[key].round%2 == 1 ? "Spareggio" : "Finale")+" del torneo "+getFullTourName(key)+" nel canale <a 
-
-href='po:join/"+html_escape(sys.channel(tourschan))+"'>#"+html_escape(sys.channel(tourschan))+"</a></th></tr></b><br/>"
-			var roundposting = "<div style='margin-left: 50px'>"+roundinfo+"<table><tr>"+player1data+"<td align='center'> VS </td>"+player2data+"</tr>"
+			tours.tour[key].state = "final";
+			var channels = [tourschan];
+			var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[0])+1)+")</td><td align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[0]))+"</td>";
+			var player2data = "<td>"+html_escape(toCorrectCase(tours.tour[key].players[1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[1])+1)+")</td>";
+			var roundinfo = "<b>"+(tours.tour[key].parameters.type == "double" && tours.tour[key].round%2 == 1 ? "Spareggio" : "Finale")+" del torneo "+getFullTourName(key)+" nel canale <a href='po:join/"+html_escape(sys.channel(tourschan))+"'>#"+html_escape(sys.channel(tourschan))+"</a></th></tr></b><br/>";
+			var roundposting = "<div style='margin-left: 50px'>"+roundinfo+"<table><tr>"+player1data+"<td align='center'> VS </td>"+player2data+"</tr>";
 			for (var c in channels) {
 				if (channels[c] === tourschan) {
-					sendFlashingBracket("<br/>"+htmlborder+roundposting+"</table></div>"+htmlborder+"<br/>", key)
+					sendFlashingBracket("<br/>"+htmlborder+roundposting+"</table></div>"+htmlborder+"<br/>", key);
 				}
 				else {
-					sys.sendHtmlAll("<br/>"+htmlborder+roundposting+"</table></div>"+htmlborder+"<br/>", channels[c])
+					sys.sendHtmlAll("<br/>"+htmlborder+roundposting+"</table></div>"+htmlborder+"<br/>", channels[c]);
 				}
 			}
 			/* Here in case of the hilarious ~Bye~ vs ~Bye~ siutation */
-			tours.tour[key].time = parseInt(sys.time())+Config.Tours.tourdq
-			removebyes(key)
+			tours.tour[key].time = parseInt(sys.time())+Config.Tours.tourdq;
+			removebyes(key);
 			return;
 		}
 		else {
@@ -3074,52 +2958,40 @@ href='po:join/"+html_escape(sys.channel(tourschan))+"'>#"+html_escape(sys.channe
 				var submessage = "<div style='margin-left: 50px'><br/>Scrivi <b>/join</b> o clicca <a href='po:join/join'>QUI</a> per iscriverti dopo le iscrizioni!</div>"
 				var roundposting = "<div style='margin-left: 50px'><b>Round "+tours.tour[key].round+" del torneo "+getFullTourName(key)+"</b><br/><table>";
 				for (var x=0; x<tours.tour[key].players.length; x+=2) {
-					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td 
-
-align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>"
-					var player2data = 
-
-"<td>"+html_escape(toCorrectCase(tours.tour[key].players[x+1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x+1])+1)+")</td>"
-					roundposting = roundposting+"<tr>"+player1data+"<td align='center'> VS </td>"+player2data+"</tr>"
+					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>";
+					var player2data = "<td>"+html_escape(toCorrectCase(tours.tour[key].players[x+1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x+1])+1)+")</td>";
+					roundposting = roundposting+"<tr>"+player1data+"<td align='center'> VS </td>"+player2data+"</tr>";
 				}
-				sendFlashingBracket("<br/>"+htmlborder+roundposting+"</table></div>"+(subsExist ? submessage : "")+htmlborder+"<br/>",key)
+				sendFlashingBracket("<br/>"+htmlborder+roundposting+"</table></div>"+(subsExist ? submessage : "")+htmlborder+"<br/>",key);
 			}
 			else if (tours.tour[key].parameters.type == "double") {
-				var roundposting = "<div style='margin-left: 50px'><b>Round "+tours.tour[key].round+" del torneo "+getFullTourName(key)+"</b><br/><table><tr><th colspan=5><font 
-
-color=blue>Winners' Bracket</font></th></tr>"
+				var roundposting = "<div style='margin-left: 50px'><b>Round "+tours.tour[key].round+" del torneo "+getFullTourName(key)+"</b><br/><table><tr><th colspan=5><font color=blue>Winners' Bracket</font></th></tr>";
 				for (var x=0; x<tours.tour[key].players.length; x+=2) {
 					if (tours.tour[key].parameters.type == "double" && x == tours.tour[key].players.length/2) {
-						roundposting = roundposting + "<tr><td></td></tr><tr><th colspan=5><font color=red>Losers' Bracket</font></th></tr>"
+						roundposting = roundposting + "<tr><td></td></tr><tr><th colspan=5><font color=red>Losers' Bracket</font></th></tr>";
 					}
-					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td 
-
-align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>"
+					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>";
 					var player2data = 
 
-"<td>"+html_escape(toCorrectCase(tours.tour[key].players[x+1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x+1])+1)+")</td>"
-					roundposting = roundposting+"<tr>"+player1data+"<td align='center'> VS </td>"+player2data+"</tr>"
+"<td>"+html_escape(toCorrectCase(tours.tour[key].players[x+1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x+1])+1)+")</td>";
+					roundposting = roundposting+"<tr>"+player1data+"<td align='center'> VS </td>"+player2data+"</tr>";
 				}
-				sendHtmlAuthPlayers("<br/>"+htmlborder+roundposting+"</table></div>"+htmlborder+"<br/>", key)
+				sendHtmlAuthPlayers("<br/>"+htmlborder+roundposting+"</table></div>"+htmlborder+"<br/>", key);
 			}
 			else {
 				var roundposting = "<div style='margin-left: 50px'><b>Round "+tours.tour[key].round+" del torneo "+getFullTourName(key)+"</b><br/><table>";
 				for (var x=0; x<tours.tour[key].players.length; x+=2) {
-					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td 
-
-align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>"
-					var player2data = 
-
-"<td>"+html_escape(toCorrectCase(tours.tour[key].players[x+1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x+1])+1)+")</td>"
-					roundposting = roundposting+"<tr>"+player1data+"<td align='center'> VS </td>"+player2data+"</tr>"
+					var player1data = "<td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x])+1)+")</td><td align='right'>"+html_escape(toCorrectCase(tours.tour[key].players[x]))+"</td>";
+					var player2data = "<td>"+html_escape(toCorrectCase(tours.tour[key].players[x+1]))+"</td><td>("+(tours.tour[key].seeds.indexOf(tours.tour[key].players[x+1])+1)+")</td>";
+					roundposting = roundposting+"<tr>"+player1data+"<td align='center'> VS </td>"+player2data+"</tr>";
 				}
-				sendHtmlAuthPlayers("<br/>"+htmlborder+roundposting+"</table></div>"+htmlborder+"<br/>", key)
+				sendHtmlAuthPlayers("<br/>"+htmlborder+roundposting+"</table></div>"+htmlborder+"<br/>", key);
 			}
-			removebyes(key)
+			removebyes(key);
 		}
 	}
 	catch (err) {
-		sys.sendAll("Error in printing the bracket, id "+key+": "+err, tourserrchan)
+		sys.sendAll("Error in printing the bracket, id "+key+": "+err, tourserrchan);
 	}
 }
 
@@ -3197,34 +3069,34 @@ function isValidTourBattle(src,dest,clauses,mode,team,destTier,key,challenge) { 
 			return "Devi giocare in modalità Singles."
 		}
 		else if (!isInCorrectGen && tours.tour[key].parameters.gen != "default") {
-			return "Questo match va giocato in "+getSubgen(tours.tour[key].parameters.gen, true)+". Change it in the teambuilder."
+			return "Questo match va giocato in "+getSubgen(tours.tour[key].parameters.gen, true)+". Change it in the teambuilder.";
 		}
 		else if (checklist.missing.length > 0 && checklist.extra.length > 0) {
-			invalidmsg = "Devi attivare le seguenti Clauses: "+checklist.missing.join(", ")+" e rimuovere queste: "+checklist.extra.join(", ")
+			invalidmsg = "Devi attivare le seguenti Clauses: "+checklist.missing.join(", ")+" e rimuovere queste: "+checklist.extra.join(", ");
 			return invalidmsg;
 		}
 		else if (checklist.missing.length > 0) {
-			invalidmsg = "Devi attivare le seguenti Clauses: "+checklist.missing.join(", ")
+			invalidmsg = "Devi attivare le seguenti Clauses: "+checklist.missing.join(", ");
 			return invalidmsg;
 		}
 		else if (checklist.extra.length > 0) {
-			invalidmsg = "Devi disattivare le seguenti Clauses: "+checklist.extra.join(", ")
+			invalidmsg = "Devi disattivare le seguenti Clauses: "+checklist.extra.join(", ");
 			return invalidmsg;
 		}
 		else if (tours.tour[key].state == "final" && clauses%8 >= 4) {
 			/* We allow Disallow Spects to be used for all rounds except finals */
-			return "Disallow Spects is prohibited in finals matches."
+			return "Disallow Spects è proibita nei match finali.";
 		}
 		else if (sys.tier(src, team) != tours.tour[key].tourtype) {
-			return "Devi sfidare il tuo avversario con un team "+tours.tour[key].tourtype+"!"
+			return "Devi sfidare il tuo avversario con un team "+tours.tour[key].tourtype+"!";
 		}
 		else if (sys.tier(src, team) != destTier) {
-			return "Devi sfidare il tuo avversario nella tier "+tours.tour[key].tourtype+" con un team valido."
+			return "Devi sfidare il tuo avversario nella tier "+tours.tour[key].tourtype+" con un team valido.";
 		}
 		else return "Valid";
 	}
 	catch (err) {
-		sys.sendAll("Error in battle check, id "+key+": "+err, tourserrchan)
+		sys.sendAll("Error in battle check, id "+key+": "+err, tourserrchan);
 		return "Errore nel controllo Clauses.";
 	}
 }
@@ -3243,7 +3115,7 @@ function awardTourPoints(player, size, tier, delim) {
         'z': [0,0,0,0,0,0,0]
     }
 	var now = new Date()
-	sys.appendToFile("tourdetails.txt", player+":::"+size+":::"+tier+":::"+now+"\n")
+	sys.appendToFile("tourdetails.txt", player+":::"+size+":::"+tier+":::"+now+"\n");
 	if (size < 4 || !Config.Tours.points) return;
 	var scale = 0;
 	var points = 0
@@ -3315,61 +3187,61 @@ function awardTourPoints(player, size, tier, delim) {
 	}
 	sys.writeToFile("tourscores.txt", newarray.join("\n"))
 	// writing global monthly scores
-	var themonths = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "decemeber"]
-	var monthlyfile = "tourmonthscore_"+themonths[now.getUTCMonth()]+"_"+now.getUTCFullYear()+".txt"
-	sys.appendToFile(monthlyfile, "")
+	var themonths = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "decemeber"];
+	var monthlyfile = "tourmonthscore_"+themonths[now.getUTCMonth()]+"_"+now.getUTCFullYear()+".txt";
+	sys.appendToFile(monthlyfile, "");
 	try {
-		var data3 = sys.getFileContent(monthlyfile)
+		var data3 = sys.getFileContent(monthlyfile);
 	}
 	catch (e) {
-		var data3 = ""
+		var data3 = "";
 	}
-	var array3 = data3.split("\n")
-	var newarray3 = []
-	var onscoreboard3 = false
+	var array3 = data3.split("\n");
+	var newarray3 = [];
+	var onscoreboard3 = false;
 	for (var j in array3) {
 		if (array3[j] === "") continue;
 		var scores3 = array3[j].split(":::", 2)
 		if (player === scores3[0]) {
-			var newscore3 = parseInt(scores3[1]) + points
-			newarray3.push(scores3[0]+":::"+newscore3)
+			var newscore3 = parseInt(scores3[1]) + points;
+			newarray3.push(scores3[0]+":::"+newscore3);
 			onscoreboard3 = true;
 		}
 		else {
-			newarray3.push(array3[j])
+			newarray3.push(array3[j]);
 		}
 	}
 	if (!onscoreboard3) {
-		newarray3.push(player+":::"+points)
+		newarray3.push(player+":::"+points);
 	}
-	sys.writeToFile(monthlyfile, newarray3.join("\n"))
+	sys.writeToFile(monthlyfile, newarray3.join("\n"));
 	// writing tier scores
-	sys.appendToFile("tourscores_"+tier.replace(/ /g,"_")+".txt", "")
+	sys.appendToFile("tourscores_"+tier.replace(/ /g,"_")+".txt", "");
 	try {
-		var data2 = sys.getFileContent("tourscores_"+tier.replace(/ /g,"_")+".txt")
+		var data2 = sys.getFileContent("tourscores_"+tier.replace(/ /g,"_")+".txt");
 	}
 	catch (e) {
-		var data2 = ""
+		var data2 = "";
 	}
-	var array2 = data2.split("\n")
-	var newarray2 = []
-	var onscoreboard2 = false
+	var array2 = data2.split("\n");
+	var newarray2 = [];
+	var onscoreboard2 = false;
 	for (var k in array2) {
 		if (array2[k] === "") continue;
-		var scores2 = array2[k].split(":::", 2)
+		var scores2 = array2[k].split(":::", 2);
 		if (player === scores2[0]) {
-			var newscore2 = parseInt(scores2[1]) + tierscore.a[scale]
-			newarray2.push(scores2[0]+":::"+newscore2)
+			var newscore2 = parseInt(scores2[1]) + tierscore.a[scale];
+			newarray2.push(scores2[0]+":::"+newscore2);
 			onscoreboard2 = true;
 		}
 		else {
-			newarray2.push(array2[k])
+			newarray2.push(array2[k]);
 		}
 	}
 	if (!onscoreboard2) {
-		newarray2.push(player+":::"+tierscore.a[scale])
+		newarray2.push(player+":::"+tierscore.a[scale]);
 	}
-	sys.writeToFile("tourscores_"+tier.replace(/ /g,"_")+".txt", newarray2.join("\n"))
+	sys.writeToFile("tourscores_"+tier.replace(/ /g,"_")+".txt", newarray2.join("\n"));
 	return;
 }
 
@@ -3526,7 +3398,7 @@ function loadTourMutes() {
 
 // to prevent silly mute reasons
 function usingBadWords(message) {
-	if (/f[uo]ck|\bass\b|assh[o0]le|\barse|\bcum\b|\bdick|\bsex\b|pussy|bitch|porn|\bfck|nigga|\bcock\b|\bgay|\bhoe\b|slut|whore|cunt|clit|pen[i1]s|vag|nigger/i.test(message)) {
+	if (/f[uo]ck|\bass\b|assh[o0]le|\barse|\bcum\b|\bdick|\bsex\b|pussy|bitch|porn|\bfck|nigga|\bcock\b|\bgay|\bhoe\b|slut|whore|cunt|clit|pen[i1]s|vag|nigger|negro|negri|taon/i.test(message)) {
 		return true;
 	}
 	else return false;
@@ -3744,9 +3616,7 @@ module.exports = {
 	},
 	beforeChatMessage : function(src, message, channel) {
 		if (isTourMuted(src) && !isTourAdmin(src) && channel === tourschan) {
-			sys.sendMessage(src,Config.Tours.tourbot+"Sei stato mutato da "+tours.tourmutes[sys.ip(src)].auth+". Scade tra  
-
-"+time_handle(tours.tourmutes[sys.ip(src)].expiry-parseInt(sys.time()))+". [Motivo: "+tours.tourmutes[sys.ip(src)].reason+"]",tourschan)
+			sys.sendMessage(src,Config.Tours.tourbot+"Sei stato mutato da "+tours.tourmutes[sys.ip(src)].auth+". Scade tra "+time_handle(tours.tourmutes[sys.ip(src)].expiry-parseInt(sys.time()))+". [Motivo: "+tours.tourmutes[sys.ip(src)].reason+"]",tourschan)
 			return true;
 		}
 		else return false;
