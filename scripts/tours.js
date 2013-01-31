@@ -720,8 +720,8 @@ function tourBattleStart(src, dest, clauses, rated, mode, bid) {
 		tours.tour[key].active[name2] = "Battle"; // this avoids dq later since they made an attempt to start
 		if (tours.tour[key].state == "final") {
 			// CHANGE
-			//sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>LA FINALE DEL TORNEO "+getFullTourName(key)+" TRA <b>"+html_escape(sys.name(src))+"</b> E <b>"+html_escape(sys.name(dest))+"</b> INIZIA!</a>",tourschan);
-			sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>LA FINALE DEL TORNEO "+getFullTourName(key)+" TRA <b>"+html_escape(sys.name(src))+"</b> E <b>"+html_escape(sys.name(dest))+"</b> INIZIA!</a>",0);
+			//sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>LA FINALE DEL TORNEO "+getFullTourName(key)+" TRA <b>"+html_escape(sys.name(src))+"</b> E <b>"+html_escape(sys.name(dest))+"</b> HA INIZIO!</a>",tourschan);
+			sys.sendHtmlAll("<font color='"+Config.Tours.tourbotcolour+"'><timestamp/> <b>"+html_escape(Config.Tours.tourbot)+"</b></font> <a href='po:watch/"+bid+"'>LA FINALE DEL TORNEO "+getFullTourName(key)+" TRA <b>"+html_escape(sys.name(src))+"</b> E <b>"+html_escape(sys.name(dest))+"</b> HA INIZIO!</a>",0);
 		}
 		return true;
 	}
