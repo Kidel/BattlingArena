@@ -3487,11 +3487,15 @@ function calcPercentage() { // calc percentage of players in tournaments playing
 }
 
 function sendWelcomeMessage(src, chan) {
-	sys.sendMessage(src,border,chan)
-	sys.sendMessage(src,"*** Benvenuto/a nel canale #"+Config.Tours.channel+" Versione "+Config.Tours.version+"! ***",chan);
-	sys.sendMessage(src,"",chan)
-	sys.sendMessage(src,"*** TORNEI ***",chan);
+	sys.sendMessage(src,border,chan);
+	sys.sendMessage(src,"*** Benvenuto/a nel canale #"+Config.Tours.channel+" - Tornei versione "+Config.Tours.version+"! ***",chan);
+	
+	// CHANGE
+	
 	for (var x in tours.tour) {
+	    // CHANGE
+		if (x==0) { sys.sendMessage(src,"",chan); sys.sendMessage(src,"*** TORNEI ***",chan); }
+		//
 		if (tours.tour[x].state == "signups") {
 			sys.sendMessage(src, getFullTourName(x)+": Iscrizioni aperte, "+time_handle(tours.tour[x].time-parseInt(sys.time()))+" rimanente. Scrivi /join per iscriverti.", chan);
 		}
@@ -3506,7 +3510,7 @@ function sendWelcomeMessage(src, chan) {
 		}
 	}
 	if (!sys.dbRegistered(sys.name(src))) {
-		sys.sendMessage(src, Config.Tours.tourbot+"Devi registrare il tuo nickname nel canale #"+sys.channel(chan)+"! Clicca su Registrati sotto la chat!", chan);
+		sys.sendMessage(src, Config.Tours.tourbot+"Devi registrare il tuo nickname per partecipare ai tornei! Clicca su Registrati sotto la chat!", chan);
 	}
 	sys.sendMessage(src,"*** Usa /help per i comandi e /rules per le regole! ***",chan);
 	sys.sendMessage(src,border,chan);
