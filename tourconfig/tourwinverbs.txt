@@ -6,7 +6,7 @@ ha predictato ogni mossa e ha vinto contro
 ha piallato
 ha arato
 ha distrutto
-ha FANCONPUNCHATO
+ha FALCONPUNCHATO
 ha blastato
 ha lanciato un tavolo contro
 ha scatafasciato
@@ -22,3 +22,4 @@ ha steso e spalmato
 ha polverizzato
 ha umiliato
 ha incenerito
+ha formattato
