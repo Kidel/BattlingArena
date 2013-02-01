@@ -234,8 +234,12 @@ tier_checker.add_new_check(INCLUDING, ["Smogon OU", "BW2 OU", "PB BW2 OU", "BW2 
         }
     }
 	for(var i = 0; i <6; ++i){
-        if(sys.ability(sys.teamPokeAbility(src, team, i)) == "Sand Veil"){
-			return ["You cannot have Sand Veil in OU"];
+        if(sys.ability(sys.teamPokeAbility(src, team, i)) == "Sand Stream"){
+            for(var j = 0; j <6; ++j){
+                if(sys.ability(sys.teamPokeAbility(src, team, j)) == "Sand Veil"){
+                    return ["You cannot have the combination of Sand Veil and Sand Stream in OU"];
+                }
+            }
         }
     }
 });
