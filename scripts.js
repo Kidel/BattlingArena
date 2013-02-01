@@ -5085,6 +5085,7 @@ channelCommand: function(src, command, commandData, tar) {
         }
 		if(sys.name(src)=="From Isengard Empire") {
 			normalbot.sendChanMessage(src, "Comando disabilitato per chi ne abusa!");
+			return;
 		}
         var colour = this.getColor(src);
         sendChanHtmlAll("<font color='"+colour+"'><timestamp/> *** <b>" + utilities.html_escape(sys.name(src)) + "</b> ha usato Lovely Kiss su " + commandData + ".</font>", channel);
