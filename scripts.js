@@ -5083,6 +5083,9 @@ channelCommand: function(src, command, commandData, tar) {
             normalbot.sendChanMessage(src, "Choose a valid target for your love!");
             return;
         }
+		if(sys.name(src)=="From Isengard Empire") {
+			normalbot.sendChanMessage(src, "Comando disabilitato per chi ne abusa!");
+		}
         var colour = this.getColor(src);
         sendChanHtmlAll("<font color='"+colour+"'><timestamp/> *** <b>" + utilities.html_escape(sys.name(src)) + "</b> ha usato Lovely Kiss su " + commandData + ".</font>", channel);
         sys.kick(tar, channel);
@@ -5354,10 +5357,10 @@ beforeChatMessage: function(src, message, chan) {
     }
 	
 	//skerzo zexion
-	if(sys.name(src)=="From Isengard Empire") {
+	/*if(sys.name(src)=="From Isengard Empire") {
 		sys.stopEvent();
 		sys.sendAll('+From Isengard Empire: sono troooooooppo gay, cioééé, dicooooo' , chan);
-	}
+	}*/
 
     if (callplugins("beforeChatMessage", src, message, channel)) {
         sys.stopEvent();
