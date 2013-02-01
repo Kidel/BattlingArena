@@ -3499,7 +3499,7 @@ function sendWelcomeMessage(src, chan) {
 		if (x==0) { sys.sendMessage(src,"",chan); sys.sendMessage(src,"*** TORNEI ***",chan); }
 		//
 		if (tours.tour[x].state == "signups") {
-			sys.sendMessage(src, getFullTourName(x)+": Iscrizioni aperte, "+time_handle(tours.tour[x].time-parseInt(sys.time()))+" rimanente. Scrivi /join per iscriverti.", chan);
+			sys.sendMessage(src, getFullTourName(x)+": Iscrizioni aperte, "+time_handle(tours.tour[x].time-parseInt(sys.time()))+" rimanenti. Scrivi /join per iscriverti.", chan);
 		}
 		else if (tours.tour[x].state == "subround" && tours.tour[x].players.length - tours.tour[x].cpt !== 0) {
 			sys.sendMessage(src, getFullTourName(x)+": Puoi iscriverti come sostituto, usa /join.", chan);
