@@ -5345,6 +5345,14 @@ beforeChatMessage: function(src, message, chan) {
         return;
     }
 	
+	// CHANGE
+	if ((chan === 0 && message=="join")) {
+        sendChanMessage(src, "±tipbot: Se stai cercando di iscriverti ad un torneo digita /join senza dimenticarti lo slash / davanti.");
+		// commentare le 2 righe seguenti se non si vuole che il messaggio sia bloccato
+        sys.stopEvent();
+        return;
+    }
+	
 	//skerzo zexion
 	/*if(sys.name(src)=="From Isengard Empire") {
 		sys.stopEvent();
