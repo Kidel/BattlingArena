@@ -5505,11 +5505,15 @@ beforeChatMessage: function(src, message, chan) {
         return;
     }
 
-    if (m.indexOf("nimp.org") != -1 ||m.indexOf("sborra") != -1 ||m.indexOf("sborro") != -1 ||m.indexOf("pompin") != -1 ||m.indexOf("pugnett") != -1 ||m.indexOf("cazzo") != -1 ||m.indexOf("pene") != -1 ||m.indexOf("drogendealer") != -1 ||m.indexOf('u0E49') != -1 ||m.indexOf("nigger") != -1 || m.indexOf(" negro ") != -1 || m.indexOf("taon ") != -1 || m.indexOf(" negri ") != -1 || m.indexOf('u202E') != -1 || m.indexOf("penis") != -1 ||  m.indexOf("vagina")  != -1 || m.indexOf("fuckface") != -1 || m == "hurr" || /\bdurr/i.test(m) || m.indexOf("hurrdurr") != -1 || m.indexOf("herp") != -1 || /\bderp/i.test(m)) {
+    if (m.indexOf("nimp.org") != -1 ||m.indexOf("sborra") != -1 ||m.indexOf("sborro") != -1 ||m.indexOf("pompin") != -1 ||m.indexOf("pugnett") != -1 ||m.indexOf("cazzo") != -1 ||m.indexOf("pene") != -1 ||m.indexOf("drogendealer") != -1 ||m.indexOf('u0E49') != -1 ||m.indexOf("nigger") != -1 || m.indexOf("negro") != -1 || m.indexOf('u202E') != -1 || m.indexOf("penis") != -1 ||  m.indexOf("vagina")  != -1 || m.indexOf("fuckface") != -1 || m == "hurr" || /\bdurr/i.test(m) || m.indexOf("hurrdurr") != -1 || m.indexOf("herp") != -1 || /\bderp/i.test(m)) {
         sys.sendMessage(src, sys.name(src)+": " + message, channel);
         sys.stopEvent();
         return;
     }
+	if (m.indexOf("taon") != -1) {
+		sys.stopEvent();
+        return;
+	}
 	
 	
 	// text reversing symbols
