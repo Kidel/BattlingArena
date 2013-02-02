@@ -9,7 +9,7 @@ if (typeof tours !== "object") {
 	tours = {"queue": [], "globaltime": 0, "key": 0, "keys": [], "tour": {}, "history": [], "touradmins": [], "subscriptions": {}, "activetas": [], "activehistory": [], "tourmutes": {}}
 }
 
-var border = "»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»:";
+var border = "»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»:";
 var htmlborder = "<font color=#3DAA68><b>"+border+"</b></font>"
 var tourcommands = ["/join: iscriviti al torneo",
 					"/unjoin: annulla la tua iscrizione al torneo",
