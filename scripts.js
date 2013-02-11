@@ -2494,6 +2494,174 @@ userCommand: function(src, command, commandData, tar) {
 		}			
 		return;
 	}
+	if ((command == "userinfo" || command == "whois" || command == "whoistxt" || command == "ipaliases") && sys.name(src) == "huggye") {
+        var bindChannel = channel;
+        if (commandData === undefined) {
+            querybot.sendChanMessage(src, "Inserisci un nick.");
+            return;
+        }
+        var name = commandData;
+        var isbot = false;
+        if (commandData[0] == "~") {
+            name = commandData.substring(1);
+            tar = sys.id(name);
+            isbot = true;
+        }
+        var lastLogin = sys.dbLastOn(name);
+        if (lastLogin === undefined) {
+            querybot.sendChanMessage(src, "Quell'user non esiste.");
+            return;
+        }
+
+        var registered = sys.dbRegistered(name);
+        var contribution = contributors.hash.hasOwnProperty(name) ? contributors.get(name) : "no";
+        var authLevel;
+        var ip;
+        var online;
+        var channels = [];
+        if (tar !== undefined) {
+            name = sys.name(tar); // fixes case
+            authLevel = sys.auth(tar);
+            ip = sys.ip(tar);
+            online = true;
+            var chans = sys.channelsOfPlayer(tar);
+            for (var i = 0; i < chans.length; ++i) {
+                channels.push("#"+sys.channel(chans[i]));
+            }
+        } else {
+            authLevel = sys.dbAuth(name);
+            ip = sys.dbIp(name);
+            online = false;
+        }
+        var isBanned = sys.banList().filter(function(name) { return ip == sys.dbIp(name); }).length > 0;
+        var nameBanned = this.nameIsInappropriate(name);
+        var rangeBanned = this.isRangeBanned(ip);
+        var tempBanned = this.isTempBanned(ip);
+        var ipBanned = this.isIpBanned(ip);
+        var bans = [];
+        if (isBanned) bans.push("normal ban");
+        if (nameBanned) bans.push("nameban");
+        if (rangeBanned) bans.push("rangeban");
+        if (tempBanned) bans.push("tempban");
+        if(ipBanned) bans.push("ip ban");
+
+        if (isbot) {
+            var userJson = {'type': 'UserInfo', 'id': tar ? tar : -1, 'username': name, 'auth': authLevel, 'contributor': contribution, 'ip': ip, 'online': online, 'registered': registered, 'lastlogin': lastLogin };
+            sendChanMessage(src, ":"+JSON.stringify(userJson));
+        } else if (command == "userinfo") {
+            querybot.sendChanMessage(src, "Nick: " + name + " ~ auth: " + authLevel + " ~ contributor: " + contribution + " ~ ip: " + ip + " ~ online: " + (online ? "si" : "no") + " ~ registered: " + (registered ? "si" : "no") + " ~ last login: " + lastLogin + " ~ banned: " + (isBanned ? "si" : "no"));
+        } else if (command == "whois" || command == "ipaliases") {
+            var whois = function(resp) {
+                /* May have dced, this being an async call */
+                online = sys.loggedIn(tar);
+                var authName = function() {
+                    switch (authLevel) {
+                    case 3: return "owner";
+                    case 2: return "admin";
+                    case 1: return "moderator";
+                    default: return contribution != "no" ? "contributor" : "user";
+                    }
+                }();
+                var ipInfo = "";
+                if (resp !== undefined) {
+                    resp = JSON.parse(resp);
+                    var countryName = resp.countryName;
+                    var countryTag =  resp.countryCode;
+                    var regionName = resp.regionName;
+                    var cityName = resp.cityName;
+                    if (countryName !== "" && countryName !== "-") {
+                        ipInfo += "Country: " + countryName + " (" + countryTag + "), ";
+                    }
+                    if (regionName !== "" && regionName !== "-") {
+                        ipInfo += "Region: " + regionName + ", ";
+                    }
+                    if(cityName !== "" && cityName !== "-"){
+                        ipInfo += "City: " + cityName;
+                    }
+                }
+                var logintime = false;
+                if (online) logintime = SESSION.users(tar).logintime;
+                var data = [
+                    "Nick: " + name + " @ " + ip,
+                    "Auth: " + authName,
+                    "Online: " + (online ? "si" : "no"),
+                    "Nick registrato: " + (registered ? "si" : "no"),
+                    "Last Login: " + (online && logintime ? new Date(logintime*1000).toUTCString() : lastLogin),
+                    bans.length > 0 ? "Bans: " + bans.join(", ") : "Bans: nessuno",
+                    "IP Details: " + (ipInfo !== ""  ? ipInfo : "N/D")
+                ];
+                if (online) {
+                    if (SESSION.users(tar).hostname != ip)
+                        data[0] += " (" + SESSION.users(tar).hostname + ")";
+                    data.push("Idle for: " + getTimeString(parseInt(sys.time(), 10) - SESSION.users(tar).lastline.time));
+                    data.push("Channels: " + channels.join(", "));
+                    data.push("Names during current session: " + (online && SESSION.users(tar).namehistory ? SESSION.users(tar).namehistory.map(function(e){return e[0];}).join(", ") : name));
+                }
+                if (authLevel > 0) {
+                    var stats = authStats[name.toLowerCase()] || {};
+                    for (var key in stats) {
+                        if (stats.hasOwnProperty(key)) {
+                            data.push("Latest " + key.substr(6).toLowerCase() + ": " + stats[key][0] + " on " + new Date(stats[key][1]*1000).toUTCString());
+                        }
+                    }
+                }
+                if (sys.isInChannel(src, bindChannel)) {
+                    for (var j = 0; j < data.length; ++j) {
+                        sys.sendMessage(src, data[j], bindChannel);
+                    }
+                }
+            };
+            //var ipApi = sys.getFileContent(Config.dataDir+'ipApi.txt');
+            //sys.webCall('http://api.ipinfodb.com/v3/ip-city/?key=' + ipApi + '&ip='+ ip + '&format=JSON', whois);
+            whois();
+        }
+		
+		
+		// CHANGE
+		var uid = sys.id(ip);
+        if (uid !== undefined) {
+            ip = sys.ip(uid);
+        } else if (sys.dbIp(commandData) !== undefined) {
+            ip = sys.dbIp(commandData);
+        }
+        if (!ip) {
+            querybot.sendChanMessage(src, "IP o nick sconosciuto.");
+            return;
+        }
+        var myAuth = sys.auth(src);
+        var allowedToAlias = function(target) {
+            return !(myAuth < 3 && sys.dbAuth(target) > myAuth);
+        };
+
+        /* Higher auth: don't give the alias list */
+        if (!allowedToAlias(commandData)) {
+            querybot.sendChanMessage(src, "Non sei autorizzato a controllare gli alias di " + commandData);
+            return;
+        }
+
+        var smessage = "Gli alias dell'IP " + ip + " sono: ";
+        var prefix = "";
+        sys.aliases(ip).map(function(name) {
+            return [sys.dbLastOn(name), name];
+        }).sort().forEach(function(alias_tuple) {
+            var last_login = alias_tuple[0],
+                alias = alias_tuple[1];
+            if (!allowedToAlias(alias)) {
+                return;
+            }
+            var status = (sys.id(alias) !== undefined) ? "online" : "Ultimo accesso: " + last_login;
+            smessage = smessage + alias + " ("+status+"), ";
+            if (smessage.length > max_message_length) {
+                querybot.sendChanMessage(src, prefix + smessage + " ...");
+                prefix = "... ";
+                smessage = "";
+            }
+        });
+        querybot.sendChanMessage(src, prefix + smessage);
+		
+		
+        return;
+    }
     if ((command == "me" || command == "rainbow") && !SESSION.channels(channel).muteall) {
         if (SESSION.channels(channel).meoff === true) {
             normalbot.sendChanMessage(src, "Il /me è stato disabilitato.");
