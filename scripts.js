@@ -5282,10 +5282,14 @@ channelCommand: function(src, command, commandData, tar) {
             normalbot.sendChanMessage(src, "Choose a valid target for your love!");
             return;
         }
-		if(sys.name(src)=="From Isengard Empire") {
+		if (sys.dbAuth(commandData) >= sys.dbAuth(sys.name(src))) {
+			normalbot.sendChanMessage(src, "Non puoi usare su chi ha auth uguale o superiore alla tua.");
+            return;
+        }
+		/*if(sys.name(src)=="From Isengard Empire") {
 			normalbot.sendChanMessage(src, "Comando disabilitato per chi ne abusa!");
 			return;
-		}
+		}*/
         var colour = this.getColor(src);
         sendChanHtmlAll("<font color='"+colour+"'><timestamp/> *** <b>" + utilities.html_escape(sys.name(src)) + "</b> ha usato Lovely Kiss su " + commandData + ".</font>", channel);
         sys.kick(tar, channel);
