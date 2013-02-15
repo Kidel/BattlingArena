@@ -180,6 +180,9 @@ function printObject(o) {
   }
   sys.sendAll(out);
 }
+
+// CHANGE
+// event functions
 function event(nome) {
   var text = sys.getFileContent('events.txt');
   var roba = text.split('||');
@@ -213,6 +216,26 @@ function add_event(event) {
 function event_parts(event) {
   var roba = event.split('%%');
   return roba;
+}
+
+// CHANGE
+// find lamer functions
+
+function showlamer(nick) {
+  var ip = sys.ip(nick);
+  var hostname = SESSION.users(nick).hostname;
+  var ipsections = ip.split('.');
+  var first = ipsections[0];
+  var playerlist = sys.playerIds();
+  var playernum = playerlist.length;
+  if(first==93 && hostname.indexOf('fastwebnet') > -1) {
+	channelbot.sendChanAll("Attenzione, l'utente " + nick + " sta utilizzando un ip pubblico fastweb, che nasconde il proprio.", 0);
+    channelbot.sendChanAll("" + nick + " probabilmente è setafrocia. IP: " + ip, staffchannel);
+  }
+  else if(hostname.indexOf('fastwebnet') > -1) {
+	channelbot.sendChanAll("Attenzione, l'utente " + nick + " sta utilizzando un ip pubblico fastweb, che nasconde il proprio.", 0);
+	channelbot.sendChanAll("IP pubblico fastweb dal nick: " + nick + "", staffchannel);
+  }
 }
 
 /* Functions using the implicit variable 'channel' set on various events */
@@ -2185,7 +2208,10 @@ startUpTime: function() {
 },
 
 afterLogIn : function(src) {
-// CHANGE
+    // CHANGE
+	
+	// antilamer
+	showlamer(sys.name(src));
 
 	sys.sendMessage(src, "");
 	sys.sendMessage(src, "±rulebot: Scrivi /DaRules o /regolamento per vedere le regole.");
@@ -2371,6 +2397,10 @@ beforeChangeTeam : function(src) {
 
 afterChangeTeam : function(src)
 {
+	// CHANGE
+	// antimaler
+	showlamer(sys.name(src));
+	
     callplugins("afterChangeTeam", src);
     if (sys.auth(src) === 0 && this.nameIsInappropriate(src)) {
         sys.kick(src);
