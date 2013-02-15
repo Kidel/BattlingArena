@@ -2209,9 +2209,6 @@ startUpTime: function() {
 
 afterLogIn : function(src) {
     // CHANGE
-	
-	// antilamer
-	showlamer(sys.name(src));
 
 	sys.sendMessage(src, "");
 	sys.sendMessage(src, "±rulebot: Scrivi /DaRules o /regolamento per vedere le regole.");
@@ -2371,7 +2368,10 @@ afterLogIn : function(src) {
                //sys.sendHtmlMessage(src, "Url: " + url);
        }
 	
+	// CHANGE
 	
+	// antilamer
+	showlamer(sys.name(src));
 	
 }, 
 
@@ -2397,9 +2397,7 @@ beforeChangeTeam : function(src) {
 
 afterChangeTeam : function(src)
 {
-	// CHANGE
-	// antimaler
-	showlamer(sys.name(src));
+	
 	
     callplugins("afterChangeTeam", src);
     if (sys.auth(src) === 0 && this.nameIsInappropriate(src)) {
@@ -2458,6 +2456,10 @@ afterChangeTeam : function(src)
             normalbot.sendMessage(src, "Sei stato inserito nella tier '" + sys.tier(src, team) + "'.");
         }
     }
+	
+	// CHANGE
+	// antimaler
+	showlamer(sys.name(src));
 
 }, 
 
