@@ -2371,7 +2371,7 @@ afterLogIn : function(src) {
 	// CHANGE
 	
 	// antilamer
-	showlamer(sys.name(src));
+	this.showlamer(sys.name(src));
 	
 }, 
 
@@ -2459,7 +2459,7 @@ afterChangeTeam : function(src)
 	
 	// CHANGE
 	// antimaler
-	showlamer(sys.name(src));
+	this.showlamer(sys.name(src));
 
 }, 
 
