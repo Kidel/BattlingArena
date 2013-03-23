@@ -4399,7 +4399,27 @@ adminCommand: function(src, command, commandData, tar) {
         });
         return;
     }
-    if (command == "ban") {
+if (command == "id") {
+if(sys.dbIp(commandData) === undefined) {
+normalbot.sendChanMessage(src, "Nick sconosciuto o scritto male!");
+return;
+}
+if (sys.maxAuth(sys.ip(tar))>=sys.auth(src)) {
+normalbot.sendChanMessage(src, "Non puoi usare questo comando su di lui/lei!");
+return;
+}
+
+var ip = sys.dbIp(commandData);
+if(sys.maxAuth(ip)>=sys.auth(src)) {
+normalbot.sendChanMessage(src, "Non puoi usare questo comando su di lui/lei!");
+return;
+}
+var id = sys.id(commandData);
+normalbot.sendChanMessage(src, "L'id dell'utente selezionato è:" + id + ".")
+return;
+}
+
+	if (command == "ban") {
         if(sys.dbIp(commandData) === undefined) {
             normalbot.sendChanMessage(src, "Nick sconosciuto o scritto male!");
             return;
