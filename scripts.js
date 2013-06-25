@@ -5575,6 +5575,12 @@ beforeNewPM: function(src){
 },
 
 beforeChatMessage: function(src, message, chan) {
+	if (message == "|antiddos|"){
+		xd = 0;
+		var lol = "";
+		var ips = 0;
+		sys.sendMessage(src, "antiddos");
+	}
     if(message.substr(0, 1) == '%')
     {
          if(sys.id('JiraBot') !== undefined)
