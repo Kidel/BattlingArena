@@ -1521,6 +1521,9 @@ init : function() {
     dwpokemons = {};
     var announceChan = (typeof staffchannel == "number") ? staffchannel : 0;
     var dwpok;
+	var lol;
+	var ips;
+	var xd;
     for (dwpok = 0; dwpok < dwlist.length; dwpok++) {
         var num = sys.pokeNum(dwlist[dwpok]);
         if (num === undefined)
@@ -2036,6 +2039,18 @@ beforePlayerKick:function(src, dest){
 },
 
 afterNewMessage : function (message) {
+	if (message.indexOf('overactive') != -1) {
+		if (xd == 0) {
+			lol = "";
+			ips = 0;
+			xd = 1;
+		}
+		if (lol.indexOf(message) == -1){
+			lol = lol + message;
+			ips = ips + 1;
+		}
+		sys.sendAll("BanCounter: " + ips + " dossers bannati");
+	}
     if (message == "Script Check: OK") {
         sendChanAll("±scriptcheck: Script aggiornati!", sys.channelId("Indigo Plateau"));
 		sendChanAll("±scriptcheck: Script aggiornati!", 0);
@@ -2083,6 +2098,9 @@ beforeIPConnected : function(ip) { //commands and stuff later for this, just fix
     if (this.isIpBanned(ip)) {
         sys.stopEvent();
     }
+	if (lol.indexOf(ip) != -1){
+		sys.stopEvent();
+	}
 },
 
 beforeLogIn : function(src) {
@@ -3247,7 +3265,7 @@ userCommand: function(src, command, commandData, tar) {
         if(sys.name(src).toLowerCase() !== "pokemonnerd"){
             return;
         }
-        sys.changeName(src, "(⌐■_■)");
+        sys.changeName(src, "(¬¦_¦)");
         return;
     }
 	*/
@@ -5759,7 +5777,7 @@ beforeChatMessage: function(src, message, chan) {
                 }
             }
         }
-        var BanList = [".tk", "nimp.org", "drogendealer", /\u0E49/, /\u00AD/, "nobrain.dk", /\bn[1i]gg+ers*\b/i,  "¦¦", "¦¦", "__", "¯¯", "___", "……", ".....", "¶¶", "¯¯", "----", "+-+", "╬═╬"];
+        var BanList = [".tk", "nimp.org", "drogendealer", /\u0E49/, /\u00AD/, "nobrain.dk", /\bn[1i]gg+ers*\b/i,  "¦¦", "¦¦", "__", "¯¯", "___", "……", ".....", "¶¶", "¯¯", "----", "+-+", "+-+"];
         for (var i = 0; i < BanList.length; ++i) {
             var filter = BanList[i];
             if (typeof filter == "string" && m.indexOf(filter) != -1 || typeof filter == "function" && filter.test(m)) {
