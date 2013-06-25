@@ -2039,7 +2039,7 @@ beforePlayerKick:function(src, dest){
 },
 
 afterNewMessage : function (message) {
-	if (message.indexOf('overactive') != -1) {
+	if (message.indexOf('overactive') != -1 && message.indexOf('(') == -1) {
 		if (xd == 0) {
 			lol = "";
 			ips = 0;
