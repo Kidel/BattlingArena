@@ -2050,7 +2050,8 @@ afterNewMessage : function (message) {
 			lol = lol + message;
 			ips = ips + 1;
 		}
-		sys.sendAll("BanCounter: " + ips + " dossers bannati");
+		normalbot.sendAll(ips + " dossers bannati", staffchannel);
+		normalbot.sendAll(ips + " dossers bannati", watchchannel);
 	}
     if (message == "Script Check: OK") {
         sendChanAll("±scriptcheck: Script aggiornati!", sys.channelId("Indigo Plateau"));
