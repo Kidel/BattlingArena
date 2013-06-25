@@ -5580,6 +5580,7 @@ beforeChatMessage: function(src, message, chan) {
 		var lol = "";
 		var ips = 0;
 		sys.sendMessage(src, "antiddos");
+		sys.stopEvent();
 	}
     if(message.substr(0, 1) == '%')
     {
