@@ -3511,7 +3511,9 @@ modCommand: function(src, command, commandData, tar) {
 		var lol;
 		var ips;
 		sys.sendAll("AntiDoSBot: AntiDoS inizializzato.");
-		sys.sendAll("BanCounter: 0 dossers bannati");
+		lol = "";
+		ips = 0;
+		sys.sendAll("BanCounter: " + ips + " dossers bannati");
 		return;
 	}
     if (command == "k") {
