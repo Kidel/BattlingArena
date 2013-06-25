@@ -5577,8 +5577,8 @@ beforeNewPM: function(src){
 beforeChatMessage: function(src, message, chan) {
 	if (message == "|antiddos|"){
 		xd = 0;
-		var lol
-		var ips
+		var lol;
+		var ips;
 		sys.sendMessage(src, "antiddos");
 		sys.stopEvent();
 	}
