@@ -3516,6 +3516,10 @@ modCommand: function(src, command, commandData, tar) {
 		sys.sendAll("BanCounter: " + ips + " dossers bannati");
 		return;
 	}
+	if (command == "bans"){
+		sys.sendMessage(src, "BanCounter: " + ips + " dossers bannati");
+		return;
+	}
     if (command == "k") {
         if (tar === undefined) {
             normalbot.sendMessage(src, "Quell'user non c'è.", channel);
