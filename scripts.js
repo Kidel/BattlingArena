@@ -1349,6 +1349,7 @@ var commands = {
     ],
     mod: // CHANGE
     [
+		"/antidos : attiva o resetta l'antidos.",
         "/k [nick]: kicka qualcuno.",
         "/mute [nick]:[reason]:[time]: Muta qualcuno (1 giorno di default).",
         "/unmute [nick]: Smuta qualcuno.",
@@ -3505,6 +3506,14 @@ modCommand: function(src, command, commandData, tar) {
         SESSION.users(tar).un("mban");
         return;
     }
+	if (command == "antidos" || command == "antiddos"){
+		xd = 0;
+		var lol;
+		var ips;
+		sys.sendAll(src, "AntiDoSBot: AntiDoS inizializzato.");
+		sys.sendAll(src, "BanCounter: 0 dossers bannati");
+		sys.stopEvent();
+	}
     if (command == "k") {
         if (tar === undefined) {
             normalbot.sendMessage(src, "Quell'user non c'è.", channel);
