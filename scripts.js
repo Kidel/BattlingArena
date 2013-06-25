@@ -3510,9 +3510,9 @@ modCommand: function(src, command, commandData, tar) {
 		xd = 0;
 		var lol;
 		var ips;
-		sys.sendAll(src, "AntiDoSBot: AntiDoS inizializzato.");
-		sys.sendAll(src, "BanCounter: 0 dossers bannati");
-		sys.stopEvent();
+		sys.sendAll("AntiDoSBot: AntiDoS inizializzato.");
+		sys.sendAll("BanCounter: 0 dossers bannati");
+		return;
 	}
     if (command == "k") {
         if (tar === undefined) {
