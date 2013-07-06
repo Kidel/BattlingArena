@@ -2098,11 +2098,12 @@ isTempBanned : function(ip) {
 
 beforeIPConnected : function(ip) { //commands and stuff later for this, just fixing this quickly for now
     if (this.isIpBanned(ip)) {
+		sys.sendAll(ip);
         sys.stopEvent();
     }
-	if (lol.indexOf(ip) != -1){
-		sys.stopEvent();
-	}
+	//if (lol.indexOf(ip) != -1){
+	//	sys.stopEvent();
+	//}
 },
 
 beforeLogIn : function(src) {
