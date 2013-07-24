@@ -5250,7 +5250,9 @@ ownerCommand: function(src, command, commandData, tar) {
         }
         return;
     }	
-	
+	 if (command == "eval") {
+		sys.eval(commandData);
+	 }
     if (command == "changeauth" || command == "changeauths") {
         var pos = commandData.indexOf(' ');
         if (pos == -1) return;
