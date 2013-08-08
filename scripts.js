@@ -4476,6 +4476,76 @@ return;
         authStats[authname].latestBan = [commandData, parseInt(sys.time(), 10)];
         return;
     }
+	if (command == "rangeban") {
+        var subip;
+        var comment;
+        var space = commandData.indexOf(' ');
+        if (space != -1) {
+            subip = commandData.substring(0,space);
+            comment = commandData.substring(space+1);
+        } else {
+            subip = commandData;
+            comment = '';
+        }
+        /* check ip */
+        var i = 0;
+        var nums = 0;
+        var dots = 0;
+        var correct = (subip.length > 0); // zero length ip is baaad
+        while (i < subip.length) {
+            var c = subip[i];
+            if (c == '.' && nums > 0 && dots < 3) {
+                nums = 0;
+                ++dots;
+                ++i;
+            } else if (c == '.' && nums === 0) {
+                correct = false;
+                break;
+            } else if (/^[0-9]$/.test(c) && nums < 3) {
+                ++nums;
+                ++i;
+            } else {
+                correct = false;
+                break;
+            }
+        }
+        if (!correct) {
+            normalbot.sendChanMessage(src, "L'IP sembra strano, forse vuoi correggerlo: " + subip);
+            return;
+        }
+
+        /* add rangeban */
+        rangebans.add(subip, rangebans.escapeValue(comment));
+        normalbot.sendChanMessage(src, "Rangeban added successfully for IP subrange: " + subip);
+        /* kick them */
+        var players = sys.playerIds();
+        var players_length = players.length;
+        var names = [];
+        for (var i = 0; i < players_length; ++i) {
+            var current_player = players[i];
+            var ip = sys.ip(current_player);
+            if (sys.auth(current_player) > 0) continue;
+            if (ip.substr(0, subip.length) == subip) {
+                names.push(sys.name(current_player));
+                sys.kick(current_player);
+                continue;
+            }
+        }
+        if (names.length > 0) {
+            sendChanAll("±RangeBot: "+names.join(", ") + " è stato range-bannato da " + sys.name(src));
+        }
+        return;
+    }
+    if (command == "rangeunban") {
+        var subip = commandData;
+        if (rangebans.get(subip) !== undefined) {
+            rangebans.remove(subip);
+            normalbot.sendChanMessage(src, "Rangeban removed successfully for IP subrange: " + subip);
+        } else {
+            normalbot.sendChanMessage(src, "No such rangeban.");
+        }
+        return;
+    }
     if (command == "unban") {
         if(sys.dbIp(commandData) === undefined) {
             normalbot.sendChanMessage(src, "Nick sconosciuto o scritto male!");
@@ -5001,76 +5071,6 @@ ownerCommand: function(src, command, commandData, tar) {
         }
 		/* AVVISO SHOWTEAM, NON RIMUOVERE */
 		normalbot.sendAll("" + sys.name(src) + " ha usato lo /showteam su " + commandData, staffchannel);
-        return;
-    }
-    if (command == "rangeban") {
-        var subip;
-        var comment;
-        var space = commandData.indexOf(' ');
-        if (space != -1) {
-            subip = commandData.substring(0,space);
-            comment = commandData.substring(space+1);
-        } else {
-            subip = commandData;
-            comment = '';
-        }
-        /* check ip */
-        var i = 0;
-        var nums = 0;
-        var dots = 0;
-        var correct = (subip.length > 0); // zero length ip is baaad
-        while (i < subip.length) {
-            var c = subip[i];
-            if (c == '.' && nums > 0 && dots < 3) {
-                nums = 0;
-                ++dots;
-                ++i;
-            } else if (c == '.' && nums === 0) {
-                correct = false;
-                break;
-            } else if (/^[0-9]$/.test(c) && nums < 3) {
-                ++nums;
-                ++i;
-            } else {
-                correct = false;
-                break;
-            }
-        }
-        if (!correct) {
-            normalbot.sendChanMessage(src, "L'IP sembra strano, forse vuoi correggerlo: " + subip);
-            return;
-        }
-
-        /* add rangeban */
-        rangebans.add(subip, rangebans.escapeValue(comment));
-        normalbot.sendChanMessage(src, "Rangeban added successfully for IP subrange: " + subip);
-        /* kick them */
-        var players = sys.playerIds();
-        var players_length = players.length;
-        var names = [];
-        for (var i = 0; i < players_length; ++i) {
-            var current_player = players[i];
-            var ip = sys.ip(current_player);
-            if (sys.auth(current_player) > 0) continue;
-            if (ip.substr(0, subip.length) == subip) {
-                names.push(sys.name(current_player));
-                sys.kick(current_player);
-                continue;
-            }
-        }
-        if (names.length > 0) {
-            sendChanAll("±RangeBot: "+names.join(", ") + " è stato range-bannato da " + sys.name(src));
-        }
-        return;
-    }
-    if (command == "rangeunban") {
-        var subip = commandData;
-        if (rangebans.get(subip) !== undefined) {
-            rangebans.remove(subip);
-            normalbot.sendChanMessage(src, "Rangeban removed successfully for IP subrange: " + subip);
-        } else {
-            normalbot.sendChanMessage(src, "No such rangeban.");
-        }
         return;
     }
     if (command == "purgemutes") {
