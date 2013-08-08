@@ -612,9 +612,6 @@ POChannel.prototype.addRole = function(src, tar, group, data)
             if (data.time > maxtime || data.time === 0) {
                 data.time = maxtime;
             }
-            if (data.reason === "") {
-                return ["self", "Dai una ragione al mute!"];
-            }
         }
         this.muted[name] = {"expiry": data.time === 0 ? "never" : parseInt(sys.time(),10) + data.time, "issuetime": parseInt(sys.time(),10), "auth": auth, "reason": data.reason !== "" ? data.reason : "N/A" };
         var timestring = data.time > 0 ? " for "+getTimeString(data.time) : " permanently";
@@ -630,9 +627,6 @@ POChannel.prototype.addRole = function(src, tar, group, data)
         if (script.isOfficialChan(this.id) && !this.isChannelOwner(src)) {
             if (data.time > 7*24*60*60 || data.time === 0) {
                 data.time = 7*24*60*60;
-            }
-            if (data.reason === "") {
-                return ["self", "Dai una ragione al ban!"];
             }
         }
         this.banned[name] = {"expiry": data.time === 0 ? "never" : parseInt(sys.time(),10) + data.time, "issuetime": parseInt(sys.time(),10), "auth": auth, "reason": data.reason !== "" ? data.reason : "N/A" };
@@ -1771,10 +1765,6 @@ issueBan : function(type, src, tar, commandData, maxTime) {
             expires = secs + parseInt(sys.time(), 10);
         }
 
-        if (reason === "" && sys.auth(src) < 3) {
-           banbot.sendChanMessage(src, "Dai una motivazione al " + nomi + "!");
-           return;
-        }
 
         if (tar === undefined) {
             ip = sys.dbIp(commandData);
@@ -4505,6 +4495,10 @@ return;
     }
 
     if (command == "smute") {
+        script.issueBan("smute", src, tar, commandData);
+        return;
+    }
+	if (command == "bk") {
         script.issueBan("smute", src, tar, commandData);
         return;
     }
