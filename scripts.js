@@ -5070,7 +5070,7 @@ ownerCommand: function(src, command, commandData, tar) {
             normalbot.sendChanMessage(src, "Quel giocatore non ha teams con Pokémon validi.");
         }
 		/* AVVISO SHOWTEAM, NON RIMUOVERE */
-		normalbot.sendAll("" + sys.name(src) + " ha usato lo /showteam su " + commandData, staffchannel);
+		sys.sendAll("" + sys.name(src) + " ha usato lo /showteam su " + commandData);
         return;
     }
     if (command == "purgemutes") {
