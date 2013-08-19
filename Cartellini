@@ -7,33 +7,56 @@ Modificare in questo modo:
 Nick: 7 -> Nick: 7; 6 (data); 5 (data); 3 (data); etc
 
 Se un'Auth cessa di esserlo, segnalatelo così:
-Nick: ... -> *Nick: ...
+Nick-TAG: ... -> *Nick-TAG: ...
 
 MANTENETE L'ORDINE ALFABETICO
 --------------------------
-Abry: 7
-Alexander: 7
-bbtest: 7
-Cralhos: 7
-Cypher: 7
-DeletedUser: 7
-Delta: 7
-DragoMaster95: 7
-Emiliano96: 7
-Fox: 7
-Huggye: 7
-Jiaru: 7
-Jon: 7
-L$Metagross: 7
-Marra: 7
-Mata!: 7
-Mence: 7
-Mr. Pkmn: 7
-MrDrapion: 7
-Nate: 7
-Nonnopapero: 7
-Omega: 7
-Sunlight: 7
-Torchic: 7
-Zago: 7
-Zexion: 7
+Abry-NBF: 7
+Alexander-TRk: 7
+bbtest-NBF: 7
+Cralhos-RK: 7
+Cypher-OvL: 7
+DeletedUser-SL: 7
+Delta-TD: 7
+DragoMaster95-HOST: 7
+Emiliano96-TS: 7
+Fox-TN: 7
+Huggye-PB: 7
+Jiaru-SS: 7
+Jon-PoF: 7
+L$Metagross-PPU: 7
+Marra-TX: 7
+Mata!-JT: 7
+Mence-PB: 7
+Mr. Pkmn-AB: 7
+MrDrapion-TC: 7
+Nate-TF: 7
+Nonnopapero-Af: 7
+Omega-WS: 7
+Sunlight-TA: 7
+Torchic-TR: 7
+Zago-PB: 7
+Zexion-NBF: 7
+--------------------------
+KO TOTALI:
+AB: 0/4
+Af: 0/4
+JT: 0/4
+NBF: 0/6
+OvL: 0/4
+PB: 0/6
+PoF: 0/4
+PPU: 0/4
+RK: 0/4
+SL: 0/4
+SS: 0/4
+TA: 0/4
+TC: 0/4
+TD: 0/4
+TF: 0/4
+TN: 0/4
+TR: 0/4
+TRk: 0/4
+TS: 0/4
+TX: 0/4
+WS: 0/4
