@@ -5,6 +5,11 @@ Ogni modifica deve essere preceduta dalla decisione ufficiale dello Staff di Bat
 --------------------------
 Modificare in questo modo:
 Nick: 7 -> Nick: 7; 6 (data); 5 (data); 3 (data); etc
+
+Se un'Auth cessa di esserlo, segnalatelo così:
+Nick: ... -> *Nick: ...
+
+MANTENETE L'ORDINE ALFABETICO
 --------------------------
 Abry: 7
 Alexander: 7
