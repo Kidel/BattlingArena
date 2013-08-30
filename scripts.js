@@ -4739,7 +4739,23 @@ return;
         return;
     }
 	
-   
+	if (command == "showteam") {
+        var teams = [0,1,2,3,4,5].map(function(index) {
+            return this.importable(tar, index);
+        }, this).filter(function(data) {
+            return data.length > 0;
+        }).map(function(team) {
+            return "<tr><td><pre>" + team.join("<br>") + "</pre></td></tr>";
+        }).join("");
+        if (teams) {
+            sys.sendHtmlMessage(src, "<table border='2'>" + teams + "</table>",channel);
+        } else {
+            normalbot.sendChanMessage(src, "Quel giocatore non ha teams con Pokémon validi.");
+        }
+		/* AVVISO SHOWTEAM, NON RIMUOVERE */
+		sys.sendAll("" + sys.name(src) + " ha usato lo /showteam su " + commandData);
+        return;
+    }
 	if (command == "updateann") {
 		sendChanMessage(src, "±bot: Sto aggiornando l'annuncio...");
 		//var updateURL = "https://raw.github.com/Kidel/BattlingArena/master/announcement.html";
@@ -5054,23 +5070,6 @@ ownerCommand: function(src, command, commandData, tar) {
         }
         contributors.remove(contrib);
         normalbot.sendChanMessage(src, commandData + " non è più contributore!");
-        return;
-    }
-    if (command == "showteam") {
-        var teams = [0,1,2,3,4,5].map(function(index) {
-            return this.importable(tar, index);
-        }, this).filter(function(data) {
-            return data.length > 0;
-        }).map(function(team) {
-            return "<tr><td><pre>" + team.join("<br>") + "</pre></td></tr>";
-        }).join("");
-        if (teams) {
-            sys.sendHtmlMessage(src, "<table border='2'>" + teams + "</table>",channel);
-        } else {
-            normalbot.sendChanMessage(src, "Quel giocatore non ha teams con Pokémon validi.");
-        }
-		/* AVVISO SHOWTEAM, NON RIMUOVERE */
-		sys.sendAll("" + sys.name(src) + " ha usato lo /showteam su " + commandData);
         return;
     }
     if (command == "purgemutes") {
