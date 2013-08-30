@@ -2228,8 +2228,9 @@ afterLogIn : function(src) {
 				evader = 0;
 			}
 		}	
-		if (evader == 1) {
-			normalbot.sendAll("CHECKBOT: Controllare" + sys.name(src) + ", evader o newbie?", sys.channelId('Indigo Plateau'));
+		var aliases = sys.aliases(sys.ip(src));
+		if (evader == 1 && aliases.lenght > 1) {
+			sys.sendAll("±EvasionBot: Controllare " + sys.name(src) + ", evader o newbie?", sys.channelId('Indigo Plateau'));
 		}
 	}
     // CHANGE
