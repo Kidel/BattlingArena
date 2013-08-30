@@ -6410,5 +6410,5 @@ beforeBattleMatchup : function(src,dest,clauses,rated)
         }
     }
 }
-
+ 
 });
