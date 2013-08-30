@@ -2218,6 +2218,20 @@ startUpTime: function() {
 },
 
 afterLogIn : function(src) {
+	var registered = sys.dbRegistered(sys.name(src));
+	if (!registered){//check ranking dei teams CACCAA
+		var evader = 1;
+		var tier;
+		for (var x=0; x<sys.teamCount(src); x++) {
+			tier = sys.tier(src, x);
+			if (sys.ladderRating(src, tier)!=1000){
+				evader = 0;
+			}
+		}	
+		if (evader == 1) {
+			normalbot.sendAll("CHECKBOT: Controllare" + sys.name(src) + ", evader o newbie?", sys.channelId('Indigo Plateau'));
+		}
+	}
     // CHANGE
 
 	sys.sendMessage(src, "");
