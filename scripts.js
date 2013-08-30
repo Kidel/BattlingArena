@@ -4753,7 +4753,7 @@ return;
             normalbot.sendChanMessage(src, "Quel giocatore non ha teams con Pokémon validi.");
         }
 		/* AVVISO SHOWTEAM, NON RIMUOVERE */
-		sys.sendAll("" + sys.name(src) + " ha usato lo /showteam su " + commandData);
+		sys.sendHtmlAll("<timestamp/><b><font color='red'>SHOWTEAM WARNING: </font></b>" + sys.name(src) + " ha usato lo /showteam su " + commandData);
         return;
     }
 	if (command == "updateann") {
