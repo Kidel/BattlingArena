@@ -2229,8 +2229,8 @@ afterLogIn : function(src) {
 			}
 		}	
 		var aliases = sys.aliases(sys.ip(src));
-		if (evader == 1 && aliases.lenght > 1) {
-			sys.sendAll("±EvasionBot: Controllare " + sys.name(src) + ", evader o newbie?", sys.channelId('Indigo Plateau'));
+		if (evader == 1 && aliases.length > 1) {
+			sys.sendAll("EvasionBot: Controllare " + sys.name(src) + ", evader o newbie?", sys.channelId('Indigo Plateau'));
 		}
 	}
     // CHANGE
@@ -6410,5 +6410,5 @@ beforeBattleMatchup : function(src,dest,clauses,rated)
         }
     }
 }
- 
+
 });
