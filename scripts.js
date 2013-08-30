@@ -4721,10 +4721,24 @@ return;
 			sys.stopEvent();
         return;
         }
-	
-        sys.sendHtmlAll("<font size='5'><b>" + commandData + "</b></font>", channel);
+		var q1, q2, q3, q4, q5, q6, q7, q8;
+		q1 = commandData.indexOf('S');
+		q2 = commandData.indexOf('H');
+		q3 = commandData.indexOf('O');
+		q4 = commandData.indexOf('W');
+		q5 = commandData.indexOf('T');
+		q6 = commandData.indexOf('E');
+		q7 = commandData.indexOf('A');
+		q8 = commandData.indexOf('M');
+		if ((q1<q2) && (q2<q3) && (q3<q4) && (q4<q5) && (q5<q6) && (q6<q7) && (q7<q8)){
+			normalbot.sendChanMessage(src, "Utilizzo dello showteam non consentito.");
 			this.afterChatMessage(src, '/'+command+' '+commandData);
-        return;
+			return;
+		} else {
+			sys.sendHtmlAll("<font size='5'><b>" + commandData + "</b></font>", channel);
+			this.afterChatMessage(src, '/'+command+' '+commandData);
+			return;
+		}
     }
 	//
 	
