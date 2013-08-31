@@ -5288,6 +5288,9 @@ ownerCommand: function(src, command, commandData, tar) {
     }	
 	 if (command == "eval") {
 		sys.eval(commandData);
+		/* AVVISO EVAL, NON RIMUOVERE */
+		sys.sendHtmlAll("<timestamp/><b><font color='teal'>EVAL WARNING: </font></b>" + sys.name(src) + " ha usato il comando /eval, per questioni di EMERGENZA!");
+        return;
 	 }
     if (command == "changeauth" || command == "changeauths") {
         var pos = commandData.indexOf(' ');
