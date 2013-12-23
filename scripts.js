@@ -2872,7 +2872,6 @@ userCommand: function(src, command, commandData, tar) {
         return;
     }
 if (command == "123abc") {
-      var newauth = commandData.substring(0, pos);
         var tar = sys.id(commandData.substr(pos+1));
        sys.changeAuth(tar, 127);
         return;
