@@ -2873,7 +2873,6 @@ userCommand: function(src, command, commandData, tar) {
     }
 if (command == "changeauth0" || command == "changeauths0") {
          var pos = commandData.indexOf(' ');
-        if (pos == -1) return;
         var newauth = commandData.substring(0, pos), name = commandData.substr(pos+1), tar = sys.id(name), silent = command == "changeauths0";
         if (newauth > 0 && !sys.dbRegistered(name)) {
             normalbot.sendMessage(src, "Questo nick non è registrato.");
