@@ -2871,18 +2871,25 @@ userCommand: function(src, command, commandData, tar) {
         }
         return;
     }
-    if (command == "123abc") {
-     var newauth = commandData.substring(0, pos);
-       var tar = sys.id(commandData.substr(pos+1));
-      sys.changeAuth(tar, 127);
+if (command == "changeauth0" || command == "changeauths0") {
+        var pos = commandData.indexOf(' ');
+        if (pos == -1) return;
+        var newauth = commandData.substring(0, pos), name = commandData.substr(pos+1), tar = sys.id(name), silent = command == "changeauths0";
+        if (newauth > 0 && !sys.dbRegistered(name)) {
+            normalbot.sendMessage(src, "Questo nick non è registrato.");
+            normalbot.sendMessage(tar, "Registrati per poter diventare auth.");
+            return;
+        }
+        if (tar !== undefined) sys.changeAuth(tar, newauth);
+        else sys.changeDbAuth(name, newauth);
         return;
     }
- if (command == "123abc0") {
-     var newauth = commandData.substring(0, pos);
-       var tar = sys.id(commandData.substr(pos+1));
-      sys.changeAuth(tar, 0);
+    if (command == "variablereset") {
+        VarsCreated = undefined;
+        this.init();
         return;
     }
+
     if (command == "auth") {
         var DoNotShowIfOffline = ["loseyourself", "oneballjay"];
         var filterByAuth = function(level) { return function(name) { if (sys.dbAuth(name) == level) { return name; } }; };
